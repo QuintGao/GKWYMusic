@@ -1,0 +1,6 @@
+framework module EVNCustomSearchBar {
+  umbrella header "EVNCustomSearchBar-umbrella.h"
+
+  export *
+  module * { export * }
+}

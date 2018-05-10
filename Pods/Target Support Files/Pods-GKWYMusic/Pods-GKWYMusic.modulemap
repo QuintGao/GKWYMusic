@@ -1,0 +1,6 @@
+framework module Pods_GKWYMusic {
+  umbrella header "Pods-GKWYMusic-umbrella.h"
+
+  export *
+  module * { export * }
+}

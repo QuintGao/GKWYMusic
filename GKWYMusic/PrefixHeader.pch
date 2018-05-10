@@ -1,0 +1,62 @@
+//
+//  PrefixHeader.pch
+//  GKWYMusic
+//
+//  Created by gaokun on 2018/4/19.
+//  Copyright © 2018年 gaokun. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import <GKNavigationBarViewController/GKNavigationBarViewController.h>
+#import <AFNetworking/AFNetworking.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <YYModel/YYModel.h>
+#import <GKCover/GKCover.h>
+#import <Masonry/Masonry.h>
+#import <MJRefresh/MJRefresh.h>
+#import <GKMessageTool/GKMessageTool.h>
+
+#import "GKWYCategory.h"
+
+#import "GKDownloadManager.h"
+#import "GKHttpManager.h"
+
+#import "GKWYMusicTool.h"
+//#import "GKPlayer.h"
+#import "GKAudioPlayer.h"
+#import "GKWYPlayerViewController.h"
+
+#define kScreenW [UIScreen mainScreen].bounds.size.width
+#define kScreenH [UIScreen mainScreen].bounds.size.height
+
+/*********************************颜色相关*************************************/
+
+#define GKColorRGBA(r, g, b, a) [UIColor colorWithRed:(r / 255.0) green:(g / 255.0) blue:(b / 255.0) alpha:a]
+#define GKColorRGB(r, g, b)     GKColorRGBA(r, g, b, 1.0)
+#define GKColorGray(v)          GKColorRGB(v, v, v)
+
+#define GKColorHEX(hexValue, a) GKColorRGBA(((float)((hexValue & 0xFF0000) >> 16)), ((float)((hexValue & 0xFF00) >> 8)), ((float)(hexValue & 0xFF)), a)
+
+#define GKColorRandom           GKColorRGB(arc4random() % 255, arc4random() % 255, arc4random() % 255)
+
+#define kAPPDefaultColor        GKColorRGB(200, 38, 39)
+#define kAppLineColor           GKColorRGB(200, 200, 200)
+
+/*********************************通知相关************************************/
+#define kNotificationCenter [NSNotificationCenter defaultCenter]
+
+#define GKWYMUSIC_NETWORKCHANGENOTIFICATION     @"NetworkChangeNotification"   // 网络状态改变
+#define GKWYMUSIC_PLAYSTATECHANGENOTIFICATION   @"playStateChangeNotification" // 播放状态改变
+#define GKWYMUSIC_LOVEMUSICNOTIFICATION         @"loveMusicNotification"       // 喜欢音乐
+#define GKWYMUSIC_PLAYMUSICCHANGENOTIFICATION   @"playMusicCHangeNotification" // 播放数据改变
+
+/*********************************存储相关************************************/
+#define kUserDefaults       [NSUserDefaults standardUserDefaults]
+
+#define GKWYMUSIC_USERDEFAULTSKEY_NETWORKSTATE  @"networkState"
+#define GKWYMUSIC_USERDEFAULTSKEY_PLAYSTYLE     @"playStyle"
+#define GKWYMUSIC_USERDEFAULTSKEY_LASTPLAYID    @"lastPlayId"
+
+#endif /* PrefixHeader_pch */
