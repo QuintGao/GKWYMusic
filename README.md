@@ -16,12 +16,18 @@ GKWYMusic实现的有以下功能：
     * 耳机线控（播放、暂停、上一曲、下一曲、快进、快退）
     * 通知监听（插拔耳机、播放打断）
     
+  
     本次主要讲一下对FreeStreamer的封装及使用。
+    
+    
     ## 效果图
+    
     ![gkwymusic.gif](https://upload-images.jianshu.io/upload_images/1598505-6b516562ae47293e.gif?imageMogr2/auto-orient/strip)
     
     ## 封装
+    
     本次对FreeStreamer封装了一个单例类GKAudioPlayer，可在demo中查看，使用到了FreeStreamer中的FSAudioStream。
+    
     1、创建FSAudioStream并监听播放状态，如下
     ```
     #pragma mark - 懒加载
@@ -104,6 +110,7 @@ GKWYMusic实现的有以下功能：
     return _audioStream;
     }
     ```
+    
     2、缓冲进度的监听，需要在播放时先创建定时器，当缓冲完成时在关闭定时器
     
     ```
@@ -133,6 +140,7 @@ GKWYMusic实现的有以下功能：
     }
     }
     ```
+    
     3、播放，以为播放时会将数据缓存到本地，所以做了删除处理，可根据需求修改。另外做了url的判断，判断是网络还是本地
     ```
     - (void)setPlayUrlStr:(NSString *)playUrlStr {
@@ -151,6 +159,7 @@ GKWYMusic实现的有以下功能：
     }
     }
     ```
+    
     4、seek 设置播放进度
     ```
     - (void)setPlayerProgress:(float)progress {
@@ -161,7 +170,8 @@ GKWYMusic实现的有以下功能：
     [self.audioStream seekToPosition:position];
     });
     }
-    ```
+  ```
+  
     ##最后
     本次的demo里面抽离出来了许多工具类如：搜索框、定时器、歌词解析、滑杆、刷新、下载管理等，有需要的可以使用。
     demo会不断更新，如果有需求欢迎随时提出。
