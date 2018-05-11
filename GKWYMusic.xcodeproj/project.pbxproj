@@ -288,7 +288,6 @@
 				603A12792088821B002A5BD3 /* GKPlayer */,
 				603A1268208881A2002A5BD3 /* GKActionSheet */,
 				603A126D208881A2002A5BD3 /* GKDownloadManager */,
-				606176B020A42F1B0054C8E1 /* CBAutoScrollLabel */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -508,6 +507,7 @@
 		603A12E7208DBE26002A5BD3 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				606176B020A42F1B0054C8E1 /* CBAutoScrollLabel */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";

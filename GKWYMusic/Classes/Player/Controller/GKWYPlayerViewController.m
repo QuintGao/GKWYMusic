@@ -641,6 +641,8 @@
             self.model.file_size        = bitrate[@"file_size"];
             self.model.file_extension   = bitrate[@"file_extension"];
             
+            [self resetCoverViewWithModel:self.model];
+            
             [self setupTitleWithModel:self.model];
             // 总时间
             self.controlView.totalTime = [GKWYMusicTool timeStrWithMsTime:self.model.file_duration.integerValue];
@@ -674,6 +676,28 @@
     [self.artistLabel sizeToFit];
     self.artistLabel.gk_y       = self.nameLabel.gk_bottom + 2;
     self.artistLabel.gk_centerX = self.titleView.gk_width * 0.5;
+}
+
+- (void)resetCoverViewWithModel:(GKWYMusicModel *)model {
+    __block NSInteger   index = 0;
+    __block BOOL        exist = NO;
+    
+    NSMutableArray *musicList = [NSMutableArray arrayWithArray:self.musicList];
+    
+    [musicList enumerateObjectsUsingBlock:^(GKWYMusicModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.song_id isEqualToString:model.song_id]) {
+            exist = YES;
+            index = idx;
+            *stop = YES;
+        }
+    }];
+    
+    // 更新数据
+    if (exist) {
+        [musicList replaceObjectAtIndex:index withObject:model];
+        
+        [self setPlayerList:musicList];
+    }
 }
 
 - (void)addNotifications {
@@ -1462,7 +1486,7 @@
 
 - (void)listView:(GKWYMusicListView *)listView didSelectRow:(NSInteger)row {
     [self playMusicWithIndex:row];
-}
+} 
 
 - (void)listView:(GKWYMusicListView *)listView didLovedWithRow:(NSInteger)row {
     GKWYMusicModel *model = self.playList[row];
@@ -1497,7 +1521,7 @@
                 [lrcData writeToFile:downloadModel.fileLyricPath atomically:YES];
                 
                 // 改变状态
-                [self.controlView setIs_download:self.model.isDownload];
+                self.controlView.is_download = self.model.isDownload;
             });
         }else {
             

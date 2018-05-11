@@ -156,9 +156,10 @@
     
 //    NSLog(@"缓冲进度%.2f", bufferProgress);
     
+    // 为了能使进度准确的到1，这里做了一些处理
     int buffer = (int)(bufferProgress + 0.5);
     
-    if (buffer == 1) {
+    if (bufferProgress > 0.9 && buffer >= 1) {
         [self stopBufferTimer];
     }
     
