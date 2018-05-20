@@ -125,28 +125,30 @@
 }
 
 - (void)playStatusChanged:(NSNotification *)notify {
-    if (kWYPlayerVC.isPlaying) {
-        NSMutableArray *images = [NSMutableArray new];
-        for (NSInteger i = 0; i < 6; i++) {
-            NSString *imageName = [NSString stringWithFormat:@"cm2_topbar_icn_playing%zd", i + 1];
-            [images addObject:[UIImage imageNamed:imageName]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (kWYPlayerVC.isPlaying) {
+            NSMutableArray *images = [NSMutableArray new];
+            for (NSInteger i = 0; i < 6; i++) {
+                NSString *imageName = [NSString stringWithFormat:@"cm2_topbar_icn_playing%zd", i + 1];
+                [images addObject:[UIImage imageNamed:imageName]];
+            }
+            
+            for (NSInteger i = 6; i > 0; i--) {
+                NSString *imageName = [NSString stringWithFormat:@"cm2_topbar_icn_playing%zd", i];
+                [images addObject:[UIImage imageNamed:imageName]];
+            }
+            
+            self.playBtn.imageView.animationImages   = images;
+            self.playBtn.imageView.animationDuration = 0.75;
+            [self.playBtn.imageView startAnimating];
+        }else {
+            if (self.playBtn.imageView.isAnimating) {
+                [self.playBtn.imageView stopAnimating];
+            }
+            [self.playBtn setImage:[UIImage imageNamed:@"cm2_topbar_icn_playing1"] forState:UIControlStateNormal];
+            [self.playBtn setImage:[UIImage imageNamed:@"cm2_topbar_icn_playing1_prs"] forState:UIControlStateHighlighted];
         }
-        
-        for (NSInteger i = 6; i > 0; i--) {
-            NSString *imageName = [NSString stringWithFormat:@"cm2_topbar_icn_playing%zd", i];
-            [images addObject:[UIImage imageNamed:imageName]];
-        }
-        
-        self.playBtn.imageView.animationImages   = images;
-        self.playBtn.imageView.animationDuration = 0.75;
-        [self.playBtn.imageView startAnimating];
-    }else {
-        if (self.playBtn.imageView.isAnimating) {
-            [self.playBtn.imageView stopAnimating];
-        }
-        [self.playBtn setImage:[UIImage imageNamed:@"cm2_topbar_icn_playing1"] forState:UIControlStateNormal];
-        [self.playBtn setImage:[UIImage imageNamed:@"cm2_topbar_icn_playing1_prs"] forState:UIControlStateHighlighted];
-    }
+    });
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -10,8 +10,9 @@
 #import "GKWYListViewCell.h"
 #import "GKActionSheet.h"
 #import "GKWYAlbumViewController.h"
+#import "GKWYArtistViewController.h"
 
-@interface GKWYArtistSongListViewController ()<GKDownloadManagerDelegate>
+@interface GKWYArtistSongListViewController ()<GKDownloadManagerDelegate, GKWYListViewCellDelegate>
 
 @property (nonatomic, strong) GKWYMusicModel *currentModel;
 
@@ -82,75 +83,76 @@
     GKWYListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGKWYListViewCell forIndexPath:indexPath];
     cell.row   = indexPath.row;
     cell.model = self.dataList[indexPath.row];
-//    cell.moreClicked = ^(GKWYMusicModel *model) {
-//        [self showActionSheetWithModel:model];
-//    };
+    cell.delegate = self;
     return cell;
 }
 
-#pragma mark - Private Methods
-- (void)showActionSheetWithModel:(GKWYMusicModel *)model {
-    GKActionSheetItem *shareItem = [GKActionSheetItem new];
-    shareItem.imgName = @"cm2_lay_icn_share_new";
-    shareItem.title   = @"分享";
-    
-    GKActionSheetItem *downloadItem = [GKActionSheetItem new];
-    if (model.isDownload) {
-        downloadItem.title      = @"删除下载";
-        downloadItem.imgName    = @"cm2_lay_icn_dlded_new";
-        downloadItem.tagImgName = @"cm2_lay_icn_dlded_check";
-    }else {
-        downloadItem.imgName    = @"cm2_lay_icn_dld_new";
-        downloadItem.title      = @"下载";
-    }
-    
-    GKActionSheetItem *commentItem = [GKActionSheetItem new];
-    commentItem.imgName = @"cm2_lay_icn_cmt_new";
-    commentItem.title   = @"评论";
-    
-    GKActionSheetItem *loveItem = [GKActionSheetItem new];
-    if (model.isLike) {
-        loveItem.title = @"取消喜欢";
-        loveItem.imgName = @"cm2_lay_icn_loved";
-    }else {
-        loveItem.title = @"喜欢";
-        loveItem.image = [[UIImage imageNamed:@"cm2_lay_icn_love"] changeImageWithColor:kAPPDefaultColor];
-    }
-    
-    GKActionSheetItem *albumItem = [GKActionSheetItem new];
-    albumItem.title = [NSString stringWithFormat:@"专辑：%@", model.album_title];
-    albumItem.imgName = @"cm2_lay_icn_alb_new";
-    
-    [GKActionSheet showActionSheetWithTitle:[NSString stringWithFormat:@"歌曲:%@", model.song_name] itemInfos:@[shareItem, downloadItem, commentItem, loveItem, albumItem] selectedBlock:^(NSInteger idx) {
-        switch (idx) {
-            case 0: {   // 分享
-                
-            }
-                break;
-            case 1: {   // 下载
-                [self downloadMusicWithModel:model];
-            }
-                break;
-            case 2: {   // 评论
-                
-            }
-                break;
-            case 3: {   // 喜欢
-                [self lovedMusicWithModel:model];
-            }
-                break;
-            case 4: {   // 专辑
-                GKWYAlbumViewController *albumVC = [GKWYAlbumViewController new];
-                albumVC.album_id = model.album_id;
-                [self.navigationController pushViewController:albumVC animated:YES];
-            }
-                break;
-                
-            default:
-                break;
-        }
-    }];
+#pragma mark - GKWYListViewCellDelegate
+- (void)cellDidClickMVBtn:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
+    [GKMessageTool showText:@"MV"];
 }
+
+- (void)cellDidClickNextItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
+    [GKMessageTool showText:@"下一首播放"];
+}
+
+- (void)cellDidClickShareItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
+    [GKMessageTool showText:@"分享"];
+}
+
+- (void)cellDidClickDownloadItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
+    [self downloadMusicWithModel:model];
+}
+
+- (void)cellDidClickCommentItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
+    [GKMessageTool showText:@"评论"];
+}
+
+- (void)cellDidClickLoveItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
+    [self lovedMusicWithModel:model];
+}
+
+- (void)cellDidClickArtistItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
+    NSArray *tinguids = [model.all_artist_ting_uid componentsSeparatedByString:@","];
+    NSArray *artists  = [model.all_artist_id componentsSeparatedByString:@","];
+    if (tinguids.count == artists.count && tinguids.count > 1) {
+        NSMutableArray *items = [NSMutableArray new];
+        NSArray *titles = [model.artist_name componentsSeparatedByString:@","];
+        
+        __typeof(self) __weak weakSelf = self;
+        [tinguids enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            GKActionSheetItem *item = [GKActionSheetItem new];
+            item.title = titles[idx];
+            item.clickBlock = ^{
+                GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
+                artistVC.tinguid  = obj;
+                artistVC.artistid = artists[idx];
+                [weakSelf.navigationController pushViewController:artistVC animated:YES];
+            };
+            [items addObject:item];
+        }];
+        
+        [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手"
+                                      itemInfos:items
+                                  selectedBlock:nil];
+    }else {
+        GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
+        artistVC.tinguid  = tinguids.firstObject;
+        artistVC.artistid = artists.firstObject;
+        [self.navigationController pushViewController:artistVC animated:YES];
+    }
+}
+
+- (void)cellDidClickAlbumItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
+    GKWYAlbumViewController *albumVC = [GKWYAlbumViewController new];
+    albumVC.album_id = model.album_id;
+    [self.navigationController pushViewController:albumVC animated:YES];
+}
+
+- (void)cellDidClickMVItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
+    [GKMessageTool showText:@"MV"];
+}
+
 
 // 单个下载
 - (void)downloadMusicWithModel:(GKWYMusicModel *)model {
@@ -176,6 +178,7 @@
     }
 }
 
+#pragma mark - GKDownloadManagerDelegate
 - (void)gkDownloadManager:(GKDownloadManager *)downloadManager downloadModel:(GKDownloadModel *)downloadModel stateChanged:(GKDownloadManagerState)state {
     if ([self.currentModel.song_id isEqualToString:downloadModel.fileID]) {
         
