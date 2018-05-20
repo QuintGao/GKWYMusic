@@ -10,4 +10,6 @@
 
 @interface GKPageController : WMPageController
 
+@property (nonatomic, strong) UIView    *lineView;
+
 @end

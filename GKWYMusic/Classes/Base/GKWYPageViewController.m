@@ -73,8 +73,8 @@
         _pageVC.bounces                     = YES;
         _pageVC.automaticallyCalculatesItemWidths = YES; // 自动根据字符串计算item宽度
         
-        _pageVC.titleSizeNormal             = 14.0f;
-        _pageVC.titleSizeSelected           = 15.0f;
+        _pageVC.titleSizeNormal             = 15.0f;
+        _pageVC.titleSizeSelected           = 16.0f;
         _pageVC.titleColorNormal            = [UIColor whiteColor];
         _pageVC.titleColorSelected          = [UIColor whiteColor];
         _pageVC.progressWidth               = 30.0f;
@@ -82,6 +82,7 @@
         _pageVC.progressColor               = [UIColor whiteColor];
         _pageVC.progressViewBottomSpace     = 2.0f;
         _pageVC.dataSource                  = self;
+        _pageVC.itemMargin                  = 20.0f;
     }
     return _pageVC;
 }

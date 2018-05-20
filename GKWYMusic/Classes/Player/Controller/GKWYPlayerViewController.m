@@ -116,6 +116,9 @@
     kPlayer.delegate                = self;
     // 禁用全屏滑动返回手势
     self.gk_fullScreenPopDisabled   = YES;
+    
+    // 锁屏控制
+    [self setupLockScreenControlInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -590,9 +593,6 @@
     self.controlView.is_love        = self.model.isLike;
     self.controlView.is_download    = self.model.isDownload;
     
-    // 重新设置锁屏控制界面
-    [self setupLockScreenControlInfo];
-    
     [self setupLockScreenMediaInfoNull];
     
     if (self.ifNowPlay) {
@@ -722,7 +722,7 @@
     MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
     // 锁屏播放
     [commandCenter.playCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
-        
+        NSLog(@"锁屏暂停后点击播放");
         if (!self.isPlaying) {
             [self playMusic];
         }
@@ -730,6 +730,8 @@
     }];
     // 锁屏暂停
     [commandCenter.pauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        NSLog(@"锁屏正在播放点击后暂停");
+        
         if (self.isPlaying) {
             [self pauseMusic];
         }
@@ -741,30 +743,6 @@
         
         return MPRemoteCommandHandlerStatusSuccess;
     }];
-    
-//    // 喜欢按钮
-//    MPFeedbackCommand *likeCommand = commandCenter.likeCommand;
-//    likeCommand.enabled        = YES;
-//    likeCommand.active         = self.model.isLike;
-//    likeCommand.localizedTitle = self.model.isLike ? @"取消喜欢" : @"喜欢";
-//    [likeCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
-//
-//        [self lovedCurrentMusic];
-//
-//        return MPRemoteCommandHandlerStatusSuccess;
-//    }];
-//    // 上一首
-//    MPFeedbackCommand *dislikeCommand = commandCenter.dislikeCommand;
-//    dislikeCommand.enabled = YES;
-//    dislikeCommand.localizedTitle = @"上一首";
-//    [dislikeCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
-//
-//        NSLog(@"上一首");
-//
-//        [self playPrevMusic];
-//
-//        return MPRemoteCommandHandlerStatusSuccess;
-//    }];
     
     // 播放和暂停按钮（耳机控制）
     MPRemoteCommand *playPauseCommand = commandCenter.togglePlayPauseCommand;
@@ -924,8 +902,6 @@
     [GKWYMusicTool loveMusic:self.model];
     
     self.controlView.is_love = self.model.isLike;
-    
-    [self setupLockScreenControlInfo];
     
     [kNotificationCenter postNotificationName:GKWYMUSIC_LOVEMUSICNOTIFICATION object:nil];
 }
@@ -1500,8 +1476,6 @@
     }
 
     listView.listArr = self.playList;
-
-    [self setupLockScreenControlInfo];
 
     [kNotificationCenter postNotificationName:GKWYMUSIC_LOVEMUSICNOTIFICATION object:nil];
 }

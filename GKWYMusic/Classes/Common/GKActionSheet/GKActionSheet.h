@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString    *tagImgName; // 标识是否下载
 @property (nonatomic, copy) NSString    *title;
 @property (nonatomic, copy) NSString    *enabled; // 是否可点
+@property (nonatomic, copy) void(^clickBlock)(void);
 
 @end
 

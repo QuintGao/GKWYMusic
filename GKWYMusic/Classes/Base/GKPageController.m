@@ -16,12 +16,39 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
 
-#pragma mark - WMMenuViewDelegate
-- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
-    return [super menuView:menu widthForItemAtIndex:index] + 20.0f;
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.menuView addSubview:self.lineView];
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.menuView);
+        make.height.mas_equalTo(0.5f);
+    }];
+}
+
+#pragma mark - UIScrollViewDelegate
+// 解决左右滑动与上下滑动的冲突
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [super scrollViewWillBeginDragging:scrollView];
+    
+    [kNotificationCenter postNotificationName:@"HorizontalScroll" object:@{@"canScroll":@"0"}];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [super scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    
+    [kNotificationCenter postNotificationName:@"HorizontalScroll" object:@{@"canScroll":@"1"}];
+}
+
+#pragma mark - 懒加载
+- (UIView *)lineView {
+    if (!_lineView) {
+        _lineView = [UIView new];
+        _lineView.backgroundColor = kAppLineColor;
+    }
+    return _lineView;
 }
 
 @end

@@ -9,7 +9,8 @@
 #import "GKHttpManager.h"
 
 //#define kBaseUrl @"http://music.baidu.com/"
-#define kBaseUrl @"http://tingapi.ting.baidu.com/v1/restserver/ting?format=json&calback=&from=webapp_music&method="
+//#define kBaseUrl @"http://tingapi.ting.baidu.com/v1/restserver/ting?format=json&calback=&from=ios&method="
+#define kBaseUrl @"https://musicapi.qianqian.com/v1/restserver/ting?format=json&from=ios&channel=appstore&method="
 
 @interface GKHttpManager()
 
@@ -28,9 +29,9 @@
 
 - (void)get:(NSString *)api params:(NSDictionary *)params successBlock:(successBlock)successBlock failureBlock:(failureBlock)failureBlock {
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    AFHTTPSessionManager *manager   = [AFHTTPSessionManager manager];
+    manager.requestSerializer       = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer      = [AFJSONResponseSerializer serializer];
     
     NSString *url = [kBaseUrl stringByAppendingString:api];
     

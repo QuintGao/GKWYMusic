@@ -31,6 +31,34 @@
 #define kScreenW [UIScreen mainScreen].bounds.size.width
 #define kScreenH [UIScreen mainScreen].bounds.size.height
 
+//  屏幕大小-----------------------------------------------------------------------
+#define IS_35INCH       [UIScreen mainScreen].bounds.size.height == 480.0f
+#define IS_40INCH       [UIScreen mainScreen].bounds.size.height == 568.0f
+#define IS_47INCH       [UIScreen mainScreen].bounds.size.height == 667.0f
+#define IS_55INCH       [UIScreen mainScreen].bounds.size.height == 736.0f
+#define IS_58INCH       [UIScreen mainScreen].bounds.size.height == 812.0f
+
+//  适配比例
+#define ADAPTATIONRATIO     kScreenW / 750.0f
+
+#define kAdaptive(width)    ADAPTATIONRATIO * width
+//
+//  导航栏高度[statusBar + NavigationBar]-------------------------------------------
+#define NAVBAR_HEIGHT       (IS_58INCH ? 88.0f : 64.0f)
+//
+#define STATUSBAR_HEIGHT    20.0f
+//
+//  tabBar高度
+#define TABBAR_HEIGHT       (IS_58INCH ? 83.0f : 49.0f)self.headerHeight
+
+#pragma mark - 歌手详情页宏定义
+// header高度
+#define kArtistHeaderHeight     (kScreenW - 80.0f)
+// segment高度
+#define kArtistSegmentHeight    kAdaptive(80.0f)
+// 临界点
+#define kArtistCriticalPoint    (kArtistHeaderHeight - kArtistSegmentHeight - NAVBAR_HEIGHT)
+
 /*********************************颜色相关*************************************/
 
 #define GKColorRGBA(r, g, b, a) [UIColor colorWithRed:(r / 255.0) green:(g / 255.0) blue:(b / 255.0) alpha:a]
@@ -51,6 +79,11 @@
 #define GKWYMUSIC_PLAYSTATECHANGENOTIFICATION   @"playStateChangeNotification" // 播放状态改变
 #define GKWYMUSIC_LOVEMUSICNOTIFICATION         @"loveMusicNotification"       // 喜欢音乐
 #define GKWYMUSIC_PLAYMUSICCHANGENOTIFICATION   @"playMusicCHangeNotification" // 播放数据改变
+
+// 歌手详情页
+#define GKWYMUSIC_LEAVECRITICALNOTIFICATION     @"LeaveCriticalNotification"   // 离开临界点通知
+#define GKWYMUSIC_ENTERCRITICALNOTIFICATION     @"EnterCriticalNotification"   // 进入临界点通知
+#define GKWYMUSIC_HORIZONSCROLLNOTIFICATION     @"HorizonScrollNotification"   // 子页面水平滑动通知
 
 /*********************************存储相关************************************/
 #define kUserDefaults       [NSUserDefaults standardUserDefaults]

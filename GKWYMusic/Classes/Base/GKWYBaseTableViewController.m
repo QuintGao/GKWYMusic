@@ -54,9 +54,13 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _tableView.dataSource = self;
-        _tableView.delegate   = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.dataSource       = self;
+        _tableView.delegate         = self;
+        _tableView.separatorStyle   = UITableViewCellSeparatorStyleNone;
+        
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
     }
     return _tableView;
 }

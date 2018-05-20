@@ -20,13 +20,13 @@
 - (UIImageView *)loadingView {
     if (!_loadingView) {
         NSMutableArray *images = [NSMutableArray new];
-        for (NSInteger i = 0; i < 6; i++) {
-            NSString *imageName = [NSString stringWithFormat:@"cm2_topbar_icn_playing%zd", i + 1];
+        for (NSInteger i = 0; i < 4; i++) {
+            NSString *imageName = [NSString stringWithFormat:@"cm2_list_icn_loading%zd", i + 1];
             [images addObject:[[UIImage imageNamed:imageName] changeImageWithColor:kAPPDefaultColor]];
         }
         
-        for (NSInteger i = 6; i > 0; i--) {
-            NSString *imageName = [NSString stringWithFormat:@"cm2_topbar_icn_playing%zd", i];
+        for (NSInteger i = 4; i > 0; i--) {
+            NSString *imageName = [NSString stringWithFormat:@"cm2_list_icn_loading%zd", i];
             [images addObject:[[UIImage imageNamed:imageName] changeImageWithColor:kAPPDefaultColor]];
         }
         

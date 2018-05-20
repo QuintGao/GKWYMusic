@@ -43,7 +43,8 @@
         }];
         
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.iconView.mas_right).offset(12.0f);
+            make.left.equalTo(self.contentView).offset(kAdaptive(90.0f));
+            make.right.equalTo(self.contentView).offset(-12.0f);
             make.centerY.equalTo(self.contentView);
         }];
         
@@ -61,8 +62,24 @@
     
     if (item.image) {
         self.iconView.image = item.image;
-    }else {
+    }else if (item.imgName) {
         self.iconView.image = [UIImage imageNamed:item.imgName];
+    }else {
+        self.iconView.hidden = YES;
+    }
+    
+    if (self.iconView.hidden) {
+        [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(12);
+            make.right.equalTo(self.contentView).offset(-12.0f);
+            make.centerY.equalTo(self.contentView);
+        }];
+    }else {
+        [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(kAdaptive(90.0f));
+            make.right.equalTo(self.contentView).offset(-12.0f);
+            make.centerY.equalTo(self.contentView);
+        }];
     }
     
     if (item.tagImgName) {
