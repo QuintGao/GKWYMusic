@@ -21,8 +21,6 @@ baidu.ting.song.play
 
 https://musicapi.qianqian.com/v1/restserver/ting?method=baidu.ting.song.play&ts=1526440518&songid=243531021&nw=2&l2p=1637.1&lpb=320000&ext=MP3&format=json&from=ios&usup=1&lebo=0&aac=0&ucf=4&vid=2c02f143b48e415e568cf806b7691a02e318beb6&res=1&e=E3LDgFBFuJprSiGBm3nsBcq5yZJvSmqhpJK6053SHm4%3D&cuid=2c02f143b48e415e568cf806b7691a02e318beb6&channel=appstore&from=ios&version=6.2.0
 
-https://musicapi.qianqian.com/v1/restserver/ting?method=baidu.ting.song.getInfos&ts=590984955&songid=591395845&nw=2&l2p=-1526798615916.9&lpb=320000&ext=MP3&format=json&from=ios&usup=1&lebo=0&aac=0&ucf=4&vid=2c02f143b48e415e568cf806b7691a02e318beb6&res=1&e=GLmjRnAL2uBhR4t1GrM1TGxZ6iKwnC0dfDgXRaj%2BWYY%3D&cuid=2c02f143b48e415e568cf806b7691a02e318beb6&channel=appstore&from=ios&version=6.2.0
-
 songid: 歌曲id
 
 3、获取歌手信息

@@ -56,6 +56,13 @@
     return nil;
 }
 
+- (NSString *)pic_radio {
+    if (!_pic_radio || [_pic_radio isEqualToString:@""]) {
+        _pic_radio = self.pic_small;
+    }
+    return _pic_radio;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     return [self yy_modelInitWithCoder:aDecoder];
 }
