@@ -7,6 +7,7 @@
 //
 
 #import "GKWYArtistAlbumListViewController.h"
+#import "GKWYAlbumViewController.h"
 #import "GKWYAlbumViewCell.h"
 
 #import "GKRefreshHeader.h"
@@ -82,6 +83,14 @@
     GKWYAlbumViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAlbumViewCellID forIndexPath:indexPath];
     cell.albumModel = self.dataList[indexPath.row];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    GKWYAlbumViewController *albumVC = [GKWYAlbumViewController new];
+    albumVC.album_id = [self.dataList[indexPath.row] album_id];
+    [self.navigationController pushViewController:albumVC animated:YES];
 }
 
 @end

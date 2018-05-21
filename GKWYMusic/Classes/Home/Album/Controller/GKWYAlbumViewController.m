@@ -33,6 +33,7 @@
 
 @property (nonatomic, strong) NSArray           *songs;
 
+// 下载使用
 @property (nonatomic, strong) GKWYMusicModel    *currentModel;
 
 @end
@@ -114,6 +115,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     GKWYMusicModel *model = self.songs[indexPath.row];
     
     [kWYPlayerVC playMusicWithModel:model];
@@ -188,6 +191,8 @@
 
 // 单个下载
 - (void)downloadMusicWithModel:(GKWYMusicModel *)model {
+    self.currentModel = model;
+    
     if (model.isDownload) {
         GKDownloadModel *dModel = [GKDownloadModel new];
         dModel.fileID = model.song_id;

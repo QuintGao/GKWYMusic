@@ -17,6 +17,9 @@ static NSString *const kWYIntroViewCellID = @"GKWYIntroViewCell";
 @property (nonatomic, strong) GKWYArtistModel *artistModel;
 @property (nonatomic, strong) NSArray           *dataList;
 
+@property (nonatomic, copy) void(^introBtnClickBlock)(void);
+@property (nonatomic, copy) void(^recArtistClickBlock)(GKWYArtistRecModel *model);
+
 @end
 
 @interface GKWYArtistRecView : UIView

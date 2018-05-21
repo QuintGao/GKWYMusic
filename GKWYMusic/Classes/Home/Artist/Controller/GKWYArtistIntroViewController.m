@@ -7,7 +7,9 @@
 //
 
 #import "GKWYArtistIntroViewController.h"
+#import "GKWYArtistViewController.h"
 #import "GKWYIntroViewCell.h"
+#import "GKWYIntroDetailViewController.h"
 
 @interface GKWYArtistIntroViewController ()
 
@@ -72,6 +74,19 @@
     GKWYIntroViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kWYIntroViewCellID];
     cell.artistModel = self.model;
     cell.dataList    = self.dataList;
+    cell.introBtnClickBlock = ^{
+        GKWYIntroDetailViewController *detailVC = [GKWYIntroDetailViewController new];
+        detailVC.intro = self.model.intro;
+        [self.navigationController pushViewController:detailVC animated:YES];
+    };
+    
+    cell.recArtistClickBlock = ^(GKWYArtistRecModel *model) {
+        GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
+        artistVC.tinguid  = model.ting_uid;
+        artistVC.artistid = model.artist_id;
+        [self.navigationController pushViewController:artistVC animated:YES];
+    };
+    
     return cell;
 }
 

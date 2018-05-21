@@ -25,10 +25,10 @@
     
     self.gk_navigationBar.hidden = YES;
     
-    [self.tableView addSubview:self.loadingView];
+    [self.view addSubview:self.loadingView];
     [self.tableView addSubview:self.loadLabel];
     [self.loadingView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tableView).offset(20.0f);
+        make.top.equalTo(self.tableView).offset(40.0f);
         make.centerX.equalTo(self.tableView);
     }];
     

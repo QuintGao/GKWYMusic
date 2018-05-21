@@ -87,6 +87,13 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [kWYPlayerVC playMusicWithModel:self.dataList[indexPath.row]];
+    [self.navigationController pushViewController:kWYPlayerVC animated:YES];
+}
+
 #pragma mark - GKWYListViewCellDelegate
 - (void)cellDidClickMVBtn:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
     [GKMessageTool showText:@"MV"];
@@ -156,6 +163,8 @@
 
 // 单个下载
 - (void)downloadMusicWithModel:(GKWYMusicModel *)model {
+    self.currentModel = model;
+    
     if (model.isDownload) {
         GKDownloadModel *dModel = [GKDownloadModel new];
         dModel.fileID = model.song_id;

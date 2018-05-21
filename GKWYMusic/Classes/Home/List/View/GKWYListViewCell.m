@@ -52,9 +52,6 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
         [self.contentView addSubview:self.numberBtn];
         [self.contentView addSubview:self.nameLabel];
         [self.contentView addSubview:self.downloadImgView];

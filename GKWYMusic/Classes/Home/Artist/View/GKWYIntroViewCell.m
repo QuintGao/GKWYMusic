@@ -115,7 +115,11 @@
     [dataList enumerateObjectsUsingBlock:^(GKWYArtistRecModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         GKWYArtistRecView *itemView = [GKWYArtistRecView new];
         itemView.recModel = obj;
+        itemView.tag = 1000 + idx;
         [self.recScrollView addSubview:itemView];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recViewClick:)];
+        [itemView addGestureRecognizer:tap];
         
         itemView.frame = CGRectMake(x, y, w, h);
         
@@ -123,6 +127,18 @@
     }];
     
     self.recScrollView.contentSize = CGSizeMake(2 * kAdaptive(10.0f) + dataList.count * w + (dataList.count - 1) * margin, 0);
+}
+
+- (void)introBtnClick:(id)sender {
+    !self.introBtnClickBlock ? : self.introBtnClickBlock();
+}
+
+- (void)recViewClick:(UITapGestureRecognizer *)tap {
+    NSInteger tag = tap.view.tag - 1000;
+    
+    GKWYArtistRecModel *model = self.dataList[tag];
+    
+    !self.recArtistClickBlock ? : self.recArtistClickBlock(model);
 }
 
 #pragma mark - 懒加载
@@ -159,6 +175,7 @@
         [_introBtn setTitleColor:GKColorGray(150.0f) forState:UIControlStateNormal];
         _introBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
         [_introBtn setTitle:@"完整歌手介绍 >" forState:UIControlStateNormal];
+        [_introBtn addTarget:self action:@selector(introBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _introBtn;
 }

@@ -143,6 +143,7 @@
     self.effectView.alpha = alpha;
     
     // 利用contentOffset处理内外层tableView的滑动冲突
+    // 滑动到达临界点时固定mainTableView的位置
     if (offsetY >= criticalPoint) {
         scrollView.contentOffset = CGPointMake(0, criticalPoint);
         self.isCriticalPoint = YES;
@@ -225,7 +226,9 @@
     
     GKWYBaseSubViewController *vc = (GKWYBaseSubViewController *)viewController;
     
-    [vc loadData];
+    if (self.artistModel) {
+        [vc loadData];
+    }
 }
 
 #pragma mark - 懒加载
@@ -234,6 +237,7 @@
         _mainTableView = [[GKWYArtistMainTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _mainTableView.dataSource   = self;
         _mainTableView.delegate     = self;
+        _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.showsVerticalScrollIndicator = NO;
         _mainTableView.contentInset = UIEdgeInsetsMake(kArtistHeaderHeight, 0, 0, 0);
     }
@@ -320,29 +324,29 @@
 
 - (GKPageController *)pageVC {
     if (!_pageVC) {
-        _pageVC                         = [GKPageController new];
-        _pageVC.dataSource              = self;
-        _pageVC.delegate                = self;
+        _pageVC                             = [GKPageController new];
+        _pageVC.dataSource                  = self;
+        _pageVC.delegate                    = self;
         
         // 菜单属性
-        _pageVC.menuItemWidth           = KScreenW / 4.0f;
-        _pageVC.menuViewStyle           = WMMenuViewStyleLine;
+        _pageVC.menuItemWidth               = KScreenW / 4.0f;
+        _pageVC.menuViewStyle               = WMMenuViewStyleLine;
         
         // 菜单文字属性
-        _pageVC.titleSizeNormal         = 16.0f;
-        _pageVC.titleSizeSelected       = 16.0f;
-        _pageVC.titleColorNormal        = [UIColor blackColor];
-        _pageVC.titleColorSelected      = kAPPDefaultColor;
+        _pageVC.titleSizeNormal             = 16.0f;
+        _pageVC.titleSizeSelected           = 16.0f;
+        _pageVC.titleColorNormal            = [UIColor blackColor];
+        _pageVC.titleColorSelected          = kAPPDefaultColor;
         
         // 进度条属性
-        _pageVC.progressColor           = kAPPDefaultColor;
-        _pageVC.progressWidth           = kAdaptive(60.0f);
-        _pageVC.progressHeight          = 3.0f;
-        _pageVC.progressViewBottomSpace = kAdaptive(10.0f);
-        _pageVC.progressViewCornerRadius = _pageVC.progressHeight / 2;
+        _pageVC.progressColor               = kAPPDefaultColor;
+        _pageVC.progressWidth               = kAdaptive(60.0f);
+        _pageVC.progressHeight              = 3.0f;
+        _pageVC.progressViewBottomSpace     = kAdaptive(10.0f);
+        _pageVC.progressViewCornerRadius    = _pageVC.progressHeight / 2;
         
         // 调皮效果
-        _pageVC.progressViewIsNaughty   = YES;
+        _pageVC.progressViewIsNaughty       = YES;
     }
     return _pageVC;
 }

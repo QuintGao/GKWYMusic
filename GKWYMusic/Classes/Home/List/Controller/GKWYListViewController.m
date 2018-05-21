@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) NSMutableArray *listArr;
 
+// 下载使用
 @property (nonatomic, strong) GKWYMusicModel *currentModel;
 
 @property (nonatomic, assign) NSInteger page;
@@ -125,6 +126,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     [kWYPlayerVC setPlayerList:self.listArr];
     
     [kWYPlayerVC playMusicWithIndex:indexPath.row];
@@ -134,23 +137,23 @@
 
 #pragma mark - GKWYListViewCellDelegate
 - (void)cellDidClickMVBtn:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
-    
+    [GKMessageTool showText:@"查看MV"];
 }
 
 - (void)cellDidClickNextItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
-    
+    [GKMessageTool showText:@"下一首播放"];
 }
 
 - (void)cellDidClickShareItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
-    
+    [GKMessageTool showText:@"分享"];
 }
 
 - (void)cellDidClickDownloadItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
-    
+    [self downloadMusicWithModel:model];
 }
 
 - (void)cellDidClickLoveItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
-    
+    [self lovedMusicWithModel:model];
 }
 
 - (void)cellDidClickArtistItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
@@ -191,119 +194,13 @@
 }
 
 - (void)cellDidClickMVItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
-    
-}
-
-#pragma mark - Private Methods
-- (void)showActionSheetWithModel:(GKWYMusicModel *)model {
-    
-    NSMutableArray *items = [NSMutableArray new];
-    
-    GKActionSheetItem *nextItem = [GKActionSheetItem new];
-    nextItem.imgName = @"cm2_lay_icn_next_new";
-    nextItem.title   = @"下一首播放";
-    [items addObject:nextItem];
-    
-    GKActionSheetItem *shareItem = [GKActionSheetItem new];
-    shareItem.imgName = @"cm2_lay_icn_share_new";
-    shareItem.title   = @"分享";
-    [items addObject:shareItem];
-    
-    GKActionSheetItem *downloadItem = [GKActionSheetItem new];
-    if (model.isDownload) {
-        downloadItem.title      = @"删除下载";
-        downloadItem.imgName    = @"cm2_lay_icn_dlded_new";
-        downloadItem.tagImgName = @"cm2_lay_icn_dlded_check";
-    }else {
-        downloadItem.imgName    = @"cm2_lay_icn_dld_new";
-        downloadItem.title      = @"下载";
-    }
-    [items addObject:downloadItem];
-    
-    GKActionSheetItem *commentItem = [GKActionSheetItem new];
-    commentItem.imgName = @"cm2_lay_icn_cmt_new";
-    commentItem.title   = @"评论";
-    [items addObject:commentItem];
-    
-    GKActionSheetItem *loveItem = [GKActionSheetItem new];
-    if (model.isLike) {
-        loveItem.title = @"取消喜欢";
-        loveItem.imgName = @"cm2_lay_icn_loved";
-    }else {
-        loveItem.title = @"喜欢";
-        loveItem.image = [[UIImage imageNamed:@"cm2_lay_icn_love"] changeImageWithColor:kAPPDefaultColor];
-    }
-    [items addObject:loveItem];
-    
-    GKActionSheetItem *artistItem = [GKActionSheetItem new];
-    artistItem.title = [NSString stringWithFormat:@"歌手：%@", model.artist_name];
-    artistItem.imgName = @"cm2_lay_icn_artist_new";
-    [items addObject:artistItem];
-    
-    GKActionSheetItem *albumItem = [GKActionSheetItem new];
-    albumItem.title = [NSString stringWithFormat:@"专辑：%@", model.album_title];
-    albumItem.imgName = @"cm2_lay_icn_alb_new";
-    [items addObject:albumItem];
-    
-    if (model.has_mv) {
-        GKActionSheetItem *mvItem = [GKActionSheetItem new];
-        mvItem.title = @"查看MV";
-        mvItem.imgName = @"cm2_lay_icn_mv_new";
-        [items addObject:mvItem];
-    }
-    
-    [GKActionSheet showActionSheetWithTitle:[NSString stringWithFormat:@"歌曲:%@", model.song_name] itemInfos:items selectedBlock:^(NSInteger idx) {
-        switch (idx) {
-            case 0: {   // 下一首播放
-                
-            }
-            case 1: {   // 分享
-                
-            }
-                break;
-            case 2: {   // 下载
-                [self downloadMusicWithModel:model];
-            }
-                break;
-            case 3: {   // 评论
-                
-            }
-                break;
-            case 4: {   // 喜欢
-                [self lovedMusicWithModel:model];
-            }
-                break;
-            case 5: {   // 歌手
-                NSArray *arr = [model.all_artist_ting_uid componentsSeparatedByString:@","];
-                if (arr.count > 1) {
-                    
-                }else {
-                    GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
-                    artistVC.tinguid  = arr.firstObject;
-                    artistVC.artistid = model.artist_id;
-                    [self.navigationController pushViewController:artistVC animated:YES];
-                }
-            }
-                break;
-            case 6: {   // 专辑
-                GKWYAlbumViewController *albumVC = [GKWYAlbumViewController new];
-                albumVC.album_id = model.album_id;
-                [self.navigationController pushViewController:albumVC animated:YES];
-            }
-                break;
-            case 7: {   // mv
-                
-            }
-                break;
-                
-            default:
-                break;
-        }
-    }];
+    [GKMessageTool showText:@"查看MV"];
 }
 
 // 单个下载
 - (void)downloadMusicWithModel:(GKWYMusicModel *)model {
+    self.currentModel = model;
+    
     if (model.isDownload) {
         GKDownloadModel *dModel = [GKDownloadModel new];
         dModel.fileID = model.song_id;
@@ -326,6 +223,7 @@
     }
 }
 
+#pragma mark - GKDownloadManagerDelegate
 - (void)gkDownloadManager:(GKDownloadManager *)downloadManager downloadModel:(GKDownloadModel *)downloadModel stateChanged:(GKDownloadManagerState)state {
     if ([self.currentModel.song_id isEqualToString:downloadModel.fileID]) {
         
