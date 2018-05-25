@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GKSliderView.h"
 
 @class GKWYMusicControlView;
 
@@ -38,6 +39,8 @@
 @property (nonatomic, assign) GKWYPlayerPlayStyle               style;
 
 @property (nonatomic, strong) UIView                            *topView;
+// slider
+@property (nonatomic, strong) GKSliderView                      *slider;
 
 @property (nonatomic, copy) NSString                            *currentTime;
 @property (nonatomic, copy) NSString                            *totalTime;

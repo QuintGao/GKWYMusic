@@ -47,17 +47,17 @@
     
     if (imgUrl) {
         if ([imgUrl hasPrefix:@"http"] || [imgUrl hasPrefix:@"https"]) { // 网络图片
-            [self.imgView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+            [self.imgView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"cm2_default_cover_fm"]];
         }else { // 本地图片
             NSData *data = [NSData dataWithContentsOfFile:imgUrl];
             if (data) {
                 self.imgView.image = [UIImage imageWithData:data];
             }else {
-                self.imgView.image = [UIImage imageNamed:@"placeholder"];
+                self.imgView.image = [UIImage imageNamed:@"cm2_default_cover_fm"];
             }
         }
     }else {
-        self.imgView.image = [UIImage imageNamed:@"placeholder"];
+        self.imgView.image = [UIImage imageNamed:@"cm2_default_cover_fm"];
     }
 }
 

@@ -7,7 +7,6 @@
 //
 
 #import "GKWYMusicControlView.h"
-#import "GKSliderView.h"
 
 @interface GKWYMusicControlView()<GKSliderViewDelegate>
 
@@ -25,7 +24,6 @@
 @property (nonatomic, strong) UIView *sliderView;
 @property (nonatomic, strong) UILabel *currentLabel;
 @property (nonatomic, strong) UILabel *totalLabel;
-@property (nonatomic, strong) GKSliderView *slider;
 
 @end
 

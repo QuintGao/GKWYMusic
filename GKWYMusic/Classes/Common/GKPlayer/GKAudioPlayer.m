@@ -31,7 +31,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        
+        self.playerState = GKAudioPlayerStateStopped;
     }
     return self;
 }
@@ -66,7 +66,7 @@
 }
 
 - (void)play {
-    if (self.state == GKAudioPlayerStatePlaying) return;
+    if (self.playerState == GKAudioPlayerStatePlaying) return;
     
     NSAssert(self.playUrlStr, @"url不能为空");
     
@@ -76,14 +76,27 @@
     
     [self startTimer];
     
-    [self startBufferTimer];
+    // 如果缓冲未完成
+    if (self.bufferState != GKAudioBufferStateFinished) {
+        self.bufferState = GKAudioBufferStateNone;
+        [self startBufferTimer];
+    }
+}
+
+- (void)playFromProgress:(float)progress {
+    FSSeekByteOffset offset = {0};
+    offset.position = progress;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.audioStream playFromOffset:offset];
+    });
 }
 
 - (void)pause {
-    if (self.state == GKAudioPlayerStatePaused) return;
+    if (self.playerState == GKAudioPlayerStatePaused) return;
     
-    self.state = GKAudioPlayerStatePaused;
-    [self setupPlayerState:self.state];
+    self.playerState = GKAudioPlayerStatePaused;
+    [self setupPlayerState:self.playerState];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.audioStream pause];
@@ -93,7 +106,7 @@
 }
 
 - (void)resume {
-    if (self.state == GKAudioPlayerStatePlaying) return;
+    if (self.playerState == GKAudioPlayerStatePlaying) return;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         // 这里恢复播放不能用play，需要用pause
@@ -104,10 +117,10 @@
 }
 
 - (void)stop {
-    if (self.state == GKAudioPlayerStateStopped) return;
+    if (self.playerState == GKAudioPlayerStateStoppedBy) return;
     
-    self.state = GKAudioPlayerStateStopped;
-    [self setupPlayerState:self.state];
+    self.playerState = GKAudioPlayerStateStoppedBy;
+    [self setupPlayerState:self.playerState];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.audioStream stop];
@@ -168,7 +181,14 @@
         int buffer = (int)(bufferProgress + 0.5);
         
         if (bufferProgress > 0.9 && buffer >= 1) {
+            self.bufferState = GKAudioBufferStateFinished;
             [self stopBufferTimer];
+            // 这里把进度设置为1，防止进度条出现不准确的情况
+            bufferProgress = 1.0f;
+            
+            NSLog(@"缓冲结束了，停止进度");
+        }else {
+            self.bufferState = GKAudioBufferStateBuffering;
         }
         
         if ([self.delegate respondsToSelector:@selector(gkPlayer:bufferProgress:)]) {
@@ -213,58 +233,62 @@
             switch (state) {
                 case kFsAudioStreamRetrievingURL:       // 检索url
                     NSLog(@"检索url");
-                    weakSelf.state = GKAudioPlayerStateLoading;
+                    weakSelf.playerState = GKAudioPlayerStateLoading;
                     break;
                 case kFsAudioStreamBuffering:           // 缓冲
                     NSLog(@"缓冲中。。");
-                    weakSelf.state = GKAudioPlayerStateBuffering;
+                    weakSelf.playerState = GKAudioPlayerStateBuffering;
+                    weakSelf.bufferState = GKAudioBufferStateBuffering;
                     break;
                 case kFsAudioStreamSeeking:             // seek
                     NSLog(@"seek中。。");
-                    weakSelf.state = GKAudioPlayerStateLoading;
+                    weakSelf.playerState = GKAudioPlayerStateLoading;
                     break;
                 case kFsAudioStreamPlaying:             // 播放
                     NSLog(@"播放中。。");
-                    weakSelf.state = GKAudioPlayerStatePlaying;
+                    weakSelf.playerState = GKAudioPlayerStatePlaying;
                     break;
                 case kFsAudioStreamPaused:              // 暂停
                     NSLog(@"播放暂停");
-                    weakSelf.state = GKAudioPlayerStatePaused;
+                    weakSelf.playerState = GKAudioPlayerStatePaused;
                     break;
                 case kFsAudioStreamStopped:              // 停止
-                    NSLog(@"播放停止->播放错误");
-                    // 根据设计的特点，播放停止是手动触发的，所以如果这里之前的状态不是播放停止，就只有一种可能是播放失败导致的停止
-                    if (weakSelf.state != GKAudioPlayerStateStopped) {
-                        weakSelf.state = GKAudioPlayerStateError;
+                    
+                    // 切换歌曲时主动调用停止方法也会走这里，所以这里添加判断，区分是切换歌曲还是被打断等停止
+                    if (weakSelf.playerState != GKAudioPlayerStateStoppedBy) {
+                        NSLog(@"播放停止被打断");
+                        weakSelf.playerState = GKAudioPlayerStateStopped;
                     }
                     break;
                 case kFsAudioStreamRetryingFailed:              // 检索失败
                     NSLog(@"检索失败");
-                    weakSelf.state = GKAudioPlayerStateError;
+                    weakSelf.playerState = GKAudioPlayerStateError;
                     break;
                 case kFsAudioStreamRetryingStarted:             // 检索开始
                     NSLog(@"检索开始");
-                    weakSelf.state = GKAudioPlayerStateLoading;
+                    weakSelf.playerState = GKAudioPlayerStateLoading;
                     break;
                 case kFsAudioStreamFailed:                      // 播放失败
                     NSLog(@"播放失败");
-                    weakSelf.state = GKAudioPlayerStateError;
+                    weakSelf.playerState = GKAudioPlayerStateError;
                     break;
                 case kFsAudioStreamPlaybackCompleted:           // 播放完成
                     NSLog(@"播放完成");
-                    weakSelf.state = GKAudioPlayerStateEnded;
+                    weakSelf.playerState = GKAudioPlayerStateEnded;
                     break;
                 case kFsAudioStreamRetryingSucceeded:           // 检索成功
                     NSLog(@"检索成功");
-                    weakSelf.state = GKAudioPlayerStateLoading;
+                    weakSelf.playerState = GKAudioPlayerStateLoading;
                     break;
                 case kFsAudioStreamUnknownState:                // 未知状态
                     NSLog(@"未知状态");
-                    weakSelf.state = GKAudioPlayerStateError;
+                    weakSelf.playerState = GKAudioPlayerStateError;
                     break;
                 case kFSAudioStreamEndOfFile:                   // 缓冲结束
-                    NSLog(@"缓冲结束");
                     {
+                        NSLog(@"缓冲结束");
+                        
+                        if (self.bufferState == GKAudioBufferStateFinished) return;
                         // 定时器停止后需要再次调用获取进度方法，防止出现进度不准确的情况
                         [weakSelf bufferTimerAction:nil];
                         
@@ -275,7 +299,7 @@
                 default:
                     break;
             }
-            [weakSelf setupPlayerState:weakSelf.state];
+            [weakSelf setupPlayerState:weakSelf.playerState];
         };
     }
     return _audioStream;

@@ -117,7 +117,7 @@
     // 禁用全屏滑动返回手势
     self.gk_fullScreenPopDisabled   = YES;
     
-    // 锁屏控制
+    // 锁屏控制(这里只能设置一次，多次设置事件也会调用多次)
     [self setupLockScreenControlInfo];
 }
 
@@ -330,10 +330,12 @@
             // 需要重新请求
             [self getMusicInfo];
         }else {
-            if (kPlayer.state != GKAudioPlayerStatePaused) {
-                [kPlayer play];
-            }else {
+            if (kPlayer.playerState == GKAudioPlayerStateStopped) {
+                [kPlayer playFromProgress:self.controlView.progress];
+            }else if (kPlayer.playerState == GKAudioPlayerStatePaused) {
                 [kPlayer resume];
+            }else {
+                [kPlayer play];
             }
         }
     }
@@ -379,7 +381,6 @@
             [self.coverView resetMusicList:self.playList idx:currentIndex];
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                //                [kPlayer play];
                 [self playMusic];
             });
         }else {  // 循环播放切换歌曲
@@ -878,7 +879,7 @@
     playingInfo[MPMediaItemPropertyTitle]      = self.model.song_name;
     playingInfo[MPMediaItemPropertyArtist]     = self.model.artist_name;
     
-    MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:[UIImage imageNamed:@"cm2_fm_bg-ip6"]];
+    MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:[UIImage imageNamed:@"cm2_default_cover_fm"]];
     playingInfo[MPMediaItemPropertyArtwork] = artwork;
     
     // 当前播放的时间
@@ -1033,7 +1034,7 @@
 // 播放状态改变
 - (void)gkPlayer:(GKAudioPlayer *)player statusChanged:(GKAudioPlayerState)status {
     switch (status) {
-        case GKAudioPlayerStateLoading:{
+        case GKAudioPlayerStateLoading:{    // 加载中
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.controlView showLoadingAnim];
                 [self.controlView setupPauseBtn];
@@ -1042,7 +1043,7 @@
             self.isPlaying = NO;
         }
             break;
-        case GKAudioPlayerStateBuffering: {
+        case GKAudioPlayerStateBuffering: { // 缓冲中
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.controlView hideLoadingAnim];
                 [self.controlView setupPlayBtn];
@@ -1058,7 +1059,7 @@
             self.isPlaying = YES;
         }
             break;
-        case GKAudioPlayerStatePlaying: {
+        case GKAudioPlayerStatePlaying: {   // 播放中
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.controlView hideLoadingAnim];
                 [self.controlView setupPlayBtn];
@@ -1068,7 +1069,7 @@
             self.isPlaying = YES;
         }
             break;
-        case GKAudioPlayerStatePaused:{
+        case GKAudioPlayerStatePaused:{     // 暂停
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.controlView setupPauseBtn];
                 if (self.isChanged) {
@@ -1080,7 +1081,7 @@
             self.isPlaying = NO;
         }
             break;
-        case GKAudioPlayerStateStopped:{
+        case GKAudioPlayerStateStoppedBy:{  // 主动停止
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.controlView setupPauseBtn];
                 
@@ -1094,7 +1095,17 @@
             self.isPlaying = NO;
         }
             break;
-        case GKAudioPlayerStateEnded: {
+        case GKAudioPlayerStateStopped:{    // 打断停止
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.controlView setupPauseBtn];
+                [self.coverView pausedWithAnimated:YES];
+                
+                [self pauseMusic];
+            });
+            self.isPlaying = NO;
+        }
+            break;
+        case GKAudioPlayerStateEnded: {     // 播放结束
             NSLog(@"播放结束了");
             if (self.isPlaying) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -1121,7 +1132,7 @@
             }
         }
             break;
-        case GKAudioPlayerStateError: {
+        case GKAudioPlayerStateError: {     // 播放出错
             NSLog(@"播放出错了");
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.controlView setupPauseBtn];

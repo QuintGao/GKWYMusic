@@ -11,7 +11,7 @@
 // 标签间距
 #define kTagMargin      kAdaptive(20.0f)
 // 标签内边距
-#define kTagPadding     kAdaptive(30.0f)
+#define kTagPadding     kAdaptive(24.0f)
 
 @interface GKWYSearchHeaderView()
 
@@ -27,7 +27,7 @@
         
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(kAdaptive(20.0f));
-            make.top.equalTo(self).offset(kAdaptive(40.0f));
+            make.top.equalTo(self).offset(kAdaptive(36.0f));
         }];
     }
     return self;
@@ -66,7 +66,7 @@
         x += (w + kTagMargin);
     }];
     
-    self.gk_size = CGSizeMake(KScreenW, y + h + kTagMargin);
+    self.gk_size = CGSizeMake(KScreenW, y + h + kTagMargin + kAdaptive(20.0f));
 }
 
 #pragma mark - 懒加载

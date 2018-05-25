@@ -184,7 +184,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GKWYSearchViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGKWYSearchViewCellID];
-    cell.model = self.historys[indexPath.row];
+    cell.text = self.historys[indexPath.row];
     return cell;
 }
 

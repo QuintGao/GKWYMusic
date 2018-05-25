@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GKWYTagModel.h"
 
 static NSString *const kGKWYSearchViewCellID = @"GKWYSearchViewCell";
 
 @interface GKWYSearchViewCell : UITableViewCell
 
-@property (nonatomic, strong) GKWYTagModel *model;
+@property (nonatomic, copy) NSString *text;
 
 @property (nonatomic, copy) void(^deleteClickBlock)(void);
 

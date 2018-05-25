@@ -20,6 +20,8 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         [self.contentView addSubview:self.imgView];
         [self.contentView addSubview:self.titleLabel];
         [self.contentView addSubview:self.deleteBtn];
@@ -37,15 +39,16 @@
         [self.deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).offset(-kAdaptive(20.0f));
             make.centerY.equalTo(self.contentView);
+            make.width.height.equalTo(self.contentView.mas_height);
         }];
     }
     return self;
 }
 
-- (void)setModel:(GKWYTagModel *)model {
-    _model = model;
+- (void)setText:(NSString *)text {
+    _text = text;
     
-    self.titleLabel.text = model.word;
+    self.titleLabel.text = text;
 }
 
 - (void)deleteClick:(id)sender {
