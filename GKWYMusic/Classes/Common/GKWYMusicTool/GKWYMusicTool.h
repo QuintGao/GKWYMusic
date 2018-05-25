@@ -37,6 +37,7 @@
 #pragma mark - history
 + (NSArray *)historys;
 + (void)saveHistory:(NSArray *)historys;
++ (void)delHistoryWithIndex:(NSInteger)index;
 
 #pragma mark - 历史播放信息
 + (NSString *)lastMusicId;

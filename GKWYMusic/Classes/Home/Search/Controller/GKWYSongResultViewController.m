@@ -21,35 +21,43 @@
     self.gk_navigationBar.hidden = YES;
     
     self.tableView.rowHeight = 60.0f;
+    
     [self.tableView registerClass:[GKWYSongViewCell class] forCellReuseIdentifier:kSongViewCellID];
     
     self.tipsLabel.text = @"无结果";
 }
 
-- (void)setSongs:(NSArray *)songs {
-    _songs = songs;
-    
+- (void)setSongInfo:(GKWYResultSongInfoModel *)songInfo {
+    _songInfo = songInfo;
+
     [self gk_reloadData];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.songs.count;
+    return self.songInfo.song_list.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GKWYSongViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSongViewCellID forIndexPath:indexPath];
-    cell.model = self.songs[indexPath.row];
+    cell.model = self.songInfo.song_list[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    GKWYResultSongModel *songModel = self.songs[indexPath.row];
+    GKWYResultSongModel *songModel = self.songInfo.song_list[indexPath.row];
     
     GKWYMusicModel *model = [GKWYMusicModel new];
     model.song_id       = songModel.song_id;
     model.song_name     = songModel.title;
+    model.song_name     = songModel.title;
+    model.album_id      = songModel.album_id;
+    model.album_title   = songModel.album_title;
+    model.artist_id     = songModel.artist_id;
     model.artist_name   = songModel.author;
+    model.all_artist_id = songModel.all_artist_id;
+    model.ting_uid      = songModel.ting_uid;
+    model.pic_small     = songModel.pic_small;
     
     [kWYPlayerVC playMusicWithModel:model];
 }

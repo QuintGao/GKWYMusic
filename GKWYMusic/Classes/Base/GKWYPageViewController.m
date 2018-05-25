@@ -30,6 +30,14 @@
     [super viewDidAppear:animated];
     
     [self hideNavLine];
+    
+    if (self.hideNavBar) {
+        self.gk_navigationBar.hidden = YES;
+        
+        [self.pageVC.view mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
+    }
 }
 
 - (void)reloadData {
@@ -59,7 +67,10 @@
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
     CGFloat originY = CGRectGetMaxY([self pageController:pageController preferredFrameForMenuView:pageController.menuView]);
-    return CGRectMake(0, originY, self.view.frame.size.width, self.view.frame.size.height - originY - self.gk_navigationBar.gk_height);
+    
+    CGFloat height = self.gk_navigationBar.hidden ? (self.view.frame.size.height - originY) : (self.view.frame.size.height - originY - self.gk_navigationBar.gk_height);
+    
+    return CGRectMake(0, originY, self.view.frame.size.width, height);
 }
 
 #pragma mark - 懒加载

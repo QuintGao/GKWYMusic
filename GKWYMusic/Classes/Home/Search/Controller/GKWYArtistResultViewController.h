@@ -7,9 +7,10 @@
 //
 
 #import "GKWYBaseTableViewController.h"
+#import "GKWYResultModel.h"
 
 @interface GKWYArtistResultViewController : GKWYBaseTableViewController
 
-@property (nonatomic, strong) NSArray *artists;
+@property (nonatomic, strong) GKWYResultArtistInfoModel *artistInfo;
 
 @end

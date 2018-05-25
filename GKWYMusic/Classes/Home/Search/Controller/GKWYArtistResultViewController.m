@@ -26,20 +26,20 @@
     self.tipsLabel.text = @"无结果";
 }
 
-- (void)setArtists:(NSArray *)artists {
-    _artists = artists;
+- (void)setArtistInfo:(GKWYResultArtistInfoModel *)artistInfo {
+    _artistInfo = artistInfo;
     
     [self gk_reloadData];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.artists.count;
+    return self.artistInfo.artist_list.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GKWYArtistViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kArtistViewCellID forIndexPath:indexPath];
-    cell.model = self.artists[indexPath.row];
+    cell.model = self.artistInfo.artist_list[indexPath.row];
     return cell;
 }
 

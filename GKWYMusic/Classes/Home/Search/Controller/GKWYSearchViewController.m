@@ -9,9 +9,16 @@
 #import "GKWYSearchViewController.h"
 #import "GKSearchBar.h"
 #import "GKWYResultModel.h"
+
+#import "GKWYPageViewController.h"
+
 #import "GKWYSongResultViewController.h"
+#import "GKWYVideoResultViewController.h"
 #import "GKWYArtistResultViewController.h"
 #import "GKWYAlbumResultViewController.h"
+
+#import "GKWYSearchHeaderView.h"
+#import "GKWYSearchViewCell.h"
 
 @interface GKWYSearchViewController ()<GKSearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -20,9 +27,13 @@
 // 搜索历史table
 @property (nonatomic, strong) UITableView *historyTableView;
 
+@property (nonatomic, strong) GKWYSearchHeaderView *headerView;
+
 @property (nonatomic, strong) GKWYResultModel *resultModel;
 
 @property (nonatomic, strong) NSMutableArray *historys;
+
+@property (nonatomic, strong) GKWYPageViewController *pageVC;
 
 @end
 
@@ -49,7 +60,14 @@
         make.top.equalTo(self.gk_navigationBar.mas_bottom);
     }];
     
-    self.historys = [NSMutableArray arrayWithArray:[GKWYMusicTool historys]];
+    [self addChildViewController:self.pageVC];
+    [self.view addSubview:self.pageVC.view];
+    [self.pageVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(self.gk_navigationBar.mas_bottom);
+    }];
+    
+    [self loadHotSearch];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -66,6 +84,25 @@
     [GKWYMusicTool showPlayBtn];
 }
 
+- (void)loadHotSearch {
+    NSString *api = @"baidu.ting.search.hot&page_num=10";
+    
+    [kHttpManager get:api params:nil successBlock:^(id responseObject) {
+        NSArray *tags = [NSArray yy_modelArrayWithClass:[GKWYTagModel class] json:responseObject[@"result"]];
+        
+        self.headerView.tags = tags;
+        
+        self.historyTableView.tableHeaderView = self.headerView;
+        
+        self.historys = [NSMutableArray arrayWithArray:[GKWYMusicTool historys]];
+        
+        [self.historyTableView reloadData];
+        
+    } failureBlock:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
+}
+
 #pragma mark - EVNCustomSearchBarDelegate
 - (BOOL)searchBarShouldBeginEditing:(GKSearchBar *)searchBar {
     self.historyTableView.hidden = NO;
@@ -75,7 +112,7 @@
 
 // 取消搜索
 - (void)searchBarCancelBtnClicked:(GKSearchBar *)searchBar {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 // 搜索按钮点击
@@ -93,41 +130,47 @@
 }
 
 - (void)searchResultWithText:(NSString *)text {
-    NSString *api = [NSString stringWithFormat:@"baidu.ting.search.catalogSug&query=%@", text];
+    NSString *api = [NSString stringWithFormat:@"baidu.ting.search.merge&query=%@&page_size=30&page_no=1", text];
     
     api = [api stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
     [kHttpManager get:api params:nil successBlock:^(id responseObject) {
-        self.resultModel = [GKWYResultModel yy_modelWithDictionary:responseObject];
+        self.resultModel = [GKWYResultModel yy_modelWithDictionary:responseObject[@"result"]];
         
         self.historyTableView.hidden = YES;
         [self.historyTableView reloadData];
-        
+
         NSMutableArray *titles      = [NSMutableArray new];
         NSMutableArray *childVCs    = [NSMutableArray new];
-        
+
         // 单曲
         [titles addObject:@"单曲"];
         GKWYSongResultViewController *songResultVC = [GKWYSongResultViewController new];
-        songResultVC.songs = self.resultModel.song;
+        songResultVC.songInfo = self.resultModel.song_info;
         [childVCs addObject:songResultVC];
-        
+
+        // 视频
+        [titles addObject:@"视频"];
+        GKWYVideoResultViewController *videoResultVC = [GKWYVideoResultViewController new];
+        videoResultVC.videoInfo = self.resultModel.video_info;
+        [childVCs addObject:videoResultVC];
         // 歌手
         [titles addObject:@"歌手"];
         GKWYArtistResultViewController *artistResultVC = [GKWYArtistResultViewController new];
-        artistResultVC.artists = self.resultModel.artist;
+        artistResultVC.artistInfo = self.resultModel.artist_info;
         [childVCs addObject:artistResultVC];
-        
+
         // 专辑
         [titles addObject:@"专辑"];
         GKWYAlbumResultViewController *albumResultVC = [GKWYAlbumResultViewController new];
-        albumResultVC.albums = self.resultModel.album;
+        albumResultVC.albumInfo = self.resultModel.album_info;
         [childVCs addObject:albumResultVC];
         
-        self.titles     = titles;
-        self.childVCs   = childVCs;
+        self.pageVC.titles = titles;
+        self.pageVC.childVCs = childVCs;
         
-        [self reloadData];
+        self.pageVC.view.hidden = NO;
+        [self.pageVC reloadData];
         
     } failureBlock:^(NSError *error) {
         NSLog(@"搜索失败==%@", error);
@@ -140,13 +183,15 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryCell"];
-    cell.textLabel.text = self.historys[indexPath.row];
+    GKWYSearchViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGKWYSearchViewCellID];
+    cell.model = self.historys[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *text = self.historys[indexPath.row];
+    
+    [self.searchBar resignFirstResponder];
     
     [self searchResultWithText:text];
 }
@@ -176,9 +221,25 @@
         _historyTableView.delegate   = self;
         _historyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _historyTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        [_historyTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"HistoryCell"];
+        [_historyTableView registerClass:[GKWYSearchViewCell class] forCellReuseIdentifier:kGKWYSearchViewCellID];
     }
     return _historyTableView;
+}
+
+- (GKWYSearchHeaderView *)headerView {
+    if (!_headerView) {
+        _headerView = [GKWYSearchHeaderView new];
+    }
+    return _headerView;
+}
+
+- (GKWYPageViewController *)pageVC {
+    if (!_pageVC) {
+        _pageVC = [GKWYPageViewController new];
+        _pageVC.view.hidden = YES;
+        _pageVC.hideNavBar  = YES;
+    }
+    return _pageVC;
 }
 
 @end

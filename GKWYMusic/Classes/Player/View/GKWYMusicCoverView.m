@@ -123,7 +123,15 @@
     
     [self pausedWithAnimated:YES];
     
-    [self.diskScrollView setContentOffset:offset animated:YES];
+    BOOL isBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
+    
+    if (isBackground) {
+        // 这里处理是因为在后台锁屏状态下，改变scrollView不走结束方法，所以强制切换歌曲
+        [self.diskScrollView setContentOffset:offset animated:NO];
+        [self scrollViewDidEnd:self.diskScrollView];
+    }else {
+        [self.diskScrollView setContentOffset:offset animated:YES];
+    }
 }
 
 // 播放音乐时，指针恢复，图片旋转

@@ -14,6 +14,7 @@
 // 歌曲名称
 @property (nonatomic, copy) NSString *song_name;
 // 歌手id
+@property (nonatomic, copy) NSString *ting_uid;
 @property (nonatomic, copy) NSString *artist_id;
 // 所有歌手uid
 @property (nonatomic, copy) NSString *all_artist_ting_uid;
@@ -31,6 +32,8 @@
 
 // 用于锁屏图片
 @property (nonatomic, copy) NSString *pic_radio;
+
+@property (nonatomic, copy) NSString *pic_big;
 @property (nonatomic, copy) NSString *pic_small;
 // 是否有mv
 @property (nonatomic, assign) BOOL has_mv;

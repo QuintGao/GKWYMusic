@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NSArray           *childVCs;
 @property (nonatomic, strong) NSArray           *titles;
 
+@property (nonatomic, assign) BOOL              hideNavBar;
+
 - (void)reloadData;
 
 @end

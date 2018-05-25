@@ -144,7 +144,6 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/EVNCustomSearchBar/EVNCustomSearchBar.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FreeStreamer/FreeStreamer.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GKCover/GKCover.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GKMessageTool/GKMessageTool.framework"
@@ -159,7 +158,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/EVNCustomSearchBar/EVNCustomSearchBar.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FreeStreamer/FreeStreamer.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GKCover/GKCover.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GKMessageTool/GKMessageTool.framework"

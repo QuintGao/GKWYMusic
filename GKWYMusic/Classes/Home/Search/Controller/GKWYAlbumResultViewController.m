@@ -26,20 +26,20 @@
     self.tipsLabel.text = @"无结果";
 }
 
-- (void)setAlbums:(NSArray *)albums {
-    _albums = albums;
+- (void)setAlbumInfo:(GKWYResultAlbumInfoModel *)albumInfo {
+    _albumInfo = albumInfo;
     
     [self gk_reloadData];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.albums.count;
+    return self.albumInfo.album_list.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GKWYAlbumViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAlbumViewCellID forIndexPath:indexPath];
-    cell.model = self.albums[indexPath.row];
+    cell.model = self.albumInfo.album_list[indexPath.row];
     return cell;
 }
 

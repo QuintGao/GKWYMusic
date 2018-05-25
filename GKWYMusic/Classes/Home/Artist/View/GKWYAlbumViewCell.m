@@ -65,8 +65,10 @@
     _model = model;
     
     [self.imgView sd_setImageWithURL:[NSURL URLWithString:model.pic_small]];
+    
     self.nameLabel.text = model.title;
-    self.timeLabel.text = model.author;
+    
+    self.timeLabel.text = [NSString stringWithFormat:@"%@ %@", model.author, model.publishtime];
 }
 
 - (void)setAlbumModel:(GKWYAlbumModel *)albumModel {

@@ -98,6 +98,14 @@
     [NSKeyedArchiver archiveRootObject:historys toFile:kHistoryDataPath];
 }
 
++ (void)delHistoryWithIndex:(NSInteger)index {
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[self historys]];
+    
+    [arr removeObjectAtIndex:index];
+    
+    [self saveHistory:arr];
+}
+
 + (NSString *)lastMusicId {
     return [kUserDefaults objectForKey:GKWYMUSIC_USERDEFAULTSKEY_LASTPLAYID];
 }

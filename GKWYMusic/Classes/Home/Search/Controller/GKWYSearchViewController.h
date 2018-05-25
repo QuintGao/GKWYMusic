@@ -6,8 +6,8 @@
 //  Copyright © 2018年 gaokun. All rights reserved.
 //
 
-#import "GKWYPageViewController.h"
+#import "GKWYBaseViewController.h"
 
-@interface GKWYSearchViewController : GKWYPageViewController
+@interface GKWYSearchViewController : GKWYBaseViewController
 
 @end

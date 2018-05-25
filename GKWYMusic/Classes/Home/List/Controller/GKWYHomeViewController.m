@@ -70,7 +70,7 @@
 #pragma mark - EVNCustomSearchBarDelegate
 - (BOOL)searchBarShouldBeginEditing:(GKSearchBar *)searchBar {
     GKWYSearchViewController *searchVC = [GKWYSearchViewController new];
-    [self.navigationController pushViewController:searchVC animated:YES];
+    [self.navigationController pushViewController:searchVC animated:NO];
     
     return NO;
 }

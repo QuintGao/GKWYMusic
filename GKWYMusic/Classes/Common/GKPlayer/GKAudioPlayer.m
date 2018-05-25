@@ -4,7 +4,7 @@
 //
 //  Created by gaokun on 2018/4/24.
 //  Copyright © 2018年 gaokun. All rights reserved.
-//
+//  播放器中所以关于FSAudioStream的类都需要在主线程中进行（类中要求的），防止可能造成的崩溃
 
 #import "GKAudioPlayer.h"
 #import "GKTimer.h"
@@ -45,9 +45,13 @@
         _playUrlStr = playUrlStr;
         
         if ([playUrlStr hasPrefix:@"http"] || [playUrlStr hasPrefix:@"https"]) {
-            self.audioStream.url = [NSURL URLWithString:playUrlStr];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.audioStream.url = [NSURL URLWithString:playUrlStr];
+            });
         }else {
-            self.audioStream.url = [NSURL fileURLWithPath:playUrlStr];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.audioStream.url = [NSURL fileURLWithPath:playUrlStr];
+            });
         }
     }
 }
@@ -92,6 +96,7 @@
     if (self.state == GKAudioPlayerStatePlaying) return;
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        // 这里恢复播放不能用play，需要用pause
         [self.audioStream pause];
     });
     
@@ -130,53 +135,59 @@
 }
 
 - (void)timerAction:(id)sender {
-    FSStreamPosition cur = self.audioStream.currentTimePlayed;
-    
-    NSTimeInterval currentTime = cur.playbackTimeInSeconds * 1000;
-    
-    NSTimeInterval totalTime = self.audioStream.duration.playbackTimeInSeconds * 1000;
-    
-    NSTimeInterval progress = cur.position;
-    
-    if ([self.delegate respondsToSelector:@selector(gkPlayer:currentTime:totalTime:progress:)]) {
-        [self.delegate gkPlayer:self currentTime:currentTime totalTime:totalTime progress:progress];
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(gkPlayer:totalTime:)]) {
-        [self.delegate gkPlayer:self totalTime:totalTime];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        FSStreamPosition cur = self.audioStream.currentTimePlayed;
+        
+        NSTimeInterval currentTime = cur.playbackTimeInSeconds * 1000;
+        
+        NSTimeInterval totalTime = self.audioStream.duration.playbackTimeInSeconds * 1000;
+        
+        NSTimeInterval progress = cur.position;
+        
+        if ([self.delegate respondsToSelector:@selector(gkPlayer:currentTime:totalTime:progress:)]) {
+            [self.delegate gkPlayer:self currentTime:currentTime totalTime:totalTime progress:progress];
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(gkPlayer:totalTime:)]) {
+            [self.delegate gkPlayer:self totalTime:totalTime];
+        }
+    });
 }
 
 - (void)bufferTimerAction:(id)sender {
-    float preBuffer      = (float)self.audioStream.prebufferedByteCount;
-    float contentLength  = (float)self.audioStream.contentLength;
-    
-    // 这里获取的进度不能准确地获取到1
-    float bufferProgress = contentLength > 0 ? preBuffer / contentLength : 0;
-    
-//    NSLog(@"缓冲进度%.2f", bufferProgress);
-    
-    // 为了能使进度准确的到1，这里做了一些处理
-    int buffer = (int)(bufferProgress + 0.5);
-    
-    if (bufferProgress > 0.9 && buffer >= 1) {
-        [self stopBufferTimer];
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(gkPlayer:bufferProgress:)]) {
-        [self.delegate gkPlayer:self bufferProgress:bufferProgress];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        float preBuffer      = (float)self.audioStream.prebufferedByteCount;
+        float contentLength  = (float)self.audioStream.contentLength;
+        
+        // 这里获取的进度不能准确地获取到1
+        float bufferProgress = contentLength > 0 ? preBuffer / contentLength : 0;
+        
+        //    NSLog(@"缓冲进度%.2f", bufferProgress);
+        
+        // 为了能使进度准确的到1，这里做了一些处理
+        int buffer = (int)(bufferProgress + 0.5);
+        
+        if (bufferProgress > 0.9 && buffer >= 1) {
+            [self stopBufferTimer];
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(gkPlayer:bufferProgress:)]) {
+            [self.delegate gkPlayer:self bufferProgress:bufferProgress];
+        }
+    });
 }
 
 - (void)removeCache {
-    NSArray *arr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.audioStream.configuration.cacheDirectory error:nil];
-    
-    for (NSString *filePath in arr) {
-        if ([filePath hasPrefix:@"FSCache-"]) {
-            NSString *path = [NSString stringWithFormat:@"%@/%@", self.audioStream.configuration.cacheDirectory, filePath];
-            [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSArray *arr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.audioStream.configuration.cacheDirectory error:nil];
+        
+        for (NSString *filePath in arr) {
+            if ([filePath hasPrefix:@"FSCache-"]) {
+                NSString *path = [NSString stringWithFormat:@"%@/%@", self.audioStream.configuration.cacheDirectory, filePath];
+                [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+            }
         }
-    }
+    });
 }
 
 - (void)setupPlayerState:(GKAudioPlayerState)state {
@@ -189,6 +200,8 @@
 - (FSAudioStream *)audioStream {
     if (!_audioStream) {
         _audioStream = [[FSAudioStream alloc] init];
+        _audioStream.strictContentTypeChecking = NO;
+        _audioStream.defaultContentType = @"audio/mpeg";
         
         __weak typeof(self) weakSelf = self;
         
@@ -219,8 +232,11 @@
                     weakSelf.state = GKAudioPlayerStatePaused;
                     break;
                 case kFsAudioStreamStopped:              // 停止
-                    NSLog(@"播放停止");
-                    weakSelf.state = GKAudioPlayerStateStopped;
+                    NSLog(@"播放停止->播放错误");
+                    // 根据设计的特点，播放停止是手动触发的，所以如果这里之前的状态不是播放停止，就只有一种可能是播放失败导致的停止
+                    if (weakSelf.state != GKAudioPlayerStateStopped) {
+                        weakSelf.state = GKAudioPlayerStateError;
+                    }
                     break;
                 case kFsAudioStreamRetryingFailed:              // 检索失败
                     NSLog(@"检索失败");

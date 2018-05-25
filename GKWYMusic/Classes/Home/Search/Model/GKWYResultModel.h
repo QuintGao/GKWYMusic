@@ -8,13 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
-@class GKWYResultArtistModel, GKWYResultSongModel, GKWYResultAlbumModel;
+@class GKWYResultArtistInfoModel, GKWYResultSongInfoModel, GKWYResultAlbumInfoModel, GKWYResultVideoInfoModel;
+@class GKWYResultArtistModel, GKWYResultSongModel, GKWYResultAlbumModel, GKWYResultVideoModel;
 
 @interface GKWYResultModel : NSObject
 
-@property (nonatomic, strong) NSArray <GKWYResultArtistModel *> *artist;
-@property (nonatomic, strong) NSArray <GKWYResultSongModel *> *song;
-@property (nonatomic, strong) NSArray <GKWYResultAlbumModel *> *album;
+@property (nonatomic, strong) GKWYResultArtistInfoModel *artist_info;
+@property (nonatomic, strong) GKWYResultSongInfoModel   *song_info;
+@property (nonatomic, strong) GKWYResultAlbumInfoModel  *album_info;
+@property (nonatomic, strong) GKWYResultVideoInfoModel  *video_info;
+
+@end
+
+@interface GKWYResultArtistInfoModel : NSObject
+
+@property (nonatomic, strong) NSArray<GKWYResultArtistModel *> *artist_list;
+@property (nonatomic, assign) NSInteger *total;
 
 @end
 
@@ -29,6 +38,13 @@
 @property (nonatomic, copy) NSString *author;
 @property (nonatomic, copy) NSString *artist_source;
 @property (nonatomic, copy) NSString *artist_id;
+
+@end
+
+@interface GKWYResultSongInfoModel : NSObject
+
+@property (nonatomic, strong) NSArray<GKWYResultSongModel *> *song_list;
+@property (nonatomic, assign) NSInteger total;
 
 @end
 
@@ -47,6 +63,13 @@
 
 @end
 
+@interface GKWYResultAlbumInfoModel : NSObject
+
+@property (nonatomic, strong) NSArray<GKWYResultAlbumModel *> *album_list;
+@property (nonatomic, assign) NSInteger total;
+
+@end
+
 @interface GKWYResultAlbumModel : NSObject
 
 @property (nonatomic, copy) NSString *album_id;
@@ -60,6 +83,13 @@
 @property (nonatomic, copy) NSString *author;
 @property (nonatomic, copy) NSString *artist_id;
 @property (nonatomic, copy) NSString *resource_type_ext;
+
+@end
+
+@interface GKWYResultVideoInfoModel : NSObject
+
+@property (nonatomic, strong) NSArray<GKWYResultVideoModel *> *video_list;
+@property (nonatomic, assign) NSInteger total;
 
 @end
 

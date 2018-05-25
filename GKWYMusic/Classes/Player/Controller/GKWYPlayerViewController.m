@@ -576,7 +576,7 @@
     
     if (self.isPlaying) {
         self.isPlaying = NO;
-        [kPlayer stop];
+        [self stopMusic];
     }
     
     self.bgImageView.image = [UIImage imageNamed:@"cm2_fm_bg-ip6"];
@@ -777,7 +777,7 @@
         self.isAutoPlay = NO;
         
         if (self.isPlaying) {
-            [kPlayer stop];
+            [self stopMusic];
         }
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -1030,6 +1030,7 @@
 
 #pragma mark - 代理
 #pragma mark - GKPlayerDelegate
+// 播放状态改变
 - (void)gkPlayer:(GKAudioPlayer *)player statusChanged:(GKAudioPlayerState)status {
     switch (status) {
         case GKAudioPlayerStateLoading:{
@@ -1225,6 +1226,7 @@
 //    [kNotificationCenter postNotificationName:GKWYMUSIC_PLAYSTATECHANGENOTIFICATION object:nil];
 //}
 
+// 播放进度改变
 - (void)gkPlayer:(GKAudioPlayer *)player currentTime:(NSTimeInterval)currentTime totalTime:(NSTimeInterval)totalTime progress:(float)progress {
     if (self.isDraging) return;
     if (self.isSeeking) return;
@@ -1257,12 +1259,14 @@
 //    [self.lyricView scrollLyricWithCurrentTime:currentTime totalTime:totalTime];
 //}
 
+// 播放总时间
 - (void)gkPlayer:(GKAudioPlayer *)player totalTime:(NSTimeInterval)totalTime {
     self.controlView.totalTime = [GKWYMusicTool timeStrWithMsTime:totalTime];
     
     self.duration               = totalTime;
 }
 
+// 缓冲进度改变
 - (void)gkPlayer:(GKAudioPlayer *)player bufferProgress:(float)bufferProgress {
     self.controlView.bufferProgress = bufferProgress;
 }
@@ -1343,7 +1347,7 @@
     self.isChanged = YES;
     
     if (self.isPlaying) {
-        [kPlayer stop];
+        [self stopMusic];
     }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -1365,7 +1369,7 @@
     self.isAutoPlay = NO;
     
     if (self.isPlaying) {
-        [kPlayer stop];
+        [self stopMusic];
     }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

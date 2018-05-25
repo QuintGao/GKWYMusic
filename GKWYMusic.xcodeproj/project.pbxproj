@@ -82,6 +82,10 @@
 		60938FAE20AFD1E900CD8115 /* GKWYArtistMainTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938FAD20AFD1E900CD8115 /* GKWYArtistMainTableView.m */; };
 		60938FBC20B1740400CD8115 /* GKWYIntroDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938FBB20B1740400CD8115 /* GKWYIntroDetailViewController.m */; };
 		60938FBE20B29DD300CD8115 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 60938FBD20B29DD300CD8115 /* README.md */; };
+		60938FC120B4198C00CD8115 /* GKWYVideoResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938FC020B4198C00CD8115 /* GKWYVideoResultViewController.m */; };
+		6093900620B63F5D00CD8115 /* GKWYSearchHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6093900520B63F5D00CD8115 /* GKWYSearchHeaderView.m */; };
+		6093900920B6435100CD8115 /* GKWYTagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6093900820B6435100CD8115 /* GKWYTagModel.m */; };
+		6093900C20B66A7800CD8115 /* GKWYSearchViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6093900B20B66A7800CD8115 /* GKWYSearchViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -252,6 +256,14 @@
 		60938FBA20B1740400CD8115 /* GKWYIntroDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYIntroDetailViewController.h; sourceTree = "<group>"; };
 		60938FBB20B1740400CD8115 /* GKWYIntroDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYIntroDetailViewController.m; sourceTree = "<group>"; };
 		60938FBD20B29DD300CD8115 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		60938FBF20B4198C00CD8115 /* GKWYVideoResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYVideoResultViewController.h; sourceTree = "<group>"; };
+		60938FC020B4198C00CD8115 /* GKWYVideoResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYVideoResultViewController.m; sourceTree = "<group>"; };
+		6093900420B63F5D00CD8115 /* GKWYSearchHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYSearchHeaderView.h; sourceTree = "<group>"; };
+		6093900520B63F5D00CD8115 /* GKWYSearchHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYSearchHeaderView.m; sourceTree = "<group>"; };
+		6093900720B6435100CD8115 /* GKWYTagModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYTagModel.h; sourceTree = "<group>"; };
+		6093900820B6435100CD8115 /* GKWYTagModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYTagModel.m; sourceTree = "<group>"; };
+		6093900A20B66A7800CD8115 /* GKWYSearchViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYSearchViewCell.h; sourceTree = "<group>"; };
+		6093900B20B66A7800CD8115 /* GKWYSearchViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYSearchViewCell.m; sourceTree = "<group>"; };
 		AC63263F3F790C8CA35FADA1 /* Pods-GKWYMusic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GKWYMusic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GKWYMusic/Pods-GKWYMusic.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -809,6 +821,8 @@
 				6061767C209AB5920054C8E1 /* GKWYSearchViewController.m */,
 				6061768D209B195A0054C8E1 /* GKWYSongResultViewController.h */,
 				6061768E209B195A0054C8E1 /* GKWYSongResultViewController.m */,
+				60938FBF20B4198C00CD8115 /* GKWYVideoResultViewController.h */,
+				60938FC020B4198C00CD8115 /* GKWYVideoResultViewController.m */,
 				60617690209B19680054C8E1 /* GKWYArtistResultViewController.h */,
 				60617691209B19680054C8E1 /* GKWYArtistResultViewController.m */,
 				60617693209B19710054C8E1 /* GKWYAlbumResultViewController.h */,
@@ -820,6 +834,10 @@
 		60938FB420B11EBE00CD8115 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6093900420B63F5D00CD8115 /* GKWYSearchHeaderView.h */,
+				6093900520B63F5D00CD8115 /* GKWYSearchHeaderView.m */,
+				6093900A20B66A7800CD8115 /* GKWYSearchViewCell.h */,
+				6093900B20B66A7800CD8115 /* GKWYSearchViewCell.m */,
 				6061769A209C0EB60054C8E1 /* GKWYSongViewCell.h */,
 				6061769B209C0EB60054C8E1 /* GKWYSongViewCell.m */,
 				6061769D209C0EC10054C8E1 /* GKWYArtistViewCell.h */,
@@ -831,6 +849,8 @@
 		60938FB520B11EC200CD8115 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6093900720B6435100CD8115 /* GKWYTagModel.h */,
+				6093900820B6435100CD8115 /* GKWYTagModel.m */,
 				60617687209B158B0054C8E1 /* GKWYResultModel.h */,
 				60617688209B158B0054C8E1 /* GKWYResultModel.m */,
 			);
@@ -1016,7 +1036,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GKWYMusic/Pods-GKWYMusic-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/EVNCustomSearchBar/EVNCustomSearchBar.framework",
 				"${BUILT_PRODUCTS_DIR}/FreeStreamer/FreeStreamer.framework",
 				"${BUILT_PRODUCTS_DIR}/GKCover/GKCover.framework",
 				"${BUILT_PRODUCTS_DIR}/GKMessageTool/GKMessageTool.framework",
@@ -1032,7 +1051,6 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EVNCustomSearchBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FreeStreamer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GKCover.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GKMessageTool.framework",
@@ -1068,12 +1086,15 @@
 				603A1275208881A3002A5BD3 /* GKDownloadManager.m in Sources */,
 				60938F8620AE603F00CD8115 /* GKWYArtistRecModel.m in Sources */,
 				603A12DA208DB72E002A5BD3 /* GKWYBaseViewController.m in Sources */,
+				6093900620B63F5D00CD8115 /* GKWYSearchHeaderView.m in Sources */,
 				603A12C42089C8F1002A5BD3 /* GKVolumeView.m in Sources */,
 				60938F8020ADA5AB00CD8115 /* GKWYVideoModel.m in Sources */,
 				60938F0220ABBBC600CD8115 /* GKWYArtistIntroViewController.m in Sources */,
 				6061768F209B195A0054C8E1 /* GKWYSongResultViewController.m in Sources */,
 				603A12912088A8BA002A5BD3 /* GKLyricParser.m in Sources */,
 				603A12BE2089C8BB002A5BD3 /* GKWYMusicVolumeView.m in Sources */,
+				6093900920B6435100CD8115 /* GKWYTagModel.m in Sources */,
+				60938FC120B4198C00CD8115 /* GKWYVideoResultViewController.m in Sources */,
 				60938F8C20AEDA4A00CD8115 /* GKWYBaseSubViewController.m in Sources */,
 				60938EFE20ABBA3B00CD8115 /* GKWYArtistVideoListViewController.m in Sources */,
 				603A13582091C691002A5BD3 /* GKRefreshHeader.m in Sources */,
@@ -1104,6 +1125,7 @@
 				606176A5209C6CA10054C8E1 /* GKWYMyListViewCell.m in Sources */,
 				603A130A208DE472002A5BD3 /* GKPageController.m in Sources */,
 				603A12E6208DBA0D002A5BD3 /* GKWYBaseTableViewController.m in Sources */,
+				6093900C20B66A7800CD8115 /* GKWYSearchViewCell.m in Sources */,
 				60938FAE20AFD1E900CD8115 /* GKWYArtistMainTableView.m in Sources */,
 				60938EF820AB01D900CD8115 /* GKWYArtistSongListViewController.m in Sources */,
 				603A1298208989B0002A5BD3 /* GKWYMainViewController.m in Sources */,
