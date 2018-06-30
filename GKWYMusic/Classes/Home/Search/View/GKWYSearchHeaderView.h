@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) NSArray *tags;
 
+@property (nonatomic, copy) void(^tagClick)(NSString *tag);
+
 @end

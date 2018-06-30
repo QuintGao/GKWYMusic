@@ -229,6 +229,12 @@
 - (GKWYSearchHeaderView *)headerView {
     if (!_headerView) {
         _headerView = [GKWYSearchHeaderView new];
+        
+        __weak typeof(self) weakSelf = self;
+        
+        _headerView.tagClick = ^(NSString *tag) {
+            [weakSelf searchBarSearchBtnClicked:weakSelf.searchBar];
+        };
     }
     return _headerView;
 }

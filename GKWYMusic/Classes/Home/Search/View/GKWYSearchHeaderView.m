@@ -52,6 +52,8 @@
         btn.layer.borderColor = GKColorRGB(210.0f, 211.0f, 213.0f).CGColor;
         btn.layer.borderWidth = 0.5f;
         btn.layer.masksToBounds = YES;
+        [btn addTarget:self action:@selector(tagBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag = idx + 999;
         [self addSubview:btn];
         
         w = [tag sizeWithAttributes:@{NSFontAttributeName : btn.titleLabel.font}].width + 2 * kTagPadding;
@@ -67,6 +69,16 @@
     }];
     
     self.gk_size = CGSizeMake(KScreenW, y + h + kTagMargin + kAdaptive(20.0f));
+}
+
+- (void)tagBtnClick:(UIButton *)sender {
+    NSInteger index = sender.tag - 999;
+    
+    GKWYTagModel *tagM = self.tags[index];
+    
+    NSString *tag = [tagM.word componentsSeparatedByString:@"-"].firstObject;
+    
+    !self.tagClick ? : self.tagClick(tag);
 }
 
 #pragma mark - 懒加载
