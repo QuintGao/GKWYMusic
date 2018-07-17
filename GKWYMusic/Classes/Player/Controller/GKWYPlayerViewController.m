@@ -846,11 +846,8 @@
 }
 
 - (void)setupLockScreenMediaInfo {
-    // 1. 获取当前播放的歌曲的信息
-    
-    // 2. 获取锁屏界面中心
     MPNowPlayingInfoCenter *playingCenter = [MPNowPlayingInfoCenter defaultCenter];
-    // 3. 设置展示的信息
+    
     NSMutableDictionary *playingInfo = [NSMutableDictionary new];
     playingInfo[MPMediaItemPropertyAlbumTitle] = self.model.album_title;
     playingInfo[MPMediaItemPropertyTitle]      = self.model.song_name;
@@ -874,9 +871,9 @@
 }
 
 - (void)setupLockScreenMediaInfoNull {
-    // 2. 获取锁屏界面中心
+    
     MPNowPlayingInfoCenter *playingCenter = [MPNowPlayingInfoCenter defaultCenter];
-    // 3. 设置展示的信息
+    
     NSMutableDictionary *playingInfo = [NSMutableDictionary new];
     playingInfo[MPMediaItemPropertyAlbumTitle] = self.model.album_title;
     playingInfo[MPMediaItemPropertyTitle]      = self.model.song_name;
