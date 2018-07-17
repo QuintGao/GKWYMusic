@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UIImageView   *imgView;
 @property (nonatomic, strong) UILabel       *titleLabel;
 @property (nonatomic, strong) UIButton      *deleteBtn;
+@property (nonatomic, strong) UIView        *lineView;
 
 @end
 
@@ -25,6 +26,7 @@
         [self.contentView addSubview:self.imgView];
         [self.contentView addSubview:self.titleLabel];
         [self.contentView addSubview:self.deleteBtn];
+        [self.contentView addSubview:self.lineView];
         
         [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(kAdaptive(20.0f));
@@ -40,6 +42,12 @@
             make.right.equalTo(self.contentView).offset(-kAdaptive(20.0f));
             make.centerY.equalTo(self.contentView);
             make.width.height.equalTo(self.contentView.mas_height);
+        }];
+        
+        [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.imgView);
+            make.right.bottom.equalTo(self.contentView);
+            make.height.mas_equalTo(0.5f);
         }];
     }
     return self;
@@ -81,6 +89,14 @@
         [_deleteBtn addTarget:self action:@selector(deleteClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _deleteBtn;
+}
+
+- (UIView *)lineView {
+    if (!_lineView) {
+        _lineView = [UIView new];
+        _lineView.backgroundColor = kAppLineColor;
+    }
+    return _lineView;
 }
 
 @end

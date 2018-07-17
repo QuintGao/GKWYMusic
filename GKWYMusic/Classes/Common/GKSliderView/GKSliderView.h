@@ -56,6 +56,10 @@
 - (void)showLoading;
 - (void)hideLoading;
 
+// 隐藏滑块
+- (void)showSliderBlock;
+- (void)hideSliderBlock;
+
 @end
 
 @interface GKSliderButton : UIButton

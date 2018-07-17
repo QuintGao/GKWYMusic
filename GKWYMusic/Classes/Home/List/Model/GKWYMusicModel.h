@@ -37,6 +37,7 @@
 @property (nonatomic, copy) NSString *pic_small;
 // 是否有mv
 @property (nonatomic, assign) BOOL has_mv;
+@property (nonatomic, assign) BOOL has_mv_mobile;
 // 歌词
 @property (nonatomic, copy) NSString *lrclink;
 

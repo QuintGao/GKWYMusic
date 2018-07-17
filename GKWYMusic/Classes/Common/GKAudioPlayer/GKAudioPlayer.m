@@ -44,7 +44,7 @@
         
         _playUrlStr = playUrlStr;
         
-        if ([playUrlStr hasPrefix:@"http"] || [playUrlStr hasPrefix:@"https"]) {
+        if ([playUrlStr hasPrefix:@"http"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.audioStream.url = [NSURL URLWithString:playUrlStr];
             });
@@ -57,6 +57,9 @@
 }
 
 - (void)setPlayerProgress:(float)progress {
+    if (progress == 0) progress = 0.001;
+    if (progress == 1) progress = 0.999;
+    
     FSStreamPosition position = {0};
     position.position = progress;
     
@@ -90,6 +93,14 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.audioStream playFromOffset:offset];
     });
+    
+    [self startTimer];
+    
+    // 如果缓冲未完成
+    if (self.bufferState != GKAudioBufferStateFinished) {
+        self.bufferState = GKAudioBufferStateNone;
+        [self startBufferTimer];
+    }
 }
 
 - (void)pause {
@@ -130,21 +141,27 @@
 }
 
 - (void)startTimer {
+    if (self.playTimer) return;
     self.playTimer = [GKTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
 }
 
 - (void)stopTimer {
-    [self.playTimer invalidate];
-    self.playTimer = nil;
+    if (self.playTimer) {
+        [self.playTimer invalidate];
+        self.playTimer = nil;
+    }
 }
 
 - (void)startBufferTimer {
+    if (self.bufferTimer) return;
     self.bufferTimer = [GKTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(bufferTimerAction:) userInfo:nil repeats:YES];
 }
 
 - (void)stopBufferTimer {
-    [self.bufferTimer invalidate];
-    self.bufferTimer = nil;
+    if (self.bufferTimer) {
+        [self.bufferTimer invalidate];
+        self.bufferTimer = nil;
+    }
 }
 
 - (void)timerAction:(id)sender {
@@ -221,9 +238,9 @@
     if (!_audioStream) {
         _audioStream = [[FSAudioStream alloc] init];
         _audioStream.strictContentTypeChecking = NO;
-        _audioStream.defaultContentType = @"audio/mpeg";
+        _audioStream.defaultContentType = @"audio/x-m4a";
         
-        __weak typeof(self) weakSelf = self;
+        __weak __typeof(self) weakSelf = self;
         
         _audioStream.onCompletion = ^{
             NSLog(@"完成");
@@ -255,7 +272,7 @@
                 case kFsAudioStreamStopped:              // 停止
                     
                     // 切换歌曲时主动调用停止方法也会走这里，所以这里添加判断，区分是切换歌曲还是被打断等停止
-                    if (weakSelf.playerState != GKAudioPlayerStateStoppedBy) {
+                    if (weakSelf.playerState != GKAudioPlayerStateStoppedBy && weakSelf.playerState != GKAudioPlayerStateEnded) {
                         NSLog(@"播放停止被打断");
                         weakSelf.playerState = GKAudioPlayerStateStopped;
                     }

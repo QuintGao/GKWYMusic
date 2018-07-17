@@ -165,6 +165,14 @@
     [self.sliderBtn hideActivityAnim];
 }
 
+- (void)showSliderBlock {
+    self.sliderBtn.hidden = NO;
+}
+
+- (void)hideSliderBlock {
+    self.sliderBtn.hidden = YES;
+}
+
 - (void)setAllowTapped:(BOOL)allowTapped {
     _allowTapped = allowTapped;
     

@@ -52,19 +52,6 @@
     return self;
 }
 
-- (void)setModel:(GKWYResultSongModel *)model {
-    _model = model;
-    
-    self.nameLabel.text     = model.title;
-    self.artistLabel.text   = model.author;
-    
-    if ([model.song_id isEqualToString:[GKWYMusicTool lastMusicId]]) {
-        self.playBtn.selected = YES;
-    }else {
-        self.playBtn.selected = NO;
-    }
-}
-
 #pragma mark - 懒加载
 - (UIButton *)playBtn {
     if (!_playBtn) {

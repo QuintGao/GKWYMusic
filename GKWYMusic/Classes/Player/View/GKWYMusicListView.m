@@ -260,6 +260,7 @@
         
         [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(10.0f);
+            make.right.equalTo(self.contentView).offset(-10.0f);
             make.centerY.equalTo(self.contentView);
         }];
         

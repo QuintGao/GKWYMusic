@@ -43,23 +43,8 @@
 
 @interface GKWYResultSongInfoModel : NSObject
 
-@property (nonatomic, strong) NSArray<GKWYResultSongModel *> *song_list;
+@property (nonatomic, strong) NSArray<GKWYMusicModel *> *song_list;
 @property (nonatomic, assign) NSInteger total;
-
-@end
-
-@interface GKWYResultSongModel : NSObject
-
-@property (nonatomic, copy) NSString *song_id;
-@property (nonatomic, copy) NSString *ting_uid;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *album_title;
-@property (nonatomic, copy) NSString *artist_id;
-@property (nonatomic, copy) NSString *author;
-@property (nonatomic, copy) NSString *pic_small;
-@property (nonatomic, copy) NSString *all_artist_id;
-@property (nonatomic, copy) NSString *album_id;
-@property (nonatomic, copy) NSString *has_mv_mobile;
 
 @end
 

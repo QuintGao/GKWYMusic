@@ -138,15 +138,21 @@ static GKActionSheet *currentActionSheet;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [GKCover hideCover];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        GKActionSheetItem *item = self.itemInfos[indexPath.row];
+    GKActionSheetItem *item = self.itemInfos[indexPath.row];
+    
+    if (item.enabled) {
+        [GKCover hideCover];
         
-        !item.clickBlock ? : item.clickBlock();
-        
-        !self.selectedBlock ? : self.selectedBlock(indexPath.row);
-    });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kAnimDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            GKActionSheetItem *item = self.itemInfos[indexPath.row];
+            
+            !item.clickBlock ? : item.clickBlock();
+            
+            !self.selectedBlock ? : self.selectedBlock(indexPath.row);
+        });
+    }
 }
 
 #pragma mark - 懒加载

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GKWYResultModel.h"
 
 static NSString *const kGKWYListViewCell = @"GKWYListViewCell";
 
@@ -33,6 +34,10 @@ static NSString *const kGKWYListViewCell = @"GKWYListViewCell";
 @property (nonatomic, weak) id<GKWYListViewCellDelegate> delegate;
 
 @property (nonatomic, strong) GKWYMusicModel *model;
+
+// 搜索结果页使用
+@property (nonatomic, strong) GKWYMusicModel *songModel;
+
 @property (nonatomic, assign) BOOL isAlbum; // 是否是专辑详情页
 
 @property (nonatomic, assign) NSInteger row;

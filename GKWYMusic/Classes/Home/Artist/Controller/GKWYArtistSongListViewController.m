@@ -24,7 +24,7 @@
     [super viewDidLoad];
     
     [self.tableView registerClass:[GKWYListViewCell class] forCellReuseIdentifier:kGKWYListViewCell];
-    self.tableView.rowHeight = 54.0f;
+    self.tableView.rowHeight = kAdaptive(110.0f);
     
     KDownloadManager.delegate = self;
 }

@@ -31,12 +31,11 @@
 @implementation GKWYResultSongInfoModel
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"song_list"  : [GKWYResultSongModel class]};
+    return @{@"song_list"  : [GKWYMusicModel class]};
 }
 
 @end
-@implementation GKWYResultSongModel
-@end
+
 @implementation GKWYResultAlbumInfoModel
 
 + (NSDictionary *)modelContainerPropertyGenericClass {

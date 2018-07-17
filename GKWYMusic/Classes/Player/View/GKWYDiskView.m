@@ -66,6 +66,8 @@
     if (!_diskImgView) {
         _diskImgView = [UIImageView new];
         _diskImgView.image = [UIImage imageNamed:@"cm2_play_disc-ip6"];
+        _diskImgView.contentMode = UIViewContentModeScaleAspectFit;
+        _diskImgView.clipsToBounds = YES;
     }
     return _diskImgView;
 }

@@ -19,6 +19,7 @@
 #import <GKMessageTool/GKMessageTool.h>
 
 #import "GKWYCategory.h"
+#import "GKActionSheet.h"
 
 #import "GKDownloadManager.h"
 #import "GKHttpManager.h"
@@ -88,8 +89,9 @@
 /*********************************存储相关************************************/
 #define kUserDefaults       [NSUserDefaults standardUserDefaults]
 
-#define GKWYMUSIC_USERDEFAULTSKEY_NETWORKSTATE  @"networkState"
-#define GKWYMUSIC_USERDEFAULTSKEY_PLAYSTYLE     @"playStyle"
-#define GKWYMUSIC_USERDEFAULTSKEY_LASTPLAYID    @"lastPlayId"
+#define GKWYMUSIC_USERDEFAULTSKEY_NETWORKSTATE  @"networkState"     // 网络状态
+#define GKWYMUSIC_USERDEFAULTSKEY_PLAYSTYLE     @"playStyle"        // 播放类型
+#define GKWYMUSIC_USERDEFAULTSKEY_LASTPLAYID    @"lastPlayId"       // 上一次播放id
+#define GKWYMUSIC_USERDEFAULTSKEY_PLAYINFO      @"playInfo"         // 播放信息
 
 #endif /* PrefixHeader_pch */

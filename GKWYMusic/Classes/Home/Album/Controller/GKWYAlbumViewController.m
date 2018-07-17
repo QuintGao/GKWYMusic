@@ -117,9 +117,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    GKWYMusicModel *model = self.songs[indexPath.row];
-    
-    [kWYPlayerVC playMusicWithModel:model];
+    [kWYPlayerVC setPlayerList:self.songs];
+    [kWYPlayerVC playMusicWithIndex:indexPath.row];
     
     [self.navigationController pushViewController:kWYPlayerVC animated:YES];
 }
@@ -314,14 +313,13 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] init];
-        _tableView.dataSource   = self;
-        _tableView.delegate     = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = [UIColor clearColor];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-        _tableView.rowHeight = 54.0f;
-        _tableView.estimatedRowHeight = 0;
+        _tableView                      = [[UITableView alloc] init];
+        _tableView.dataSource           = self;
+        _tableView.delegate             = self;
+        _tableView.separatorStyle       = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor      = [UIColor clearColor];
+        _tableView.rowHeight            = kAdaptive(110.0f);
+        _tableView.estimatedRowHeight   = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         [_tableView registerClass:[GKWYListViewCell class] forCellReuseIdentifier:kGKWYListViewCell];

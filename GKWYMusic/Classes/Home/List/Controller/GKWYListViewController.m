@@ -14,6 +14,7 @@
 
 #import "GKWYAlbumViewController.h"
 #import "GKWYArtistViewController.h"
+#import "GKWYVideoViewController.h"
 
 @interface GKWYListViewController ()<GKDownloadManagerDelegate, GKWYListViewCellDelegate>
 
@@ -35,7 +36,7 @@
     self.gk_navigationBar.hidden = YES;
     
     [self.tableView registerClass:[GKWYListViewCell class] forCellReuseIdentifier:kGKWYListViewCell];
-    self.tableView.rowHeight = 54.0f;
+    self.tableView.rowHeight = kAdaptive(110.0f);
     
     // 初始化页码
     self.page = 0;
@@ -129,7 +130,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [kWYPlayerVC setPlayerList:self.listArr];
-    
     [kWYPlayerVC playMusicWithIndex:indexPath.row];
     
     [self.navigationController pushViewController:kWYPlayerVC animated:YES];
@@ -194,7 +194,10 @@
 }
 
 - (void)cellDidClickMVItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
-    [GKMessageTool showText:@"查看MV"];
+//    [GKMessageTool showText:@"查看MV"];
+    GKWYVideoViewController *videoVC = [GKWYVideoViewController new];
+    videoVC.song_id = model.song_id;
+    [self.navigationController pushViewController:videoVC animated:YES];
 }
 
 // 单个下载

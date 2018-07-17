@@ -172,10 +172,67 @@
     }
 }
 
+- (void)setSongModel:(GKWYMusicModel *)songModel {
+    _songModel = songModel;
+    
+    self.numberBtn.hidden = YES;
+    
+    self.nameLabel.text   = songModel.song_name;
+    self.artistLabel.text = [NSString stringWithFormat:@"%@ - %@", songModel.artist_name, songModel.album_title];
+    self.mvBtn.hidden     = !songModel.has_mv;
+    
+    if (songModel.has_mv) {
+        [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(kAdaptive(20.0f));
+            make.top.equalTo(self.contentView).offset(6);
+            make.right.equalTo(self.contentView).offset(-kAdaptive(160.0f));
+        }];
+    }else {
+        [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(kAdaptive(20.0f));
+            make.top.equalTo(self.contentView).offset(6);
+            make.right.equalTo(self.contentView).offset(-kAdaptive(80.0f));
+        }];
+    }
+    
+    if (songModel.isDownload) {
+        self.downloadImgView.hidden = NO;
+        
+        if (songModel.has_mv) {
+            [self.artistLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.downloadImgView.mas_right).offset(5.0f);
+                make.centerY.equalTo(self.downloadImgView.mas_centerY);
+                make.right.equalTo(self.contentView).offset(-kAdaptive(160.0f));
+            }];
+        }else {
+            [self.artistLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.downloadImgView.mas_right).offset(5.0f);
+                make.centerY.equalTo(self.downloadImgView.mas_centerY);
+                make.right.equalTo(self.contentView).offset(-kAdaptive(80.0f));
+            }];
+        }
+    }else {
+        self.downloadImgView.hidden = YES;
+        if (songModel.has_mv) {
+            [self.artistLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.nameLabel.mas_left);
+                make.centerY.equalTo(self.downloadImgView.mas_centerY);
+                make.right.equalTo(self.contentView).offset(-kAdaptive(160.0f));
+            }];
+        }else {
+            [self.artistLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.nameLabel.mas_left);
+                make.centerY.equalTo(self.downloadImgView.mas_centerY);
+                make.right.equalTo(self.contentView).offset(-kAdaptive(80.0f));
+            }];
+        }
+    }
+}
+
 - (void)moreBtnClick:(id)sender {
 //    !self.moreClicked ? : self.moreClicked(self.model);
     
-    [self showActionSheetWithModel:self.model];
+    [self showActionSheetWithModel:self.model ? self.model : self.songModel];
 }
 
 - (void)mvBtnClick:(id)sender {
@@ -192,6 +249,7 @@
     GKActionSheetItem *nextItem = [GKActionSheetItem new];
     nextItem.imgName = @"cm2_lay_icn_next_new";
     nextItem.title   = @"下一首播放";
+    nextItem.enabled = YES;
     nextItem.clickBlock = ^{
         if ([weakSelf.delegate respondsToSelector:@selector(cellDidClickNextItem:model:)]) {
             [weakSelf.delegate cellDidClickNextItem:weakSelf model:model];
@@ -202,6 +260,7 @@
     GKActionSheetItem *shareItem = [GKActionSheetItem new];
     shareItem.imgName = @"cm2_lay_icn_share_new";
     shareItem.title   = @"分享";
+    shareItem.enabled = YES;
     shareItem.clickBlock = ^{
         if ([weakSelf.delegate respondsToSelector:@selector(cellDidClickShareItem:model:)]) {
             [weakSelf.delegate cellDidClickShareItem:weakSelf model:model];
@@ -218,6 +277,7 @@
         downloadItem.imgName    = @"cm2_lay_icn_dld_new";
         downloadItem.title      = @"下载";
     }
+    downloadItem.enabled = YES;
     downloadItem.clickBlock = ^{
         if ([weakSelf.delegate respondsToSelector:@selector(cellDidClickDownloadItem:model:)]) {
             [weakSelf.delegate cellDidClickDownloadItem:weakSelf model:model];
@@ -228,6 +288,7 @@
     GKActionSheetItem *commentItem = [GKActionSheetItem new];
     commentItem.imgName = @"cm2_lay_icn_cmt_new";
     commentItem.title   = @"评论";
+    commentItem.enabled = YES;
     commentItem.clickBlock = ^{
         if ([weakSelf.delegate respondsToSelector:@selector(cellDidClickCommentItem:model:)]) {
             [weakSelf.delegate cellDidClickCommentItem:weakSelf model:model];
@@ -243,6 +304,7 @@
         loveItem.title = @"喜欢";
         loveItem.image = [[UIImage imageNamed:@"cm2_lay_icn_love"] changeImageWithColor:kAPPDefaultColor];
     }
+    loveItem.enabled = YES;
     loveItem.clickBlock = ^{
         if ([weakSelf.delegate respondsToSelector:@selector(cellDidClickLoveItem:model:)]) {
             [weakSelf.delegate cellDidClickLoveItem:weakSelf model:model];
@@ -253,6 +315,7 @@
     GKActionSheetItem *artistItem = [GKActionSheetItem new];
     artistItem.title = [NSString stringWithFormat:@"歌手：%@", model.artist_name];
     artistItem.imgName = @"cm2_lay_icn_artist_new";
+    artistItem.enabled = YES;
     artistItem.clickBlock = ^{
         if ([weakSelf.delegate respondsToSelector:@selector(cellDidClickArtistItem:model:)]) {
             [weakSelf.delegate cellDidClickArtistItem:weakSelf model:model];
@@ -264,6 +327,7 @@
         GKActionSheetItem *albumItem = [GKActionSheetItem new];
         albumItem.title = [NSString stringWithFormat:@"专辑：%@", model.album_title];
         albumItem.imgName = @"cm2_lay_icn_alb_new";
+        albumItem.enabled = YES;
         albumItem.clickBlock = ^{
             if ([weakSelf.delegate respondsToSelector:@selector(cellDidClickAlbumItem:model:)]) {
                 [weakSelf.delegate cellDidClickAlbumItem:weakSelf model:model];
@@ -276,6 +340,7 @@
         GKActionSheetItem *mvItem = [GKActionSheetItem new];
         mvItem.title = @"查看MV";
         mvItem.imgName = @"cm2_lay_icn_mv_new";
+        mvItem.enabled = YES;
         mvItem.clickBlock = ^{
             if ([weakSelf.delegate respondsToSelector:@selector(cellDidClickMVItem:model:)]) {
                 [weakSelf.delegate cellDidClickMVItem:weakSelf model:model];

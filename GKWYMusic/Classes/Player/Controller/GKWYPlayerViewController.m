@@ -13,6 +13,8 @@
 #import "GKWYMusicListView.h"
 #import "CBAutoScrollLabel.h"
 #import "GKTimer.h"
+#import "GKWYArtistViewController.h"
+#import "GKWYAlbumViewController.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -53,6 +55,7 @@
 @property (nonatomic, assign) BOOL                  isPaused;       // 是否点击暂停
 
 @property (nonatomic, assign) BOOL                  isAppear;       // 是否显示播放器页
+@property (nonatomic, assign) BOOL                  isInterrupt;    // 是否被打断
 
 @property (nonatomic, assign) NSTimeInterval        duration;       // 总时间
 @property (nonatomic, assign) NSTimeInterval        currentTime;    // 当前时间
@@ -978,9 +981,12 @@
 }
 
 - (void)seekTimeInvalidated {
-    [self.seekTimer invalidate];
-    self.seekTimer = nil;
+    if (self.seekTimer) {
+        [self.seekTimer invalidate];
+        self.seekTimer = nil;
+    }
 }
+
 #pragma mark - Notifications
 - (void)audioSessionRouteChange:(NSNotification *)notify {
     NSDictionary *interuptionDict = notify.userInfo;
@@ -1015,15 +1021,19 @@
     if (interruptionType == AVAudioSessionInterruptionTypeBegan) {
         // 收到播放中断的通知，暂停播放
         if (self.isPlaying) {
+            self.isInterrupt = YES;
             [self pauseMusic];
             self.isPlaying = NO;
         }
-    }else {
-        // 中断结束，判断是否需要恢复播放
-        if (interruptionOption == AVAudioSessionInterruptionOptionShouldResume) {
-            if (!self.isPlaying) {
-                [self playMusic];
-                self.isPlaying = YES;
+    }else if (interruptionType == AVAudioSessionInterruptionTypeEnded){
+        if (self.isInterrupt) {
+            self.isInterrupt = NO;
+            // 中断结束，判断是否需要恢复播放
+            if (interruptionOption == AVAudioSessionInterruptionOptionShouldResume) {
+                if (!self.isPlaying) {
+                    [self playMusic];
+                    self.isPlaying = YES;
+                }
             }
         }
     }
@@ -1147,98 +1157,14 @@
     
     [kNotificationCenter postNotificationName:GKWYMUSIC_PLAYSTATECHANGENOTIFICATION object:nil];
 }
-//- (void)gkPlayer:(GKPlayer *)player statusChanged:(GKPlayerStatus)status {
-//    switch (status) {
-//        case GKPlayerStatusBuffering:
-//        {
-//            [self.controlView hideLoadingAnim];
-//            [self.controlView setupPlayBtn];
-//
-//            self.isPlaying = YES;
-//
-//            [self.coverView playedWithAnimated:YES];
-//        }
-//            break;
-//        case GKPlayerStatusPlaying:
-//        {
-//            [self.controlView hideLoadingAnim];
-//            [self.controlView setupPlayBtn];
-//            self.isPlaying = YES;
-//
-//            [self.coverView playedWithAnimated:YES];
-//        }
-//            break;
-//        case GKPlayerStatusPaused:
-//        {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.controlView setupPauseBtn];
-//            });
-//            self.isPlaying = NO;
-//
-//            if (self.isChanged) {
-//                self.isChanged = NO;
-//            }else {
-//                [self.coverView pausedWithAnimated:YES];
-//            }
-//            [[AVAudioSession sharedInstance] setActive:YES error:nil];
-//        }
-//            break;
-//        case GKPlayerStatusStopped:
-//        {
-//            NSLog(@"播放停止了");
-//            [self.controlView setupPauseBtn];
-//            self.isPlaying = NO;
-//
-//            if (self.isChanged) {
-//                self.isChanged = NO;
-//            }else {
-//                [self.coverView pausedWithAnimated:YES];
-//            }
-//        }
-//            break;
-//        case GKPlayerStatusEnded:
-//        {
-//            NSLog(@"播放结束了");
-//            if (self.isPlaying) {
-//                [self.controlView setupPauseBtn];
-//                self.isPlaying = NO;
-//
-//                [self.coverView pausedWithAnimated:YES];
-//
-//                self.controlView.currentTime = self.controlView.totalTime;
-//
-//                // 播放结束，自动播放下一首
-//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                    self.isAutoPlay = YES;
-//
-//                    [self playNextMusic];
-//                });
-//            }else {
-//                [self.controlView setupPauseBtn];
-//                self.isPlaying = NO;
-//
-//                [self.coverView pausedWithAnimated:YES];
-//            }
-//        }
-//            break;
-//        case GKPlayerStatusError:
-//        {
-//            NSLog(@"播放出错了");
-//            [self.controlView setupPauseBtn];
-//            self.isPlaying = NO;
-//
-//            [self.coverView pausedWithAnimated:YES];
-//        }
-//            break;
-//
-//        default:
-//            break;
-//    }
-//    [kNotificationCenter postNotificationName:GKWYMUSIC_PLAYSTATECHANGENOTIFICATION object:nil];
-//}
 
 // 播放进度改变
 - (void)gkPlayer:(GKAudioPlayer *)player currentTime:(NSTimeInterval)currentTime totalTime:(NSTimeInterval)totalTime progress:(float)progress {
+    
+    // 记录播放id和进度
+    NSDictionary *dic = @{@"play_id": self.currentPlayId, @"play_progress": @(progress)};
+    [kUserDefaults setObject:dic forKey:GKWYMUSIC_USERDEFAULTSKEY_PLAYINFO];
+    
     if (self.isDraging) return;
     if (self.isSeeking) return;
     
@@ -1254,22 +1180,6 @@
     [self.lyricView scrollLyricWithCurrentTime:currentTime totalTime:totalTime];
 }
 
-//- (void)gkPlayer:(GKPlayer *)player currentTime:(NSTimeInterval)currentTime totalTime:(NSTimeInterval)totalTime progress:(float)progress {
-//    if (self.isDraging) return;
-//    if (self.isSeeking) return;
-//
-//    self.controlView.currentTime = [GKWYMusicTool timeStrWithMsTime:currentTime];
-//    self.controlView.progress    = progress;
-//
-//    // 更新锁屏信息
-//    [self setupLockScreenMediaInfo];
-//
-//    // 歌词滚动
-//    if (!self.isPlaying) return;
-//
-//    [self.lyricView scrollLyricWithCurrentTime:currentTime totalTime:totalTime];
-//}
-
 // 播放总时间
 - (void)gkPlayer:(GKAudioPlayer *)player totalTime:(NSTimeInterval)totalTime {
     self.controlView.totalTime = [GKWYMusicTool timeStrWithMsTime:totalTime];
@@ -1281,12 +1191,6 @@
 - (void)gkPlayer:(GKAudioPlayer *)player bufferProgress:(float)bufferProgress {
     self.controlView.bufferProgress = bufferProgress;
 }
-
-//- (void)gkPlayer:(GKPlayer *)player totalTime:(NSTimeInterval)totalTime {
-//    self.controlView.totalTime = [GKWYMusicTool timeStrWithMsTime:totalTime];
-//    
-//    self.duration               = totalTime;
-//}
 
 #pragma mark - GKWYMusicControlViewDelegate
 - (void)controlView:(GKWYMusicControlView *)controlView didClickLove:(UIButton *)loveBtn {
@@ -1301,7 +1205,19 @@
 
 - (void)controlView:(GKWYMusicControlView *)controlView didClickDownload:(UIButton *)downloadBtn {
     NSLog(@"下载");
-    if (!self.model.isDownload) {
+    if (self.model.isDownload) {
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:@"该歌曲已下载，是否删除下载文件？" preferredStyle:UIAlertControllerStyleAlert];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            GKDownloadModel *dModel = [GKDownloadModel new];
+            dModel.fileID = self.model.song_id;
+            
+            [KDownloadManager removeDownloadArr:@[dModel]];
+        }]];
+        
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+        
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }else {
         [GKWYMusicTool downloadMusicWithSongId:self.model.song_id];
     }
 }
@@ -1312,6 +1228,49 @@
 
 - (void)controlView:(GKWYMusicControlView *)controlView didClickMore:(UIButton *)moreBtn {
     NSLog(@"更多");
+    NSMutableArray *items = [NSMutableArray new];
+    
+    GKActionSheetItem *shareItem = [GKActionSheetItem new];
+    shareItem.title = @"分享";
+    shareItem.imgName = @"cm2_lay_icn_share_new";
+    shareItem.enabled = YES;
+    shareItem.clickBlock = ^{
+        
+    };
+    [items addObject:shareItem];
+    
+    GKActionSheetItem *artistItem = [GKActionSheetItem new];
+    artistItem.title = [NSString stringWithFormat:@"歌手：%@", self.model.artist_name];
+    artistItem.imgName = @"cm2_lay_icn_artist_new";
+    artistItem.enabled = YES;
+    artistItem.clickBlock = ^{
+        [self pushToArtistVC];
+    };
+    [items addObject:artistItem];
+    
+    GKActionSheetItem *albumItem = [GKActionSheetItem new];
+    albumItem.title = [NSString stringWithFormat:@"专辑：%@", self.model.album_title];
+    albumItem.imgName = @"cm2_lay_icn_album_new";
+    albumItem.enabled = YES;
+    albumItem.clickBlock = ^{
+        [self pushToAlbumVC];
+    };
+    [items addObject:albumItem];
+    
+    if (self.model.has_mv) {
+        GKActionSheetItem *mvItem = [GKActionSheetItem new];
+        mvItem.title = @"查看MV";
+        mvItem.imgName = @"cm2_lay_icn_mv_new";
+        mvItem.enabled = YES;
+        mvItem.clickBlock = ^{
+            
+        };
+        [items addObject:mvItem];
+    }
+    
+    NSString *title = [NSString stringWithFormat:@"歌曲:%@", self.model.song_name];
+    
+    [GKActionSheet showActionSheetWithTitle:title itemInfos:items selectedBlock:nil];
 }
 
 - (void)controlView:(GKWYMusicControlView *)controlView didClickLoop:(UIButton *)loopBtn {
@@ -1512,10 +1471,45 @@
                 // 改变状态
                 self.controlView.is_download = self.model.isDownload;
             });
-        }else {
-            
         }
     }
+}
+
+- (void)pushToArtistVC {
+    NSArray *tinguids = [self.model.all_artist_ting_uid componentsSeparatedByString:@","];
+    NSArray *artists  = [self.model.all_artist_id componentsSeparatedByString:@","];
+    if (tinguids.count == artists.count && tinguids.count > 1) {
+        NSMutableArray *items = [NSMutableArray new];
+        NSArray *titles = [self.model.artist_name componentsSeparatedByString:@","];
+        
+        __typeof(self) __weak weakSelf = self;
+        [tinguids enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            GKActionSheetItem *item = [GKActionSheetItem new];
+            item.title = titles[idx];
+            item.clickBlock = ^{
+                GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
+                artistVC.tinguid  = obj;
+                artistVC.artistid = artists[idx];
+                [weakSelf.navigationController pushViewController:artistVC animated:YES];
+            };
+            [items addObject:item];
+        }];
+        
+        [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手"
+                                      itemInfos:items
+                                  selectedBlock:nil];
+    }else {
+        GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
+        artistVC.tinguid  = tinguids.firstObject;
+        artistVC.artistid = artists.firstObject;
+        [self.navigationController pushViewController:artistVC animated:YES];
+    }
+}
+
+- (void)pushToAlbumVC {
+    GKWYAlbumViewController *albumVC = [GKWYAlbumViewController new];
+    albumVC.album_id = self.model.album_id;
+    [self.navigationController pushViewController:albumVC animated:YES];
 }
 
 #pragma mark - 懒加载

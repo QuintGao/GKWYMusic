@@ -43,6 +43,7 @@
     [super viewDidLoad];
     
     self.gk_navigationItem.leftBarButtonItem = nil;
+    self.gk_navShadowColor = [UIColor clearColor];
     
     [self.gk_navigationBar addSubview:self.searchBar];
     
@@ -68,14 +69,14 @@
     }];
     
     [self loadHotSearch];
+    
+    [self.searchBar becomeFirstResponder];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [GKWYMusicTool hidePlayBtn];
-    
-    [self.searchBar becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -106,6 +107,7 @@
 #pragma mark - EVNCustomSearchBarDelegate
 - (BOOL)searchBarShouldBeginEditing:(GKSearchBar *)searchBar {
     self.historyTableView.hidden = NO;
+    self.pageVC.view.hidden = YES;
     
     return YES;
 }
@@ -185,6 +187,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GKWYSearchViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGKWYSearchViewCellID];
     cell.text = self.historys[indexPath.row];
+    
+    __typeof(self) __weak weakSelf = self;
+    cell.deleteClickBlock = ^{
+        [weakSelf.historys removeObjectAtIndex:indexPath.row];
+        
+        [weakSelf.historyTableView reloadData];
+    };
     return cell;
 }
 
@@ -229,6 +238,14 @@
 - (GKWYSearchHeaderView *)headerView {
     if (!_headerView) {
         _headerView = [GKWYSearchHeaderView new];
+        
+        __typeof(self) __weak weakSelf = self;
+        
+        _headerView.tagBtnClickBlock = ^(GKWYTagModel *model) {
+            
+            [weakSelf.searchBar resignFirstResponder];
+            [weakSelf searchResultWithText:model.word];
+        };
     }
     return _headerView;
 }
