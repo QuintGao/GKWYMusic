@@ -30,14 +30,12 @@ static GKActionSheet *currentActionSheet;
 
 @property (nonatomic, strong) NSArray<GKActionSheetItem *> *itemInfos;
 
-@property (nonatomic, copy) void(^selectedBlock)(NSInteger index);
-
 @end
 
 @implementation GKActionSheet
 
-+ (void)showActionSheetWithTitle:(NSString *)title itemInfos:(NSArray<GKActionSheetItem *> *)itemInfos selectedBlock:(void (^)(NSInteger))selectedIndexBlock {
-    GKActionSheet *actionSheet = [[GKActionSheet alloc] initWithTitle:title itemInfos:itemInfos selectedBlock:selectedIndexBlock];
++ (void)showActionSheetWithTitle:(NSString *)title itemInfos:(NSArray<GKActionSheetItem *> *)itemInfos {
+    GKActionSheet *actionSheet = [[GKActionSheet alloc] initWithTitle:title itemInfos:itemInfos];
     currentActionSheet = actionSheet;
     [actionSheet show];
 }
@@ -50,7 +48,7 @@ static GKActionSheet *currentActionSheet;
     return [GKCover hasCover];
 }
 
-- (instancetype)initWithTitle:(NSString *)title itemInfos:(NSArray<GKActionSheetItem *> *)itemInfos selectedBlock:(void (^)(NSInteger))selectedIndexBlcok {
+- (instancetype)initWithTitle:(NSString *)title itemInfos:(NSArray<GKActionSheetItem *> *)itemInfos {
     if (self = [super init]) {
         [self addSubview:self.topView];
         [self.topView addSubview:self.titleLabel];
@@ -58,7 +56,6 @@ static GKActionSheet *currentActionSheet;
         
         self.titleLabel.text    = title;
         self.itemInfos          = itemInfos;
-        self.selectedBlock      = selectedIndexBlcok;
         
         [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.equalTo(self);
@@ -143,15 +140,11 @@ static GKActionSheet *currentActionSheet;
     GKActionSheetItem *item = self.itemInfos[indexPath.row];
     
     if (item.enabled) {
-        [GKCover hideCover];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kAnimDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [GKCover hideCoverWithHideBlock:^{
             GKActionSheetItem *item = self.itemInfos[indexPath.row];
             
             !item.clickBlock ? : item.clickBlock();
-            
-            !self.selectedBlock ? : self.selectedBlock(indexPath.row);
-        });
+        }];
     }
 }
 

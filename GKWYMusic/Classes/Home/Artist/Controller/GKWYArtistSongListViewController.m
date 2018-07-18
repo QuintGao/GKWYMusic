@@ -11,6 +11,7 @@
 #import "GKActionSheet.h"
 #import "GKWYAlbumViewController.h"
 #import "GKWYArtistViewController.h"
+#import "GKWYVideoViewController.h"
 
 @interface GKWYArtistSongListViewController ()<GKDownloadManagerDelegate, GKWYListViewCellDelegate>
 
@@ -96,7 +97,9 @@
 
 #pragma mark - GKWYListViewCellDelegate
 - (void)cellDidClickMVBtn:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
-    [GKMessageTool showText:@"MV"];
+    GKWYVideoViewController *videoVC = [GKWYVideoViewController new];
+    videoVC.song_id = model.song_id;
+    [self.navigationController pushViewController:videoVC animated:YES];
 }
 
 - (void)cellDidClickNextItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
@@ -130,6 +133,7 @@
         [tinguids enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             GKActionSheetItem *item = [GKActionSheetItem new];
             item.title = titles[idx];
+            item.enabled = YES;
             item.clickBlock = ^{
                 GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
                 artistVC.tinguid  = obj;
@@ -139,9 +143,7 @@
             [items addObject:item];
         }];
         
-        [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手"
-                                      itemInfos:items
-                                  selectedBlock:nil];
+        [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手" itemInfos:items];
     }else {
         GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
         artistVC.tinguid  = tinguids.firstObject;
@@ -157,9 +159,10 @@
 }
 
 - (void)cellDidClickMVItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
-    [GKMessageTool showText:@"MV"];
+    GKWYVideoViewController *videoVC = [GKWYVideoViewController new];
+    videoVC.song_id = model.song_id;
+    [self.navigationController pushViewController:videoVC animated:YES];
 }
-
 
 // 单个下载
 - (void)downloadMusicWithModel:(GKWYMusicModel *)model {

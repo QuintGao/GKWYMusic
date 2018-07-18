@@ -22,8 +22,7 @@
 @interface GKActionSheet : UIView
 
 + (void)showActionSheetWithTitle:(NSString *)title
-                       itemInfos:(NSArray <GKActionSheetItem *> *)itemInfos
-                   selectedBlock:(void (^)(NSInteger idx))selectedIndexBlock;
+                       itemInfos:(NSArray <GKActionSheetItem *> *)itemInfos;
 
 // 更新item
 + (void)updateActionSheetItemWithIndex:(NSInteger)index item:(GKActionSheetItem *)item;

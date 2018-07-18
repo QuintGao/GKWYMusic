@@ -351,9 +351,7 @@
     
     NSString *title = [NSString stringWithFormat:@"歌曲:%@", model.song_name];
     
-    [GKActionSheet showActionSheetWithTitle:title
-                                  itemInfos:items
-                              selectedBlock:nil];
+    [GKActionSheet showActionSheetWithTitle:title itemInfos:items];
 }
 
 #pragma mark - 懒加载

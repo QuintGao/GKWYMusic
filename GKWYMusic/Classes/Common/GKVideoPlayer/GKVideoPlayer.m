@@ -276,13 +276,15 @@
     __weak __typeof(self) weakSelf = self;
     [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         // 当前时间
-        CGFloat currentTime = CMTimeGetSeconds(time);
+        float currentTime = CMTimeGetSeconds(time);
         // 总时间
-        CGFloat totalTime = CMTimeGetSeconds(weakSelf.player.currentItem.duration);
+        float totalTime = CMTimeGetSeconds(weakSelf.player.currentItem.duration);
         // 进度
-        CGFloat progress = totalTime <= 0 ? 0 : currentTime / totalTime;
+        float progress = totalTime == 0 ? 0 : (currentTime / totalTime);
         
-        weakSelf.slider.value = progress;
+        if (progress >= 0) {
+            weakSelf.slider.value = progress;
+        }
     }];
 }
 

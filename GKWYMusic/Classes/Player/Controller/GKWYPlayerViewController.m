@@ -15,6 +15,7 @@
 #import "GKTimer.h"
 #import "GKWYArtistViewController.h"
 #import "GKWYAlbumViewController.h"
+#import "GKWYVideoViewController.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -1232,7 +1233,7 @@
     shareItem.imgName = @"cm2_lay_icn_share_new";
     shareItem.enabled = YES;
     shareItem.clickBlock = ^{
-        
+        [GKMessageTool showText:@"分享"];
     };
     [items addObject:shareItem];
     
@@ -1246,10 +1247,10 @@
     [items addObject:artistItem];
     
     GKActionSheetItem *albumItem = [GKActionSheetItem new];
-    albumItem.title = [NSString stringWithFormat:@"专辑：%@", self.model.album_title];
-    albumItem.imgName = @"cm2_lay_icn_album_new";
-    albumItem.enabled = YES;
-    albumItem.clickBlock = ^{
+    albumItem.title         = [NSString stringWithFormat:@"专辑：%@", self.model.album_title];
+    albumItem.imgName       = @"cm2_lay_icn_alb_new";
+    albumItem.enabled       = YES;
+    albumItem.clickBlock    = ^{
         [self pushToAlbumVC];
     };
     [items addObject:albumItem];
@@ -1260,14 +1261,16 @@
         mvItem.imgName = @"cm2_lay_icn_mv_new";
         mvItem.enabled = YES;
         mvItem.clickBlock = ^{
-            
+            GKWYVideoViewController *videoVC = [GKWYVideoViewController new];
+            videoVC.song_id = self.model.song_id;
+            [self.navigationController pushViewController:videoVC animated:YES];
         };
         [items addObject:mvItem];
     }
     
     NSString *title = [NSString stringWithFormat:@"歌曲:%@", self.model.song_name];
     
-    [GKActionSheet showActionSheetWithTitle:title itemInfos:items selectedBlock:nil];
+    [GKActionSheet showActionSheetWithTitle:title itemInfos:items];
 }
 
 - (void)controlView:(GKWYMusicControlView *)controlView didClickLoop:(UIButton *)loopBtn {
@@ -1356,12 +1359,12 @@
            contentView:self.listView
                  style:GKCoverStyleTranslucent
              showStyle:GKCoverShowStyleBottom
-             animStyle:GKCoverAnimStyleBottom
+         showAnimStyle:GKCoverShowAnimStyleBottom
+         hideAnimStyle:GKCoverHideAnimStyleBottom
               notClick:NO
              showBlock:^{
         self.gk_interactivePopDisabled = YES;
-    }
-             hideBlock:^{
+    } hideBlock:^{
         self.gk_interactivePopDisabled = NO;
     }];
 }
@@ -1428,7 +1431,7 @@
 
 #pragma mark - GKWYMusicListViewDelegate
 - (void)listViewDidClose:(GKWYMusicListView *)listView {
-    [GKCover hideView];
+    [GKCover hideCover];
 }
 
 - (void)listView:(GKWYMusicListView *)listView didSelectRow:(NSInteger)row {
@@ -1483,6 +1486,7 @@
         [tinguids enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             GKActionSheetItem *item = [GKActionSheetItem new];
             item.title = titles[idx];
+            item.enabled = YES;
             item.clickBlock = ^{
                 GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
                 artistVC.tinguid  = obj;
@@ -1492,9 +1496,7 @@
             [items addObject:item];
         }];
         
-        [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手"
-                                      itemInfos:items
-                                  selectedBlock:nil];
+        [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手" itemInfos:items];
     }else {
         GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
         artistVC.tinguid  = tinguids.firstObject;
