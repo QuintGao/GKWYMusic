@@ -56,11 +56,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSString *lastPlayId = [GKWYMusicTool lastMusicId];
+    NSDictionary *musicInfo = [GKWYMusicTool lastMusicInfo];
     
     [self.searchBar mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.gk_navigationBar).offset(15.0f);
-        make.right.equalTo(self.gk_navigationBar).offset(lastPlayId ? -52.0f : -15.0f);
+        make.right.equalTo(self.gk_navigationBar).offset(musicInfo ? -52.0f : -15.0f);
         make.centerY.equalTo(self.gk_navigationBar.mas_bottom).offset(-44.0f);
         make.height.mas_equalTo(44.0f);
     }];

@@ -68,6 +68,15 @@
     });
 }
 
+- (void)setPlayerPlayRate:(float)playRate {
+    if (playRate < 0.5) playRate = 0.5f;
+    if (playRate > 2.0) playRate = 2.0f;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.audioStream setPlayRate:playRate];
+    });
+}
+
 - (void)play {
     if (self.playerState == GKAudioPlayerStatePlaying) return;
     
@@ -236,7 +245,10 @@
 #pragma mark - 懒加载
 - (FSAudioStream *)audioStream {
     if (!_audioStream) {
-        _audioStream = [[FSAudioStream alloc] init];
+        FSStreamConfiguration *configuration = [FSStreamConfiguration new];
+        configuration.enableTimeAndPitchConversion = YES;
+        
+        _audioStream = [[FSAudioStream alloc] initWithConfiguration:configuration];
         _audioStream.strictContentTypeChecking = NO;
         _audioStream.defaultContentType = @"audio/x-m4a";
         

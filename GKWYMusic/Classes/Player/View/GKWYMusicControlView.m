@@ -10,20 +10,22 @@
 
 @interface GKWYMusicControlView()<GKSliderViewDelegate>
 
-@property (nonatomic, strong) UIButton *loveBtn;
-@property (nonatomic, strong) UIButton *downloadBtn;
-@property (nonatomic, strong) UIButton *commentBtn;
-@property (nonatomic, strong) UIButton *moreBtn;
+@property (nonatomic, strong) UIButton  *loveBtn;
+@property (nonatomic, strong) UIButton  *downloadBtn;
+@property (nonatomic, strong) UIButton  *commentBtn;
+@property (nonatomic, strong) UIButton  *moreBtn;
 
-@property (nonatomic, strong) UIButton *playBtn;
-@property (nonatomic, strong) UIButton *loopBtn;
-@property (nonatomic, strong) UIButton *prevBtn;
-@property (nonatomic, strong) UIButton *nextBtn;
-@property (nonatomic, strong) UIButton *listBtn;
+@property (nonatomic, strong) UIButton  *playBtn;
+@property (nonatomic, strong) UIButton  *loopBtn;
+@property (nonatomic, strong) UIButton  *prevBtn;
+@property (nonatomic, strong) UIButton  *nextBtn;
+@property (nonatomic, strong) UIButton  *listBtn;
 
-@property (nonatomic, strong) UIView *sliderView;
-@property (nonatomic, strong) UILabel *currentLabel;
-@property (nonatomic, strong) UILabel *totalLabel;
+@property (nonatomic, strong) UIView    *sliderView;
+@property (nonatomic, strong) UILabel   *currentLabel;
+@property (nonatomic, strong) UILabel   *totalLabel;
+
+@property (nonatomic, assign) BOOL      isLoading;
 
 @end
 
@@ -183,12 +185,16 @@
     _progress = progress;
     
     self.slider.value = progress;
+    
+    [self.slider layoutIfNeeded];
 }
 
 - (void)setBufferProgress:(float)bufferProgress {
     _bufferProgress = bufferProgress;
     
     self.slider.bufferValue = bufferProgress;
+    
+    [self.slider layoutIfNeeded];
 }
 
 - (void)setIs_love:(BOOL)is_love {
@@ -220,10 +226,14 @@
 }
 
 - (void)showLoadingAnim {
+    if (self.isLoading) return;
+    self.isLoading = YES;
     [self.slider showLoading];
 }
 
 - (void)hideLoadingAnim {
+    if (!self.isLoading) return;
+    self.isLoading = NO;
     [self.slider hideLoading];
 }
 

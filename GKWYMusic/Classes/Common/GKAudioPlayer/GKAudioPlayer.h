@@ -85,6 +85,13 @@ typedef NS_ENUM(NSUInteger, GKAudioBufferState) {
 - (void)setPlayerProgress:(float)progress;
 
 /**
+ 设置播放速率 0.5 - 2.0， 1.0是正常速率
+ 
+ @param progress 速率
+ */
+- (void)setPlayerPlayRate:(float)playRate;
+
+/**
  播放
  */
 - (void)play;

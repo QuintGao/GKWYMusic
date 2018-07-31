@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) GKWYVideoDetailModel  *videoModel;
 
+@property (nonatomic, assign) BOOL                  isPausedMusic;
+
 @end
 
 @implementation GKWYVideoViewController
@@ -52,6 +54,7 @@
     [GKWYMusicTool hidePlayBtn];
     
     if (kWYPlayerVC.isPlaying) {
+        self.isPausedMusic = YES;
         [kWYPlayerVC pauseMusic];
     }
     
@@ -61,7 +64,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-    if (!kWYPlayerVC.isPlaying && kPlayer.playerState == GKAudioPlayerStatePaused) {
+    if (!kWYPlayerVC.isPlaying && self.isPausedMusic) {
         [kWYPlayerVC playMusic];
     }
 }

@@ -19,9 +19,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.gk_navigationItem.title = @"歌手简介";
+    
     [self.view addSubview:self.scrollView];
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(NAVBAR_HEIGHT, 0, 0, 0));
     }];
     
     UILabel *contentLabel = [UILabel new];
