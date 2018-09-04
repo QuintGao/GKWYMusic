@@ -34,7 +34,13 @@
 }
 
 - (void)getVideoDetail {
-    NSString *api = [NSString stringWithFormat:@"baidu.ting.mv.playMV&song_id=%@", self.song_id];
+    NSString *api = nil;
+    
+    if (self.song_id) {
+        api = [NSString stringWithFormat:@"baidu.ting.mv.playMV&song_id=%@", self.song_id];
+    }else {
+        api = [NSString stringWithFormat:@"baidu.ting.mv.playMV&mv_id=%@", self.mv_id];
+    }
     
     [kHttpManager get:api params:nil successBlock:^(id responseObject) {
         self.videoModel = [GKWYVideoDetailModel yy_modelWithDictionary:responseObject[@"result"]];
