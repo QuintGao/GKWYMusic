@@ -127,7 +127,6 @@
         scrollView.bounces = YES;
     }
     
-    
     // 蒙层渐变
     CGFloat alpha = 0;
     if (offsetY <= 80 - kArtistHeaderHeight) {

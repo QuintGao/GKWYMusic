@@ -93,7 +93,6 @@
         
         [self.sliderView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self);
-            //            make.top.equalTo(self).offset(30);
             make.top.equalTo(self.topView.mas_bottom);
             make.height.mas_equalTo(30);
         }];
@@ -386,8 +385,8 @@
 - (UIButton *)commentBtn {
     if (!_commentBtn) {
         _commentBtn = [UIButton new];
-        [_commentBtn setImage:[UIImage imageNamed:@"cm2_fm_btn_cmt"] forState:UIControlStateNormal];
-        [_commentBtn setImage:[UIImage imageNamed:@"cm2_fm_btn_cmt_prs"] forState:UIControlStateHighlighted];
+        [_commentBtn setImage:[UIImage imageNamed:@"cm2_list_detail_icn_cmt"] forState:UIControlStateNormal];
+        [_commentBtn setImage:[UIImage imageNamed:@"cm2_list_detail_icn_cmt_prs"] forState:UIControlStateHighlighted];
         [_commentBtn addTarget:self action:@selector(commentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _commentBtn;
