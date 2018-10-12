@@ -50,7 +50,7 @@
 #define STATUSBAR_HEIGHT    20.0f
 //
 //  tabBar高度
-#define TABBAR_HEIGHT       (IS_58INCH ? 83.0f : 49.0f)self.headerHeight
+#define TABBAR_HEIGHT       (IS_58INCH ? 83.0f : 49.0f)
 
 #pragma mark - 歌手详情页宏定义
 // header高度

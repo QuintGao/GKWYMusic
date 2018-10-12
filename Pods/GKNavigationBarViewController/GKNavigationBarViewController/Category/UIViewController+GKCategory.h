@@ -37,13 +37,13 @@ extern NSString *const GKViewControllerPropertyChangedNotification;
 @property (nonatomic, assign) UIStatusBarStyle gk_statusBarStyle;
 
 /** 设置状态栏是否显示(default is NO 即不隐藏) */
-@property (nonatomic, assign) BOOL gk_StatusBarHidden;
+@property (nonatomic, assign) BOOL gk_statusBarHidden;
 
 /** 设置返回按钮的类型 */
 @property (nonatomic, assign) GKNavigationBarBackStyle gk_backStyle;
 
 /** push代理 */
-@property (nonatomic, assign) id<GKViewControllerPushDelegate> gk_pushDelegate;
+@property (nonatomic, weak) id<GKViewControllerPushDelegate> gk_pushDelegate;
 
 /**
  返回显示的控制器

@@ -8,8 +8,9 @@
 
 #import "GKWYBaseTableViewController.h"
 #import "GKWYArtistModel.h"
+#import "JXPagerView.h"
 
-@interface GKWYBaseSubViewController : GKWYBaseTableViewController
+@interface GKWYBaseSubViewController : GKWYBaseTableViewController<JXPagerViewListViewDelegate>
 
 @property (nonatomic, assign) BOOL isRequest;
 @property (nonatomic, assign) int page;

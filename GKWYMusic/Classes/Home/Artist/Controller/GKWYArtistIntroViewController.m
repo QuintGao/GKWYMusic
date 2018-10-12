@@ -15,6 +15,8 @@
 
 @property (nonatomic, assign) CGFloat cellHeight;
 
+@property (nonatomic, copy) void(^scrollCallback)(UIScrollView *scrollView);
+
 @end
 
 @implementation GKWYArtistIntroViewController
@@ -63,6 +65,23 @@
         NSLog(@"%@", error);
         [self hideLoading];
     }];
+}
+
+#pragma mark - JXPagerViewListViewDelegate
+- (UIView *)listView {
+    return self.view;
+}
+
+- (UIScrollView *)listScrollView {
+    return self.tableView;
+}
+
+- (void)listViewDidScrollCallback:(void (^)(UIScrollView *))callback {
+    self.scrollCallback = callback;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    self.scrollCallback(scrollView);
 }
 
 #pragma mark - UITableViewDataSource

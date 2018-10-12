@@ -51,7 +51,8 @@
         configure.titleFont       = [UIFont systemFontOfSize:18.0f];
         configure.statusBarStyle  = UIStatusBarStyleLightContent;
         configure.backStyle       = GKNavigationBarBackStyleNone;
-        configure.navItem_space   = 4.0f;
+        configure.gk_navItemLeftSpace   = 4.0f;
+        configure.gk_navItemRightSpace  = 4.0f;
     }];
     
     // 适配iOS11

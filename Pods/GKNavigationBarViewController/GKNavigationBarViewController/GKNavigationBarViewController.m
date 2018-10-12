@@ -15,7 +15,8 @@
 
 @property (nonatomic, strong) UINavigationItem  *gk_navigationItem;
 
-@property (nonatomic, assign) CGFloat           lastNavItem_sapce;
+@property (nonatomic, assign) CGFloat           last_navItemLeftSpace;
+@property (nonatomic, assign) CGFloat           last_navItemRightSpace;
 
 @end
 
@@ -44,8 +45,12 @@
     
     // 重置navitem_space
     [GKConfigure updateConfigure:^(GKNavigationBarConfigure *configure) {
-        configure.navItem_space = self.navItem_space;
+        configure.gk_navItemLeftSpace   = self.gk_navItemLeftSpace;
+        configure.gk_navItemRightSpace  = self.gk_navItemRightSpace;
     }];
+    
+    // 获取状态
+    self.gk_navigationBar.gk_statusBarHidden = self.gk_statusBarHidden;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -53,29 +58,18 @@
     
     // 重置navitem_space
     [GKConfigure updateConfigure:^(GKNavigationBarConfigure *configure) {
-        configure.navItem_space = self.lastNavItem_sapce;
+        configure.gk_navItemLeftSpace  = self.last_navItemLeftSpace;
+        configure.gk_navItemRightSpace = self.last_navItemRightSpace;
     }];
 }
 
 #pragma mark - Public Methods
 - (void)showNavLine {
-    UIView *backgroundView = self.gk_navigationBar.subviews.firstObject;
-    
-    for (UIView *view in backgroundView.subviews) {
-        if (view.frame.size.height <= 1.0) {
-            view.hidden = NO;
-        }
-    }
+    self.gk_navLineHidden = NO;
 }
 
 - (void)hideNavLine {
-    UIView *backgroundView = self.gk_navigationBar.subviews.firstObject;
-    
-    for (UIView *view in backgroundView.subviews) {
-        if (view.frame.size.height <= 1.0) {
-            view.hidden = YES;
-        }
-    }
+    self.gk_navLineHidden = YES;
 }
 
 #pragma mark - private Methods
@@ -112,13 +106,16 @@
         self.gk_navTitleFont = configure.titleFont;
     }
     
-    self.gk_StatusBarHidden = configure.statusBarHidden;
+    self.gk_statusBarHidden = configure.statusBarHidden;
     self.gk_statusBarStyle  = configure.statusBarStyle;
     
     self.gk_backStyle       = configure.backStyle;
     
-    self.navItem_space      = configure.navItem_space;
-    self.lastNavItem_sapce  = configure.navItem_space;
+    self.gk_navItemLeftSpace  = configure.gk_navItemLeftSpace;
+    self.gk_navItemRightSpace = configure.gk_navItemRightSpace;
+    
+    self.last_navItemLeftSpace  = configure.gk_navItemLeftSpace;
+    self.last_navItemRightSpace = configure.gk_navItemRightSpace;
 }
 
 - (void)viewWillLayoutSubviews {
@@ -131,19 +128,19 @@
     CGFloat width  = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     
-    CGFloat systemVersion = [UIDevice currentDevice].systemVersion.floatValue;
-    
-    // 状态栏高度
-    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    
-    // 导航栏高度：横屏(状态栏显示：52，状态栏隐藏：32) 竖屏64
     CGFloat navBarH = 0;
-    
-    // 适配iOS11 iPhone X
-    if (systemVersion >= 11.0) {
-        navBarH = ((width > height) ? 32 : 44) + statusBarHeight;
-    }else {
-        navBarH = (width > height) ? (self.gk_StatusBarHidden ? 32 : 52) : (self.gk_StatusBarHidden ? 44 : 64);
+    if (width > height) { // 横屏
+        if (GK_IS_iPhoneX) {
+            navBarH = GK_NAVBAR_HEIGHT;
+        }else {
+            if (width == 736.0f && height == 414.0f) { // plus横屏
+                navBarH = self.gk_statusBarHidden ? GK_NAVBAR_HEIGHT : GK_STATUSBAR_NAVBAR_HEIGHT;
+            }else { // 其他机型横屏
+                navBarH = self.gk_statusBarHidden ? 32.0f : 52.0f;
+            }
+        }
+    }else { // 竖屏
+        navBarH = self.gk_statusBarHidden ? (GK_SAVEAREA_TOP + GK_NAVBAR_HEIGHT) : GK_STATUSBAR_NAVBAR_HEIGHT;
     }
     
     self.gk_navigationBar.frame = CGRectMake(0, 0, width, navBarH);
@@ -164,7 +161,7 @@
 
 #pragma mark - 控制状态栏的方法
 - (BOOL)prefersStatusBarHidden {
-    return self.gk_StatusBarHidden;
+    return self.gk_statusBarHidden;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -187,8 +184,10 @@
 }
 
 #pragma mark - setter
-- (void)setTitle:(NSString *)title {
-    self.gk_navigationItem.title = title;
+- (void)setGk_navTitle:(NSString *)gk_navTitle {
+    _gk_navTitle = gk_navTitle;
+    
+    self.gk_navigationItem.title = gk_navTitle;
 }
 
 - (void)setGk_navBarTintColor:(UIColor *)gk_navBarTintColor {
@@ -288,8 +287,24 @@
     self.gk_navigationItem.rightBarButtonItems = gk_navRightBarButtonItems;
 }
 
-- (void)setNavItem_space:(CGFloat)navItem_space {
-    _navItem_space = navItem_space;
+- (void)setGk_navItemLeftSpace:(CGFloat)gk_navItemLeftSpace {
+    _gk_navItemLeftSpace = gk_navItemLeftSpace;
+    
+    self.gk_navigationBar.gk_navItemLeftSpace = gk_navItemLeftSpace;
+}
+
+- (void)setGk_navItemRightSpace:(CGFloat)gk_navItemRightSpace {
+    _gk_navItemRightSpace = gk_navItemRightSpace;
+    
+    self.gk_navigationBar.gk_navItemRightSpace = gk_navItemRightSpace;
+}
+
+- (void)setGk_navLineHidden:(BOOL)gk_navLineHidden {
+    _gk_navLineHidden = gk_navLineHidden;
+    
+    self.gk_navigationBar.gk_navLineHidden = gk_navLineHidden;
+    
+    [self.gk_navigationBar layoutSubviews];
 }
 
 - (UIImage *)imageWithColor:(UIColor *)color {
