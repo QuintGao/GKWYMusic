@@ -10,20 +10,22 @@
 
 @interface GKWYMusicControlView()<GKSliderViewDelegate>
 
-@property (nonatomic, strong) UIButton *loveBtn;
-@property (nonatomic, strong) UIButton *downloadBtn;
-@property (nonatomic, strong) UIButton *commentBtn;
-@property (nonatomic, strong) UIButton *moreBtn;
+@property (nonatomic, strong) UIButton  *loveBtn;
+@property (nonatomic, strong) UIButton  *downloadBtn;
+@property (nonatomic, strong) UIButton  *commentBtn;
+@property (nonatomic, strong) UIButton  *moreBtn;
 
-@property (nonatomic, strong) UIButton *playBtn;
-@property (nonatomic, strong) UIButton *loopBtn;
-@property (nonatomic, strong) UIButton *prevBtn;
-@property (nonatomic, strong) UIButton *nextBtn;
-@property (nonatomic, strong) UIButton *listBtn;
+@property (nonatomic, strong) UIButton  *playBtn;
+@property (nonatomic, strong) UIButton  *loopBtn;
+@property (nonatomic, strong) UIButton  *prevBtn;
+@property (nonatomic, strong) UIButton  *nextBtn;
+@property (nonatomic, strong) UIButton  *listBtn;
 
-@property (nonatomic, strong) UIView *sliderView;
-@property (nonatomic, strong) UILabel *currentLabel;
-@property (nonatomic, strong) UILabel *totalLabel;
+@property (nonatomic, strong) UIView    *sliderView;
+@property (nonatomic, strong) UILabel   *currentLabel;
+@property (nonatomic, strong) UILabel   *totalLabel;
+
+@property (nonatomic, assign) BOOL      isLoading;
 
 @end
 
@@ -91,7 +93,6 @@
         
         [self.sliderView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self);
-            //            make.top.equalTo(self).offset(30);
             make.top.equalTo(self.topView.mas_bottom);
             make.height.mas_equalTo(30);
         }];
@@ -183,12 +184,16 @@
     _progress = progress;
     
     self.slider.value = progress;
+    
+    [self.slider layoutIfNeeded];
 }
 
 - (void)setBufferProgress:(float)bufferProgress {
     _bufferProgress = bufferProgress;
     
     self.slider.bufferValue = bufferProgress;
+    
+    [self.slider layoutIfNeeded];
 }
 
 - (void)setIs_love:(BOOL)is_love {
@@ -220,10 +225,14 @@
 }
 
 - (void)showLoadingAnim {
+    if (self.isLoading) return;
+    self.isLoading = YES;
     [self.slider showLoading];
 }
 
 - (void)hideLoadingAnim {
+    if (!self.isLoading) return;
+    self.isLoading = NO;
     [self.slider hideLoading];
 }
 
@@ -376,8 +385,8 @@
 - (UIButton *)commentBtn {
     if (!_commentBtn) {
         _commentBtn = [UIButton new];
-        [_commentBtn setImage:[UIImage imageNamed:@"cm2_fm_btn_cmt"] forState:UIControlStateNormal];
-        [_commentBtn setImage:[UIImage imageNamed:@"cm2_fm_btn_cmt_prs"] forState:UIControlStateHighlighted];
+        [_commentBtn setImage:[UIImage imageNamed:@"cm2_list_detail_icn_cmt"] forState:UIControlStateNormal];
+        [_commentBtn setImage:[UIImage imageNamed:@"cm2_list_detail_icn_cmt_prs"] forState:UIControlStateHighlighted];
         [_commentBtn addTarget:self action:@selector(commentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _commentBtn;

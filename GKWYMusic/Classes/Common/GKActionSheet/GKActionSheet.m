@@ -88,20 +88,19 @@ static GKActionSheet *currentActionSheet;
 
 - (void)show {
     UIView *bgView = [UIView new];
-    bgView.frame = CGRectMake(0, 0, KScreenW, KScreenH);
-    bgView.backgroundColor = [UIColor blackColor];
-    bgView.alpha = 0.5f;
-    
+    bgView.backgroundColor = [UIColor whiteColor];
     [bgView addSubview:self];
     
     CGFloat relaityH = self.itemInfos.count * kItemH + kTopH;
     
     CGFloat height = relaityH > kMaxH ? kMaxH : relaityH;
     
-    self.frame = CGRectMake(0, KScreenH, KScreenW, height);
+    self.frame = CGRectMake(0, 0, KScreenW, height);
+    
+    bgView.gk_size = CGSizeMake(KScreenW, IS_58INCH ? height + 34.0f : height);
     
     [GKCover coverFrom:[UIApplication sharedApplication].keyWindow
-           contentView:self
+           contentView:bgView
                  style:GKCoverStyleTranslucent
              showStyle:GKCoverShowStyleBottom
          showAnimStyle:GKCoverShowAnimStyleBottom

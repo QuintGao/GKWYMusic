@@ -10,6 +10,7 @@
 
 @interface GKWYVideoViewController : GKWYBaseViewController
 
+@property (nonatomic, copy) NSString *mv_id;
 @property (nonatomic, copy) NSString *song_id;
 
 @end

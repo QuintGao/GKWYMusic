@@ -106,8 +106,8 @@
     [self saveHistory:arr];
 }
 
-+ (NSString *)lastMusicId {
-    return [kUserDefaults objectForKey:GKWYMUSIC_USERDEFAULTSKEY_LASTPLAYID];
++ (NSDictionary *)lastMusicInfo {
+    return [kUserDefaults objectForKey:GKWYMUSIC_USERDEFAULTSKEY_PLAYINFO];
 }
 
 + (NSInteger)playStyle {

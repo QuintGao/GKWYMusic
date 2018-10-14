@@ -8,6 +8,7 @@
 
 #import "GKWYArtistVideoListViewController.h"
 #import "GKWYVideoViewCell.h"
+#import "GKWYVideoViewController.h"
 
 @interface GKWYArtistVideoListViewController ()
 
@@ -80,6 +81,14 @@
     GKWYVideoViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kWYVideoViewCellID forIndexPath:indexPath];
     cell.model = self.dataList[indexPath.row];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    GKWYVideoModel *model = self.dataList[indexPath.row];
+    
+    GKWYVideoViewController *videoVC = [GKWYVideoViewController new];
+    videoVC.mv_id = model.mv_id;
+    [self.navigationController pushViewController:videoVC animated:YES];
 }
 
 @end

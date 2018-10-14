@@ -66,6 +66,8 @@
 
 @property (nonatomic, assign) BOOL                  ifNowPlay;      // 是否立即播放
 
+@property (nonatomic, assign) float                 toSeekProgress; // seek进度
+
 @end
 
 @implementation GKWYPlayerViewController
@@ -128,7 +130,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    KDownloadManager.delegate       = self;
+    KDownloadManager.delegate = self;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -185,18 +187,21 @@
 #pragma mark - Public Methods
 - (void)initialData {
     NSArray *musics = [GKWYMusicTool musicList];
-    // 上一次id
-    NSString *lastMusicId = [GKWYMusicTool lastMusicId];
     
-    if (lastMusicId) { // 如果有播放记录列表肯定不会为空
+    // 获取历史播放内容及进度
+    NSDictionary *playInfo = [GKWYMusicTool lastMusicInfo];
+    
+    if (playInfo) { // 如果有播放记录列表肯定不会为空
         // 播放状态
         self.playStyle = [GKWYMusicTool playStyle];
         // 设置播放器列表
         [self setPlayerList:musics];
         
         // 获取索引，加载数据
-        NSInteger index = [GKWYMusicTool indexFromID:lastMusicId];
+        NSInteger index = [GKWYMusicTool indexFromID:playInfo[@"play_id"]];
         [self loadMusicWithIndex:index];
+        
+        self.toSeekProgress = [playInfo[@"play_progress"] floatValue];
     }else {
         [GKWYMusicTool hidePlayBtn];
     }
@@ -242,9 +247,6 @@
         self.ifNowPlay = YES;
         
         [self.coverView initMusicList:self.playList idx:index];
-        
-        // 记录播放的id
-        [kUserDefaults setValue:model.song_id forKey:GKWYMUSIC_USERDEFAULTSKEY_LASTPLAYID];
         
         [kNotificationCenter postNotificationName:GKWYMUSIC_PLAYMUSICCHANGENOTIFICATION object:nil];
         
@@ -311,8 +313,6 @@
         
         self.ifNowPlay = NO;
         
-        // 记录播放的id
-        [kUserDefaults setValue:model.song_id forKey:GKWYMUSIC_USERDEFAULTSKEY_LASTPLAYID];
         [kNotificationCenter postNotificationName:GKWYMUSIC_PLAYMUSICCHANGENOTIFICATION object:nil];
         
         self.model = model;
@@ -335,7 +335,7 @@
             [self getMusicInfo];
         }else {
             if (kPlayer.playerState == GKAudioPlayerStateStopped) {
-                [kPlayer playFromProgress:self.controlView.progress];
+                [kPlayer play];
             }else if (kPlayer.playerState == GKAudioPlayerStatePaused) {
                 [kPlayer resume];
             }else {
@@ -611,6 +611,20 @@
             self.bgImageView.image = [UIImage imageWithData:imgData];
         }
         
+        [self resetCoverViewWithModel:self.model];
+        
+        [self setupTitleWithModel:self.model];
+        
+        NSInteger duration = self.model.file_duration.integerValue;
+        // 总时间
+        self.controlView.totalTime = [GKWYMusicTool timeStrWithSecTime:duration];
+        
+        if (self.toSeekProgress) {
+            self.controlView.currentTime = [GKWYMusicTool timeStrWithSecTime:duration * self.toSeekProgress];
+            
+            self.controlView.progress = self.toSeekProgress;
+        }
+        
         // 设置播放地址
         kPlayer.playUrlStr = self.model.song_localPath;
         
@@ -637,20 +651,28 @@
         [kHttpManager get:api params:nil successBlock:^(id responseObject) {
             self.model = [GKWYMusicModel yy_modelWithDictionary:responseObject[@"songinfo"]];
             
-            // 背景图片
-            [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:self.model.pic_radio] placeholderImage:[UIImage imageNamed:@"cm2_fm_bg-ip6"]];
-            
             NSDictionary *bitrate = responseObject[@"bitrate"];
             self.model.file_link        = bitrate[@"file_link"];
             self.model.file_duration    = bitrate[@"file_duration"];
             self.model.file_size        = bitrate[@"file_size"];
             self.model.file_extension   = bitrate[@"file_extension"];
             
+            // 背景图片
+            [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:self.model.pic_radio] placeholderImage:[UIImage imageNamed:@"cm2_fm_bg-ip6"]];
+            
             [self resetCoverViewWithModel:self.model];
             
             [self setupTitleWithModel:self.model];
+            
+            NSInteger duration = self.model.file_duration.integerValue;
             // 总时间
-            self.controlView.totalTime = [GKWYMusicTool timeStrWithMsTime:self.model.file_duration.integerValue];
+            self.controlView.totalTime = [GKWYMusicTool timeStrWithSecTime:duration];
+            
+            if (self.toSeekProgress) {
+                self.controlView.currentTime = [GKWYMusicTool timeStrWithSecTime:duration * self.toSeekProgress];
+                
+                self.controlView.progress = self.toSeekProgress;
+            }
             
             // 设置播放地址
             kPlayer.playUrlStr = self.model.file_link;
@@ -755,10 +777,8 @@
     [playPauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         
         if (self.isPlaying) {
-            NSLog(@"暂停哦哦哦");
             [self pauseMusic];
         }else {
-            NSLog(@"播放哦哦哦");
             [self playMusic];
         }
         
@@ -1074,11 +1094,18 @@
                 [self.coverView playedWithAnimated:YES];
             });
             
+            if (self.toSeekProgress > 0) {
+                [kPlayer setPlayerProgress:self.toSeekProgress];
+                
+                self.toSeekProgress = 0;
+            }
+            
             self.isPlaying = YES;
         }
             break;
         case GKAudioPlayerStatePaused:{     // 暂停
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.controlView hideLoadingAnim];
                 [self.controlView setupPauseBtn];
                 if (self.isChanged) {
                     self.isChanged = NO;
@@ -1091,6 +1118,7 @@
             break;
         case GKAudioPlayerStateStoppedBy:{  // 主动停止
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.controlView hideLoadingAnim];
                 [self.controlView setupPauseBtn];
                 
                 if (self.isChanged) {
@@ -1105,6 +1133,7 @@
             break;
         case GKAudioPlayerStateStopped:{    // 打断停止
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.controlView hideLoadingAnim];
                 [self.controlView setupPauseBtn];
                 [self.coverView pausedWithAnimated:YES];
                 
@@ -1117,6 +1146,7 @@
             NSLog(@"播放结束了");
             if (self.isPlaying) {
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.controlView hideLoadingAnim];
                     [self.controlView setupPauseBtn];
                     [self.coverView pausedWithAnimated:YES];
                     self.controlView.currentTime = self.controlView.totalTime;
@@ -1132,6 +1162,7 @@
                 });
             }else {
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.controlView hideLoadingAnim];
                     [self.controlView setupPauseBtn];
                     [self.coverView pausedWithAnimated:YES];
                 });
@@ -1143,6 +1174,7 @@
         case GKAudioPlayerStateError: {     // 播放出错
             NSLog(@"播放出错了");
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.controlView hideLoadingAnim];
                 [self.controlView setupPauseBtn];
                 [self.coverView pausedWithAnimated:YES];
             });
@@ -1165,6 +1197,10 @@
     
     if (self.isDraging) return;
     if (self.isSeeking) return;
+    
+    if (self.toSeekProgress > 0) {
+        progress = self.toSeekProgress;
+    }
     
     self.controlView.currentTime = [GKWYMusicTool timeStrWithMsTime:currentTime];
     self.controlView.progress    = progress;
@@ -1375,7 +1411,12 @@
 
 - (void)controlView:(GKWYMusicControlView *)controlView didSliderTouchEnded:(float)value {
     self.isDraging = NO;
-    [kPlayer setPlayerProgress:value];
+    
+    if (self.isPlaying) {
+        [kPlayer setPlayerProgress:value];
+    }else {
+        self.toSeekProgress = value;
+    }
     
     // 滚动歌词到对应位置
     [self.lyricView scrollLyricWithCurrentTime:(self.duration * value) totalTime:self.duration];
@@ -1388,7 +1429,12 @@
 
 - (void)controlView:(GKWYMusicControlView *)controlView didSliderTapped:(float)value {
     self.controlView.currentTime = [GKWYMusicTool timeStrWithMsTime:(self.duration * value)];
-    [kPlayer setPlayerProgress:value];
+    
+    if (self.isPlaying) {
+        [kPlayer setPlayerProgress:value];
+    }else {
+        self.toSeekProgress = value;
+    }
     
     // 滚动歌词到对应位置
     [self.lyricView scrollLyricWithCurrentTime:(self.duration * value) totalTime:self.duration];

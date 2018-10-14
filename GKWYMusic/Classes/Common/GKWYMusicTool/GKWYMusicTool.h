@@ -40,7 +40,7 @@
 + (void)delHistoryWithIndex:(NSInteger)index;
 
 #pragma mark - 历史播放信息
-+ (NSString *)lastMusicId;
++ (NSDictionary *)lastMusicInfo;
 + (NSInteger)playStyle;
 
 #pragma mark - 其他

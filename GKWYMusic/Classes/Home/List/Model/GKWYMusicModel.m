@@ -17,7 +17,9 @@
 }
 
 - (BOOL)isPlaying {
-    return [self.song_id isEqualToString:[kUserDefaults objectForKey:GKWYMUSIC_USERDEFAULTSKEY_LASTPLAYID]];
+    NSDictionary *musicInfo = [GKWYMusicTool lastMusicInfo];
+
+    return [self.song_id isEqualToString:musicInfo[@"play_id"]];
 }
 
 - (BOOL)isLike {

@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) GKWYVideoDetailModel  *videoModel;
 
+@property (nonatomic, assign) BOOL                  isPausedMusic;
+
 @end
 
 @implementation GKWYVideoViewController
@@ -32,7 +34,13 @@
 }
 
 - (void)getVideoDetail {
-    NSString *api = [NSString stringWithFormat:@"baidu.ting.mv.playMV&song_id=%@", self.song_id];
+    NSString *api = nil;
+    
+    if (self.song_id) {
+        api = [NSString stringWithFormat:@"baidu.ting.mv.playMV&song_id=%@", self.song_id];
+    }else {
+        api = [NSString stringWithFormat:@"baidu.ting.mv.playMV&mv_id=%@", self.mv_id];
+    }
     
     [kHttpManager get:api params:nil successBlock:^(id responseObject) {
         self.videoModel = [GKWYVideoDetailModel yy_modelWithDictionary:responseObject[@"result"]];
@@ -52,6 +60,7 @@
     [GKWYMusicTool hidePlayBtn];
     
     if (kWYPlayerVC.isPlaying) {
+        self.isPausedMusic = YES;
         [kWYPlayerVC pauseMusic];
     }
     
@@ -61,7 +70,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-    if (!kWYPlayerVC.isPlaying && kPlayer.playerState == GKAudioPlayerStatePaused) {
+    if (!kWYPlayerVC.isPlaying && self.isPausedMusic) {
         [kWYPlayerVC playMusic];
     }
 }

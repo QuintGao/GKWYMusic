@@ -50,7 +50,7 @@
     [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.gk_navigationBar).offset(10.0f);
         make.right.equalTo(self.gk_navigationBar);
-        make.centerY.equalTo(self.gk_navigationBar.mas_bottom).offset(-44.0f);
+        make.bottom.equalTo(self.gk_navigationBar.mas_bottom).offset(-44.0f);
         make.height.mas_equalTo(44.0f);
     }];
     
