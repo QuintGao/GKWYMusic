@@ -91,7 +91,8 @@
         
         // 刷新tableview
         [self.mainTableView reloadData];
-        [self.pageVC reloadData];
+        
+//        [self.pageVC reloadData];
         
     } failureBlock:^(NSError *error) {
         NSLog(@"%@", error);
@@ -224,7 +225,7 @@
     item.font = [UIFont boldSystemFontOfSize:16.0f];
     
     GKWYBaseSubViewController *vc = (GKWYBaseSubViewController *)viewController;
-    
+    NSLog(@"%@", vc);
     if (self.artistModel) {
         [vc loadData];
     }

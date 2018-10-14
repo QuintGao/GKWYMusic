@@ -18,6 +18,6 @@ target 'GKWYMusic' do
   pod 'GKMessageTool'                   # 提示框
   pod 'WMPageController'                # 分页控制框架
   pod 'MJRefresh'                       # 下拉刷新
-  pod 'JXCategoryView'
+#  pod 'JXCategoryView'
 
 end

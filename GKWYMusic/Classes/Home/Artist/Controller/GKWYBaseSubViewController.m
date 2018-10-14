@@ -98,21 +98,6 @@
     if (offsetY <= 0) {
         [kNotificationCenter postNotificationName:@"LeaveCriticalPoint" object:@{@"canScroll":@1}];
     }
-    
-//    self.scrollCallback(scrollView);
-}
-
-#pragma mark - JXPagerViewListViewDelegate
-- (UIView *)listView {
-    return self.view;
-}
-
-- (UIScrollView *)listScrollView {
-    return self.tableView;
-}
-
-- (void)listViewDidScrollCallback:(void (^)(UIScrollView *))callback {
-    self.scrollCallback = callback;
 }
 
 #pragma mark - 懒加载

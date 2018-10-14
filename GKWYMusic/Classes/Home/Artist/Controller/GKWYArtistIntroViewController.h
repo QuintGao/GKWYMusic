@@ -7,8 +7,7 @@
 //
 
 #import "GKWYBaseSubViewController.h"
-#import "JXPagerView.h"
 
-@interface GKWYArtistIntroViewController : GKWYBaseSubViewController<JXPagerViewListViewDelegate>
+@interface GKWYArtistIntroViewController : GKWYBaseSubViewController
 
 @end

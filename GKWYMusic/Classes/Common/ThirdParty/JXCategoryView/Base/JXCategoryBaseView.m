@@ -285,31 +285,61 @@ struct DelegateFlags {
     NSInteger baseIndex = floorf(ratio);
     CGFloat remainderRatio = ratio - baseIndex;
 
-    if (remainderRatio == 0) {
-        //滑动翻页，需要更新选中状态
-        [self scrollselectItemAtIndex:baseIndex];
+    if (self.cellChangeInHalf) {
+        if (baseIndex == self.selectedIndex) {
+            if (remainderRatio > 0.5) {
+                [self _selectCellAtIndex:baseIndex+1 handleContentScrollView:NO];
+            }
+            return;
+        }
+        
+        if (baseIndex + 1 == self.selectedIndex) {
+            if (remainderRatio < 0.5) {
+                [self _selectCellAtIndex:baseIndex handleContentScrollView:NO];
+            }
+            return;
+        }
+        
+        if (remainderRatio != 0) {
+            if (self.cellWidthZoomEnabled && self.cellWidthZoomScrollGradientEnabled) {
+                JXCategoryBaseCellModel *leftCellModel = (JXCategoryBaseCellModel *)self.dataSource[baseIndex];
+                JXCategoryBaseCellModel *rightCellModel = (JXCategoryBaseCellModel *)self.dataSource[baseIndex + 1];
+                leftCellModel.cellWidthZoomScale = [JXCategoryFactory interpolationFrom:self.cellWidthZoomScale to:1.0 percent:remainderRatio];
+                rightCellModel.cellWidthZoomScale = [JXCategoryFactory interpolationFrom:1.0 to:self.cellWidthZoomScale percent:remainderRatio];
+                [self.collectionView.collectionViewLayout invalidateLayout];
+            }
+            
+            if (self.delegateFlags.scrollingFromLeftIndexToRightIndexFlag) {
+                [self.delegate categoryView:self scrollingFromLeftIndex:baseIndex toRightIndex:baseIndex + 1 ratio:remainderRatio];
+            }
+        }
     }else {
-        //快速滑动翻页，当remainderRatio没有变成0，但是已经翻页了，需要通过下面的判断，触发选中
-        if (fabs(ratio - self.selectedIndex) > 1) {
-            NSInteger targetIndex = baseIndex;
-            if (ratio < self.selectedIndex) {
-                targetIndex = baseIndex + 1;
+        if (remainderRatio == 0) {
+            //滑动翻页，需要更新选中状态
+            [self scrollselectItemAtIndex:baseIndex];
+        }else {
+            //快速滑动翻页，当remainderRatio没有变成0，但是已经翻页了，需要通过下面的判断，触发选中
+            if (fabs(ratio - self.selectedIndex) > 1) {
+                NSInteger targetIndex = baseIndex;
+                if (ratio < self.selectedIndex) {
+                    targetIndex = baseIndex + 1;
+                }
+                if (self.delegateFlags.didScrollSelectedItemAtIndexFlag) {
+                    [self.delegate categoryView:self didScrollSelectedItemAtIndex:targetIndex];
+                }
+                [self _selectCellAtIndex:targetIndex handleContentScrollView:NO];
             }
-            if (self.delegateFlags.didScrollSelectedItemAtIndexFlag) {
-                [self.delegate categoryView:self didScrollSelectedItemAtIndex:targetIndex];
+            if (self.cellWidthZoomEnabled && self.cellWidthZoomScrollGradientEnabled) {
+                JXCategoryBaseCellModel *leftCellModel = (JXCategoryBaseCellModel *)self.dataSource[baseIndex];
+                JXCategoryBaseCellModel *rightCellModel = (JXCategoryBaseCellModel *)self.dataSource[baseIndex + 1];
+                leftCellModel.cellWidthZoomScale = [JXCategoryFactory interpolationFrom:self.cellWidthZoomScale to:1.0 percent:remainderRatio];
+                rightCellModel.cellWidthZoomScale = [JXCategoryFactory interpolationFrom:1.0 to:self.cellWidthZoomScale percent:remainderRatio];
+                [self.collectionView.collectionViewLayout invalidateLayout];
             }
-            [self _selectCellAtIndex:targetIndex handleContentScrollView:NO];
-        }
-        if (self.cellWidthZoomEnabled && self.cellWidthZoomScrollGradientEnabled) {
-            JXCategoryBaseCellModel *leftCellModel = (JXCategoryBaseCellModel *)self.dataSource[baseIndex];
-            JXCategoryBaseCellModel *rightCellModel = (JXCategoryBaseCellModel *)self.dataSource[baseIndex + 1];
-            leftCellModel.cellWidthZoomScale = [JXCategoryFactory interpolationFrom:self.cellWidthZoomScale to:1.0 percent:remainderRatio];
-            rightCellModel.cellWidthZoomScale = [JXCategoryFactory interpolationFrom:1.0 to:self.cellWidthZoomScale percent:remainderRatio];
-            [self.collectionView.collectionViewLayout invalidateLayout];
-        }
-
-        if (self.delegateFlags.scrollingFromLeftIndexToRightIndexFlag) {
-            [self.delegate categoryView:self scrollingFromLeftIndex:baseIndex toRightIndex:baseIndex + 1 ratio:remainderRatio];
+            
+            if (self.delegateFlags.scrollingFromLeftIndexToRightIndexFlag) {
+                [self.delegate categoryView:self scrollingFromLeftIndex:baseIndex toRightIndex:baseIndex + 1 ratio:remainderRatio];
+            }
         }
     }
 }

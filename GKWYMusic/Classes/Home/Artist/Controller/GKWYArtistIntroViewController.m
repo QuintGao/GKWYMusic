@@ -67,23 +67,6 @@
     }];
 }
 
-#pragma mark - JXPagerViewListViewDelegate
-- (UIView *)listView {
-    return self.view;
-}
-
-- (UIScrollView *)listScrollView {
-    return self.tableView;
-}
-
-- (void)listViewDidScrollCallback:(void (^)(UIScrollView *))callback {
-    self.scrollCallback = callback;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    self.scrollCallback(scrollView);
-}
-
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.isRequest ? 1 : 0;

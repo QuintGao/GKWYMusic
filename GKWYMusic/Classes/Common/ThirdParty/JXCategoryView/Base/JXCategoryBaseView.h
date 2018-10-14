@@ -93,6 +93,9 @@
 
 @property (nonatomic, assign) CGFloat cellWidthZoomScale;    //默认1.2，cellWidthZoomEnabled为YES才生效
 
+@property (nonatomic, assign) BOOL  cellChangeInHalf; // cell在滑动到一半的时候改变，默认NO
+
+
 /**
  代码调用选中了目标index的item
 

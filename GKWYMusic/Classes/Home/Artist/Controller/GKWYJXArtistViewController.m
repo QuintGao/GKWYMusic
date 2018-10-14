@@ -17,7 +17,7 @@
 #import "GKWYArtistAlbumListViewController.h"
 #import "GKWYArtistVideoListViewController.h"
 #import "GKWYArtistIntroViewController.h"
-#import <JXCategoryView/JXCategoryView.h>
+#import "JXCategoryView.h"
 
 @interface GKWYJXArtistViewController ()<UITableViewDataSource, UITableViewDelegate, JXCategoryViewDelegate>
 
@@ -94,6 +94,10 @@
         
         // 刷新tableview
         [self.mainTableView reloadData];
+        
+        // 刷新第一个
+        [self scrollViewDidEndDecelerating:self.mainScrollView];
+        
     } failureBlock:^(NSError *error) {
         NSLog(@"%@", error);
     }];
@@ -117,6 +121,7 @@
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView != self.mainTableView) return;
     // 当前偏移量
     CGFloat offsetY = scrollView.contentOffset.y;
     // 临界点
@@ -171,6 +176,16 @@
         f.size.width = -offsetY * KScreenW / kArtistHeaderHeight;
         //改变头部视图的frame
         self.headerView.frame = f;
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == self.mainScrollView) {
+        NSInteger index = self.categoryView.selectedIndex;
+        
+        GKWYBaseSubViewController *currentVC = self.childVCs[index];
+        
+        [currentVC loadData];
     }
 }
 
@@ -304,6 +319,7 @@
         _categoryView.titleColor = [UIColor blackColor];
         _categoryView.titleFont = [UIFont systemFontOfSize:16.0f];
         _categoryView.titleSelectedFont = [UIFont boldSystemFontOfSize:16.0f];
+        _categoryView.cellChangeInHalf = YES;
         
         JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
         lineView.indicatorLineViewColor = kAPPDefaultColor;
@@ -312,6 +328,11 @@
         _categoryView.indicators = @[lineView];
         
         _categoryView.contentScrollView = self.mainScrollView;
+        
+        UIView *btmLineView = [UIView new];
+        btmLineView.backgroundColor = kAppLineColor;
+        btmLineView.frame = CGRectMake(0, kArtistSegmentHeight - 0.5, KScreenW, 0.5);
+        [_categoryView addSubview:btmLineView];
     }
     return _categoryView;
 }
@@ -319,13 +340,14 @@
 - (UIScrollView *)mainScrollView {
     if (!_mainScrollView) {
         CGFloat scrollW = KScreenW;
-        CGFloat scrollH = KScreenH - kArtistHeaderHeight - kArtistSegmentHeight;
+        CGFloat scrollH = KScreenH - NAVBAR_HEIGHT - kArtistSegmentHeight;
         
         _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kArtistSegmentHeight, scrollW, scrollH)];
         _mainScrollView.pagingEnabled = YES;
         _mainScrollView.bounces = NO;
         _mainScrollView.showsVerticalScrollIndicator = NO;
         _mainScrollView.showsHorizontalScrollIndicator = NO;
+        _mainScrollView.delegate = self;
         
         for (NSInteger i = 0; i < self.childVCs.count; i++) {
             UIViewController *vc = self.childVCs[i];
