@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger, GKWYPlayerPlayStyle) {
  @param index 列表中的索引
  @param list 列表
  */
-- (void)playMusicWithIndex:(NSInteger)index;
+- (void)playMusicWithIndex:(NSInteger)index isSetList:(BOOL)isSetList;
 
 /**
  播放单个音频

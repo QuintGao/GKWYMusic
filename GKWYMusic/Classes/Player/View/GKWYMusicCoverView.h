@@ -28,8 +28,8 @@ typedef void(^finished)(void);
  */
 @property (nonatomic, strong) UIScrollView *diskScrollView;
 
-// 初始化coverView列表
-- (void)initMusicList:(NSArray *)musics idx:(NSInteger)currentIndex;
+// 设置coverView列表
+- (void)setMusicList:(NSArray *)musics idx:(NSInteger)currentIndex;
 
 // 重置coverView列表
 - (void)resetMusicList:(NSArray *)musics idx:(NSInteger)currentIndex;

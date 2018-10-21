@@ -14,4 +14,6 @@
 
 @property (nonatomic, copy)     NSString *imgUrl;
 
+@property (nonatomic, strong) GKWYMusicModel    *model;
+
 @end

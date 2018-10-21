@@ -38,6 +38,8 @@
 
 @property (nonatomic, copy)   finished          finished;
 
+@property (nonatomic, assign) BOOL              isScroll;
+
 @end
 
 @implementation GKWYMusicCoverView
@@ -98,7 +100,7 @@
 }
 
 #pragma mark - Public Methods
-- (void)initMusicList:(NSArray *)musics idx:(NSInteger)currentIndex {
+- (void)setMusicList:(NSArray *)musics idx:(NSInteger)currentIndex {
     [self resetCoverView];
     
     self.musics = musics;
@@ -109,7 +111,7 @@
 - (void)resetMusicList:(NSArray *)musics idx:(NSInteger)currentIndex {
     self.musics = musics;
     
-    [self setCurrentIndex:currentIndex needChange:NO];
+//    [self setCurrentIndex:currentIndex needChange:NO];
 }
 
 // 滑动切换歌曲
@@ -137,6 +139,7 @@
 // 播放音乐时，指针恢复，图片旋转
 - (void)playedWithAnimated:(BOOL)animated {
     if (self.isAnimation) return;
+    if (self.isScroll) return;
     NSLog(@"开始旋转");
     self.isAnimation = YES;
     
@@ -154,7 +157,6 @@
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(diskAnimation)];
     // 加入到主循环中
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-//    NSLog(@"旋转定时器创建成功");
 }
 
 // 暂停音乐时，指针旋转-30°，图片停止旋转
@@ -224,8 +226,10 @@
                 }
             });
         }else {
-            self.leftDiskView.imgUrl    = leftM.pic_radio;
-            self.rightDiskView.imgUrl   = rightM.pic_radio;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.leftDiskView.imgUrl    = leftM.pic_radio;
+                self.rightDiskView.imgUrl   = rightM.pic_radio;
+            });
         }
     }
 }
@@ -271,6 +275,9 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.isScroll = YES;
+    
+    // 开始滑动，暂停动画
     [self pausedWithAnimated:YES];
     
     if ([self.delegate respondsToSelector:@selector(scrollDidScroll)]) {
@@ -287,6 +294,7 @@
 }
 
 - (void)scrollViewDidEnd:(UIScrollView *)scrollView {
+    self.isScroll = NO;
     // 滑动结束时，获取索引
     CGFloat scrollW = CGRectGetWidth(scrollView.frame);
     CGFloat offsetX = scrollView.contentOffset.x;

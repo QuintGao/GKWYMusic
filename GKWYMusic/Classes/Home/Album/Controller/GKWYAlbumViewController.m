@@ -119,7 +119,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [kWYPlayerVC setPlayerList:self.songs];
-    [kWYPlayerVC playMusicWithIndex:indexPath.row];
+    [kWYPlayerVC playMusicWithIndex:indexPath.row isSetList:YES];
     
     [self.navigationController pushViewController:kWYPlayerVC animated:YES];
 }

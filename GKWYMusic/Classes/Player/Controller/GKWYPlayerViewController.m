@@ -238,7 +238,13 @@
     }
 }
 
-- (void)playMusicWithIndex:(NSInteger)index {
+/**
+ 播放指定位置的音乐
+
+ @param index 指定位置的索引
+ @param isSetList 是否需要设置列表
+ */
+- (void)playMusicWithIndex:(NSInteger)index isSetList:(BOOL)isSetList {
     GKWYMusicModel *model = self.playList[index];
     
     if (![model.song_id isEqualToString:self.currentPlayId]) {
@@ -246,7 +252,9 @@
         
         self.ifNowPlay = YES;
         
-        [self.coverView initMusicList:self.playList idx:index];
+        if (isSetList) {
+            [self.coverView setMusicList:self.playList idx:index];
+        }
         
         [kNotificationCenter postNotificationName:GKWYMUSIC_PLAYMUSICCHANGENOTIFICATION object:nil];
         
@@ -288,7 +296,7 @@
     }];
     
     if (exist) {
-        [self playMusicWithIndex:index];
+        [self playMusicWithIndex:index isSetList:NO];
     }else {
         [playList addObject:model];
         
@@ -296,7 +304,7 @@
         
         index = [playList indexOfObject:model];
         
-        [self playMusicWithIndex:index];
+        [self playMusicWithIndex:index isSetList:YES];
     }
 }
 
@@ -306,8 +314,8 @@
     
     if (![model.song_id isEqualToString:self.currentPlayId]) {
 
-        // 初始化coverView列表
-        [self.coverView initMusicList:self.playList idx:index];
+        // 设置coverView列表
+        [self.coverView setMusicList:self.playList idx:index];
         
         self.currentPlayId = model.song_id;
         
@@ -426,7 +434,7 @@
     // 切换到下一首
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.coverView scrollChangeDiskIsNext:YES finished:^{
-            [self playMusicWithIndex:index];
+            [self playMusicWithIndex:index isSetList:YES];
         }];
     });
 }
@@ -486,7 +494,7 @@
     // 切换到下一首
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.coverView scrollChangeDiskIsNext:NO finished:^{
-            [self playMusicWithIndex:index];
+            [self playMusicWithIndex:index isSetList:YES];
         }];
     });
 }
@@ -600,9 +608,9 @@
     
     [self setupLockScreenMediaInfoNull];
     
-    if (self.ifNowPlay) {
-        [self.coverView playedWithAnimated:YES];
-    }
+//    if (self.ifNowPlay) {
+//        [self.coverView playedWithAnimated:YES];
+//    }
     
     if (self.model.isDownload) {
         // 背景图
@@ -1471,7 +1479,7 @@
         
         self.isChanged = YES;
         
-        [self playMusicWithIndex:index];
+        [self playMusicWithIndex:index isSetList:NO];
     }
 }
 
@@ -1481,7 +1489,7 @@
 }
 
 - (void)listView:(GKWYMusicListView *)listView didSelectRow:(NSInteger)row {
-    [self playMusicWithIndex:row];
+    [self playMusicWithIndex:row isSetList:NO];
 } 
 
 - (void)listView:(GKWYMusicListView *)listView didLovedWithRow:(NSInteger)row {
