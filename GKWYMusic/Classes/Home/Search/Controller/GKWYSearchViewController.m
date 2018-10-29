@@ -20,6 +20,8 @@
 #import "GKWYSearchHeaderView.h"
 #import "GKWYSearchViewCell.h"
 
+#import "JXCategoryView.h"
+
 @interface GKWYSearchViewController ()<GKSearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) GKSearchBar *searchBar;
@@ -34,6 +36,7 @@
 @property (nonatomic, strong) NSMutableArray *historys;
 
 @property (nonatomic, strong) GKWYPageViewController *pageVC;
+
 
 @end
 
@@ -167,6 +170,12 @@
         GKWYAlbumResultViewController *albumResultVC = [GKWYAlbumResultViewController new];
         albumResultVC.albumInfo = self.resultModel.album_info;
         [childVCs addObject:albumResultVC];
+        
+        // 歌单
+        [titles addObject:@"歌单"];
+        
+        // 用户
+        [titles addObject:@"用户"];
         
         self.pageVC.titles = titles;
         self.pageVC.childVCs = childVCs;

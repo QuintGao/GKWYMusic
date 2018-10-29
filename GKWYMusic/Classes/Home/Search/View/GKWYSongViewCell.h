@@ -13,6 +13,6 @@ static NSString *const kSongViewCellID = @"GKWYSongViewCell";
 
 @interface GKWYSongViewCell : UITableViewCell
 
-@property (nonatomic, strong) GKWYResultSongModel *model;
+@property (nonatomic, strong) GKWYMusicModel *model;
 
 @end

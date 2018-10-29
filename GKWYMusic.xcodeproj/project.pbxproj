@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4770C39B21130770DC0280B1 /* Pods_GKWYMusic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 316EC85788B8A4208D922C6A /* Pods_GKWYMusic.framework */; };
+		60125564217F169900547CE5 /* GKWYPlayListResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60125563217F169900547CE5 /* GKWYPlayListResultViewController.m */; };
+		60125567217F16AB00547CE5 /* GKWYUserResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60125566217F16AB00547CE5 /* GKWYUserResultViewController.m */; };
 		60264F43216F5793006E6837 /* GKWYArtistHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60264F42216F5793006E6837 /* GKWYArtistHeaderView.m */; };
 		603A1272208881A3002A5BD3 /* GKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A126B208881A2002A5BD3 /* GKActionSheet.m */; };
 		603A1273208881A3002A5BD3 /* GKActionSheetViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A126C208881A2002A5BD3 /* GKActionSheetViewCell.m */; };
@@ -142,6 +144,10 @@
 /* Begin PBXFileReference section */
 		205E02C3FE102D1B4512A3B0 /* Pods-GKWYMusic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GKWYMusic.release.xcconfig"; path = "Pods/Target Support Files/Pods-GKWYMusic/Pods-GKWYMusic.release.xcconfig"; sourceTree = "<group>"; };
 		316EC85788B8A4208D922C6A /* Pods_GKWYMusic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GKWYMusic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		60125562217F169900547CE5 /* GKWYPlayListResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYPlayListResultViewController.h; sourceTree = "<group>"; };
+		60125563217F169900547CE5 /* GKWYPlayListResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYPlayListResultViewController.m; sourceTree = "<group>"; };
+		60125565217F16AB00547CE5 /* GKWYUserResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYUserResultViewController.h; sourceTree = "<group>"; };
+		60125566217F16AB00547CE5 /* GKWYUserResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYUserResultViewController.m; sourceTree = "<group>"; };
 		60264F41216F5793006E6837 /* GKWYArtistHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYArtistHeaderView.h; sourceTree = "<group>"; };
 		60264F42216F5793006E6837 /* GKWYArtistHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArtistHeaderView.m; sourceTree = "<group>"; };
 		603A126320887E68002A5BD3 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -948,6 +954,10 @@
 				60617691209B19680054C8E1 /* GKWYArtistResultViewController.m */,
 				60617693209B19710054C8E1 /* GKWYAlbumResultViewController.h */,
 				60617694209B19710054C8E1 /* GKWYAlbumResultViewController.m */,
+				60125562217F169900547CE5 /* GKWYPlayListResultViewController.h */,
+				60125563217F169900547CE5 /* GKWYPlayListResultViewController.m */,
+				60125565217F16AB00547CE5 /* GKWYUserResultViewController.h */,
+				60125566217F16AB00547CE5 /* GKWYUserResultViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1424,10 +1434,12 @@
 				603A12AC2089901B002A5BD3 /* UIViewController+GKWYCategory.m in Sources */,
 				790A26B12173237C00BD7D8C /* JXCategoryIndicatorCell.m in Sources */,
 				60938EF220AAF1D900CD8115 /* GKVerticalButton.m in Sources */,
+				60125564217F169900547CE5 /* GKWYPlayListResultViewController.m in Sources */,
 				603A12CF208D60A9002A5BD3 /* GKWYMusicListView.m in Sources */,
 				790A26AE2173237C00BD7D8C /* JXCategoryIndicatorComponentView.m in Sources */,
 				603A12C72089D11C002A5BD3 /* GKWYMusicControlView.m in Sources */,
 				603A12952089858B002A5BD3 /* GKHttpManager.m in Sources */,
+				60125567217F16AB00547CE5 /* GKWYUserResultViewController.m in Sources */,
 				790A26B32173237C00BD7D8C /* JXCategoryDotCell.m in Sources */,
 				790A26C12173237C00BD7D8C /* JXCategoryNumberCellModel.m in Sources */,
 				603A127C20888228002A5BD3 /* GKPlayer.m in Sources */,

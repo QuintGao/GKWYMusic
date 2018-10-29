@@ -19,6 +19,7 @@
 
 @end
 
+#pragma mark - artist
 @implementation GKWYResultArtistInfoModel
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
@@ -28,6 +29,8 @@
 @end
 @implementation GKWYResultArtistModel
 @end
+
+#pragma mark - song
 @implementation GKWYResultSongInfoModel
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
@@ -36,6 +39,7 @@
 
 @end
 
+#pragma amrk - album
 @implementation GKWYResultAlbumInfoModel
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
@@ -45,6 +49,8 @@
 @end
 @implementation GKWYResultAlbumModel
 @end
+
+#pragma mark - video
 @implementation GKWYResultVideoInfoModel
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
@@ -53,4 +59,34 @@
 
 @end
 @implementation GKWYResultVideoModel
+@end
+
+#pragma mark - playlist
+@implementation GKWYResultPlayListInfoModel
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"playlist_info"  : [GKWYResultPlayListModel class]};
+}
+
+@end
+@implementation GKWYResultPlayListModel
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"userinfo"  : [GKWYResultPlayListUserInfoModel class]};
+}
+
+@end
+@implementation GKWYResultPlayListUserInfoModel
+@end
+
+#pragma mark - user
+@implementation GKWYResultUserInfoModel
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"user_list"  : [GKWYResultUserModel class]};
+}
+
+@end
+
+@implementation GKWYResultUserModel
 @end

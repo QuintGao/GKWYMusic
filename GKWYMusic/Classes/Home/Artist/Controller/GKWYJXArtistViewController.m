@@ -122,6 +122,9 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView != self.mainTableView) return;
+    
+    NSLog(@"mainTableViewScroll");
+    
     // 当前偏移量
     CGFloat offsetY = scrollView.contentOffset.y;
     // 临界点
