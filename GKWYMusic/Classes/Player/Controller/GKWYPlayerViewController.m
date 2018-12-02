@@ -250,6 +250,8 @@
     if (![model.song_id isEqualToString:self.currentPlayId]) {
         self.currentPlayId = model.song_id;
         
+        self.toSeekProgress = 0;
+        
         self.ifNowPlay = YES;
         
         if (isSetList) {
@@ -587,7 +589,7 @@
 - (void)getMusicInfo {
     [self setupTitleWithModel:self.model];
     
-    if (self.isPlaying) {
+    if (self.isPlaying || kPlayer.playerState == GKAudioPlayerStatePaused) {
         self.isPlaying = NO;
         [self stopMusic];
     }
@@ -607,10 +609,6 @@
     self.controlView.is_download    = self.model.isDownload;
     
     [self setupLockScreenMediaInfoNull];
-    
-//    if (self.ifNowPlay) {
-//        [self.coverView playedWithAnimated:YES];
-//    }
     
     if (self.model.isDownload) {
         // 背景图
