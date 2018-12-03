@@ -11,13 +11,11 @@
 @interface GKWYIntroViewCell()
 
 // 歌手简介
-@property (nonatomic, strong) UIView        *introNameView;
 @property (nonatomic, strong) UILabel       *introNameLabel;
 @property (nonatomic, strong) UILabel       *introContentLabel;
 @property (nonatomic, strong) UIButton      *introBtn;
 
 // 相似歌手
-@property (nonatomic, strong) UIView        *recNameView;
 @property (nonatomic, strong) UILabel       *recNameLabel;
 @property (nonatomic, strong) UIScrollView  *recScrollView;
 @property (nonatomic, strong) UIView        *recLineView;
@@ -28,26 +26,17 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        [self.contentView addSubview:self.introNameView];
         [self.contentView addSubview:self.introNameLabel];
         [self.contentView addSubview:self.introContentLabel];
         [self.contentView addSubview:self.introBtn];
         
-        [self.contentView addSubview:self.recNameView];
         [self.contentView addSubview:self.recNameLabel];
         [self.contentView addSubview:self.recScrollView];
         [self.contentView addSubview:self.recLineView];
         
-        [self.introNameView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView);
-            make.top.equalTo(self.contentView).offset(kAdaptive(40.0f));
-            make.width.mas_equalTo(kAdaptive(4.0f));
-            make.height.mas_equalTo(kAdaptive(30.0f));
-        }];
-        
         [self.introNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.introNameView.mas_right).offset(kAdaptive(16.0f));
-            make.centerY.equalTo(self.introNameView);
+            make.left.equalTo(self.contentView).offset(kAdaptive(16.0f));
+            make.top.equalTo(self.contentView).offset(kAdaptive(40.0f));
         }];
         
         [self.introContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -61,19 +50,14 @@
             make.top.equalTo(self.introContentLabel.mas_bottom).offset(kAdaptive(40.0f));
         }];
         
-        [self.recNameView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.width.height.equalTo(self.introNameView);
-            make.top.equalTo(self.introBtn.mas_bottom).offset(kAdaptive(80.0f));
-        }];
-        
         [self.recNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.recNameView.mas_right).offset(kAdaptive(16.0f));
-            make.centerY.equalTo(self.recNameView);
+            make.left.equalTo(self.contentView).offset(kAdaptive(16.0f));
+            make.top.equalTo(self.introBtn.mas_bottom).offset(kAdaptive(80.0f));
         }];
         
         [self.recScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.contentView);
-            make.top.equalTo(self.recNameView.mas_bottom).offset(kAdaptive(20.0f));
+            make.top.equalTo(self.recNameLabel.mas_bottom).offset(kAdaptive(20.0f));
             make.height.mas_equalTo(kAdaptive(180.0f));
         }];
         
@@ -93,13 +77,13 @@
     self.introContentLabel.attributedText = self.artistModel.introAttr;
     
     if (self.artistModel.hasMoreIntro) {
-        [self.recNameView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.width.height.equalTo(self.introNameView);
+        [self.recNameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(kAdaptive(16.0f));
             make.top.equalTo(self.introBtn.mas_bottom).offset(kAdaptive(80.0f));
         }];
     }else {
-        [self.recNameView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.width.height.equalTo(self.introNameView);
+        [self.recNameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(kAdaptive(16.0f));
             make.top.equalTo(self.introContentLabel.mas_bottom).offset(kAdaptive(60.0f));
         }];
     }
@@ -142,14 +126,6 @@
 }
 
 #pragma mark - 懒加载
-- (UIView *)introNameView {
-    if (!_introNameView) {
-        _introNameView = [UIView new];
-        _introNameView.backgroundColor = kAPPDefaultColor;
-    }
-    return _introNameView;
-}
-
 - (UILabel *)introNameLabel {
     if (!_introNameLabel) {
         _introNameLabel = [UILabel new];
@@ -178,14 +154,6 @@
         [_introBtn addTarget:self action:@selector(introBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _introBtn;
-}
-
-- (UIView *)recNameView {
-    if (!_recNameView) {
-        _recNameView = [UIView new];
-        _recNameView.backgroundColor = kAPPDefaultColor;
-    }
-    return _recNameView;
 }
 
 - (UILabel *)recNameLabel {

@@ -8,8 +8,11 @@
 
 #import "GKWYBaseTableViewController.h"
 #import "GKWYArtistModel.h"
+#import <GKPageScrollView/GKPageScrollView.h>
 
-@interface GKWYBaseSubViewController : GKWYBaseTableViewController
+@interface GKWYBaseSubViewController : GKWYBaseTableViewController<GKPageListViewDelegate>
+
+@property (nonatomic, strong) UIScrollView      *mainScrollView;
 
 @property (nonatomic, assign) BOOL isRequest;
 @property (nonatomic, assign) int page;

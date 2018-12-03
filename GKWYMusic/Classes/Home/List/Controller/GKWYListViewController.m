@@ -13,11 +13,8 @@
 #import "GKActionSheet.h"
 
 #import "GKWYAlbumViewController.h"
-//#import "GKWYArtistViewController.h"
+#import "GKWYArtistViewController.h"
 #import "GKWYVideoViewController.h"
-
-
-#import "GKWYJXArtistViewController.h"
 
 @interface GKWYListViewController ()<GKDownloadManagerDelegate, GKWYListViewCellDelegate>
 
@@ -178,7 +175,7 @@
             item.title      = titles[idx];
             item.enabled    = YES;
             item.clickBlock = ^{
-                GKWYJXArtistViewController *artistVC = [GKWYJXArtistViewController new];
+                GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
                 artistVC.tinguid  = obj;
                 artistVC.artistid = artists[idx];
                 [weakSelf.navigationController pushViewController:artistVC animated:YES];
@@ -188,7 +185,7 @@
         
         [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手" itemInfos:items];
     }else {
-        GKWYJXArtistViewController *artistVC = [GKWYJXArtistViewController new];
+        GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
         artistVC.tinguid  = tinguids.firstObject;
         artistVC.artistid = artists.firstObject;
         [self.navigationController pushViewController:artistVC animated:YES];

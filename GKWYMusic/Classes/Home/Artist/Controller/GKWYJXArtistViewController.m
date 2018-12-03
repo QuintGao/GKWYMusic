@@ -276,7 +276,7 @@
 
 - (NSArray *)titles {
     if (!_titles) {
-        _titles = @[@"热门", @"专辑", @"视频", @"歌手信息"];
+        _titles = @[@"热门演唱", @"专辑", @"视频", @"艺人信息"];
     }
     return _titles;
 }

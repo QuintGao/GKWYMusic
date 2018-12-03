@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) GKWYArtistModel   *model;
 
-- (void)scrollViewDidScroll:(CGFloat)contentOffsetY;
+@property (nonatomic, strong) UILabel           *nameLabel;
 
 @end
 
