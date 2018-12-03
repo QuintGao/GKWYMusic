@@ -22,7 +22,7 @@
 
 #define kCriticalPoint -ADAPTATIONRATIO * 50.0f
 
-@interface GKWYArtistViewController ()<GKPageScrollViewDelegate, WMPageControllerDataSource, WMPageControllerDelegate>
+@interface GKWYArtistViewController ()<GKPageScrollViewDelegate, WMPageControllerDataSource, WMPageControllerDelegate, GKPageControllerDelegate>
 
 @property (nonatomic, strong) GKPageScrollView          *pageScrollView;
 
@@ -251,6 +251,15 @@
     }
 }
 
+#pragma mark - GKPageControllerDelegate
+- (void)pageScrollViewWillBeginScroll {
+    [self.pageScrollView horizonScrollViewWillBeginScroll];
+}
+
+- (void)pageScrollViewDidEndedScroll {
+    [self.pageScrollView horizonScrollViewDidEndedScroll];
+}
+
 #pragma mark - 懒加载
 - (GKPageScrollView *)pageScrollView {
     if (!_pageScrollView) {
@@ -324,6 +333,7 @@
         _pageVC                             = [GKPageController new];
         _pageVC.dataSource                  = self;
         _pageVC.delegate                    = self;
+        _pageVC.scrollDelegate              = self;
         
         // 菜单属性
         _pageVC.menuItemWidth               = KScreenW / 4.0f;

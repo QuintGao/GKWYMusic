@@ -35,13 +35,17 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [super scrollViewWillBeginDragging:scrollView];
     
-    [kNotificationCenter postNotificationName:@"HorizontalScroll" object:@{@"canScroll":@"0"}];
+    if ([self.scrollDelegate respondsToSelector:@selector(pageScrollViewWillBeginScroll)]) {
+        [self.scrollDelegate pageScrollViewWillBeginScroll];
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     [super scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
     
-    [kNotificationCenter postNotificationName:@"HorizontalScroll" object:@{@"canScroll":@"1"}];
+    if ([self.scrollDelegate respondsToSelector:@selector(pageScrollViewDidEndedScroll)]) {
+        [self.scrollDelegate pageScrollViewDidEndedScroll];
+    }
 }
 
 #pragma mark - 懒加载

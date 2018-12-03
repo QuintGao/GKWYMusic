@@ -129,7 +129,7 @@
 - (UILabel *)introNameLabel {
     if (!_introNameLabel) {
         _introNameLabel = [UILabel new];
-        _introNameLabel.font = [UIFont systemFontOfSize:15.0f];
+        _introNameLabel.font = [UIFont boldSystemFontOfSize:15.0f];
         _introNameLabel.textColor = GKColorGray(50.0f);
     }
     return _introNameLabel;
@@ -159,7 +159,7 @@
 - (UILabel *)recNameLabel {
     if (!_recNameLabel) {
         _recNameLabel = [UILabel new];
-        _recNameLabel.font = [UIFont systemFontOfSize:15.0f];
+        _recNameLabel.font = [UIFont boldSystemFontOfSize:15.0f];
         _recNameLabel.textColor = GKColorGray(50.0f);
     }
     return _recNameLabel;

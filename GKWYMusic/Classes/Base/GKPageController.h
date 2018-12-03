@@ -8,8 +8,17 @@
 
 #import <WMPageController/WMPageController.h>
 
+@protocol GKPageControllerDelegate <NSObject>
+
+- (void)pageScrollViewWillBeginScroll;
+- (void)pageScrollViewDidEndedScroll;
+
+@end
+
 @interface GKPageController : WMPageController
 
 @property (nonatomic, strong) UIView    *lineView;
+
+@property (nonatomic, weak) id<GKPageControllerDelegate> scrollDelegate;
 
 @end

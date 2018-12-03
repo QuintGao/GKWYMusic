@@ -90,7 +90,6 @@
 		6093900C20B66A7800CD8115 /* GKWYSearchViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6093900B20B66A7800CD8115 /* GKWYSearchViewCell.m */; };
 		609391AF20BCD63400CD8115 /* GKWYVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609391AE20BCD63400CD8115 /* GKWYVideoViewController.m */; };
 		609391B220BD062800CD8115 /* GKWYVideoDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 609391B120BD062700CD8115 /* GKWYVideoDetailModel.m */; };
-		790A265E2173235600BD7D8C /* GKWYJXArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A265D2173235600BD7D8C /* GKWYJXArtistViewController.m */; };
 		790A26AA2173237C00BD7D8C /* JXCategoryIndicatorLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26652173237C00BD7D8C /* JXCategoryIndicatorLineView.m */; };
 		790A26AB2173237C00BD7D8C /* JXCategoryIndicatorTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26662173237C00BD7D8C /* JXCategoryIndicatorTriangleView.m */; };
 		790A26AC2173237C00BD7D8C /* JXCategoryIndicatorImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26682173237C00BD7D8C /* JXCategoryIndicatorImageView.m */; };
@@ -310,8 +309,6 @@
 		609391AE20BCD63400CD8115 /* GKWYVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYVideoViewController.m; sourceTree = "<group>"; };
 		609391B020BD062700CD8115 /* GKWYVideoDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYVideoDetailModel.h; sourceTree = "<group>"; };
 		609391B120BD062700CD8115 /* GKWYVideoDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYVideoDetailModel.m; sourceTree = "<group>"; };
-		790A265C2173235600BD7D8C /* GKWYJXArtistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKWYJXArtistViewController.h; sourceTree = "<group>"; };
-		790A265D2173235600BD7D8C /* GKWYJXArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKWYJXArtistViewController.m; sourceTree = "<group>"; };
 		790A26612173237C00BD7D8C /* JXCategoryIndicatorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorCell.h; sourceTree = "<group>"; };
 		790A26622173237C00BD7D8C /* JXCategoryIndicatorCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorCellModel.h; sourceTree = "<group>"; };
 		790A26632173237C00BD7D8C /* JXCategoryIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorView.h; sourceTree = "<group>"; };
@@ -895,8 +892,6 @@
 				60938FBB20B1740400CD8115 /* GKWYIntroDetailViewController.m */,
 				60938F8A20AEDA4A00CD8115 /* GKWYBaseSubViewController.h */,
 				60938F8B20AEDA4A00CD8115 /* GKWYBaseSubViewController.m */,
-				790A265C2173235600BD7D8C /* GKWYJXArtistViewController.h */,
-				790A265D2173235600BD7D8C /* GKWYJXArtistViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1414,7 +1409,6 @@
 				603A12BE2089C8BB002A5BD3 /* GKWYMusicVolumeView.m in Sources */,
 				6093900920B6435100CD8115 /* GKWYTagModel.m in Sources */,
 				60938FC120B4198C00CD8115 /* GKWYVideoResultViewController.m in Sources */,
-				790A265E2173235600BD7D8C /* GKWYJXArtistViewController.m in Sources */,
 				790A26B92173237C00BD7D8C /* JXCategoryTitleCellModel.m in Sources */,
 				60938F8C20AEDA4A00CD8115 /* GKWYBaseSubViewController.m in Sources */,
 				60938EFE20ABBA3B00CD8115 /* GKWYArtistVideoListViewController.m in Sources */,
@@ -1651,7 +1645,10 @@
 				GCC_PREFIX_HEADER = GKWYMusic/PrefixHeader.pch;
 				INFOPLIST_FILE = GKWYMusic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.GKWYMusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1fe1af09-c71e-4300-94d8-76d14cec2eb4";
@@ -1672,7 +1669,10 @@
 				GCC_PREFIX_HEADER = GKWYMusic/PrefixHeader.pch;
 				INFOPLIST_FILE = GKWYMusic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.GKWYMusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1fe1af09-c71e-4300-94d8-76d14cec2eb4";
@@ -1687,7 +1687,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = GKWYMusicTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aiyinsitanfm.GKWYMusicTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1701,7 +1705,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = GKWYMusicTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aiyinsitanfm.GKWYMusicTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1714,7 +1722,11 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = GKWYMusicUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aiyinsitanfm.GKWYMusicUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1727,7 +1739,11 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = GKWYMusicUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aiyinsitanfm.GKWYMusicUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
