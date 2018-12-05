@@ -17,10 +17,10 @@ PODS:
   - FreeStreamer (3.8.3):
     - Reachability (~> 3.0)
   - GKCover (2.5.3)
-  - GKMessageTool (1.0.3):
+  - GKMessageTool (1.0.4):
     - MBProgressHUD
-  - GKNavigationBarViewController (2.1.2)
-  - GKPageScrollView (1.0.0)
+  - GKNavigationBarViewController (2.1.6)
+  - GKPageScrollView (1.0.1)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.1.15.7)
@@ -64,9 +64,9 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   FreeStreamer: b205b0bf6a2e7855f935369145498f930eb27cac
   GKCover: 26a096a184e32b3cdfd96492eaf3d847d9ae80a9
-  GKMessageTool: 89ea6e0ecc60e36609c3e5e0c47eb7b6e81fde03
-  GKNavigationBarViewController: a9a6ca818de0ea32697ccb3c0ce8ad00910cea40
-  GKPageScrollView: 95092dbac2789e99d84173ae8758dc751f5b30f3
+  GKMessageTool: c5730c895e061d5f8ad69ffc4c19e688ceb4d5f9
+  GKNavigationBarViewController: c4f1121d2bc69acc082c280740cd70d658fde53d
+  GKPageScrollView: 624bc24840c8cbb154b43db9ace3672b7803c14c
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
@@ -77,4 +77,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 91d978fecb4494a162ead047b99d62ecf309cab0
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0.beta.2

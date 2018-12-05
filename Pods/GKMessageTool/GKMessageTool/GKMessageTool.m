@@ -135,6 +135,20 @@ static MBProgressHUD *_hud;
     return kMessageTool.showMessage;
 }
 
++ (void)showCustomView:(UIView *)customView text:(NSString *)text {
+    _hud = [self showHudCustomView:customView toView:nil text:text];
+}
+
++ (void)showCustomView:(UIView *)customView toView:(UIView *)toView text:(NSString *)text {
+    _hud = [self showHudCustomView:customView toView:toView text:text];
+}
+
++ (MBProgressHUD *)showHudCustomView:(UIView *)customView toView:(UIView *)toView text:(NSString *)text {
+    [kMessageTool showCustomView:customView toView:toView text:text canClick:YES];
+    
+    return kMessageTool.showMessage;
+}
+
 + (void)hideMessage {
     [_hud hideAnimated:YES];
 }
@@ -145,16 +159,6 @@ static MBProgressHUD *_hud;
  获取当前最顶层的window
  */
 - (UIWindow *)getTopLevelWindow {
-//    UIWindow *window = nil;
-//    for (UIWindow *_window in [UIApplication sharedApplication].windows) {
-//        if (window == nil) {
-//            window = _window;
-//        }
-//        if (_window.windowLevel > window.windowLevel) {
-//            window = _window;
-//        }
-//    }
-//    return window;
     return [UIApplication sharedApplication].keyWindow;
 }
 
@@ -231,6 +235,30 @@ static MBProgressHUD *_hud;
     self.showMessage.bezelView.layer.cornerRadius = 10.0;
     // 设置文字内容和颜色
     self.showMessage.label.text = message;
+    self.showMessage.label.textColor = [UIColor whiteColor];
+}
+
+- (void)showCustomView:(UIView *)customView toView:(UIView *)toView text:(NSString *)text canClick:(BOOL)canClick {
+    if (self.showMessage) [self.showMessage removeFromSuperview];
+    if (!toView) toView = [self getTopLevelWindow];
+    
+    // 创建HUD
+    self.showMessage = [MBProgressHUD showHUDAddedTo:toView animated:YES];
+    self.showMessage.userInteractionEnabled = canClick;
+    // 设置为自定义模式
+    self.showMessage.mode = MBProgressHUDModeCustomView;
+    // 隐藏时从父控件中移除
+    self.showMessage.removeFromSuperViewOnHide = YES;
+    
+    // 设置自定义视图
+    self.showMessage.customView = customView;
+    // 设置bezelView背景色
+    self.showMessage.bezelView.color = [UIColor blackColor];
+    self.showMessage.bezelView.layer.cornerRadius = 10.0;
+    
+    // 设置文字内容和颜色
+    self.showMessage.label.text = text;
+    self.showMessage.label.font = [UIFont systemFontOfSize:14.0];
     self.showMessage.label.textColor = [UIColor whiteColor];
 }
 

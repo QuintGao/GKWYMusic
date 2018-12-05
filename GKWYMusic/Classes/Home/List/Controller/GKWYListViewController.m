@@ -120,7 +120,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GKWYListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGKWYListViewCell forIndexPath:indexPath];
     cell.row      = indexPath.row;
-    cell.model    = self.listArr[indexPath.row];
+    if (indexPath.row < self.listArr.count) {
+        cell.model = self.listArr[indexPath.row];
+    }
     cell.delegate = self;
     
     return cell;
