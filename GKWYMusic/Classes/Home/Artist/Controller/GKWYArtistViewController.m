@@ -113,6 +113,10 @@
 }
 
 #pragma mark - GKPageScrollViewDelegate
+- (BOOL)shouldLazyLoadListInPageScrollView:(GKPageScrollView *)pageScrollView {
+    return NO;
+}
+
 - (UIView *)headerViewInPageScrollView:(GKPageScrollView *)pageScrollView {
     return self.headerView;
 }
@@ -125,7 +129,7 @@
     return self.childVCs;
 }
 
-- (void)mainTableViewDidScroll:(UIScrollView *)scrollView {
+- (void)mainTableViewDidScroll:(UIScrollView *)scrollView isMainCanScroll:(BOOL)isMainCanScroll {
     CGFloat offsetY = scrollView.contentOffset.y;
     
     if (offsetY >= kArtistHeaderHeight) {

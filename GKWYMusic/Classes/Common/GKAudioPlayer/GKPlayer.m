@@ -64,6 +64,7 @@
 //    }
 //
 //    if ([self.txLivePlayer startPlay:self.playUrlStr type:PLAY_TYPE_VOD_HLS] != 0) {
+//        NSLog(@"播放失败");
 //        [self setPlayerStatus:GKPlayerStatusError];
 //    }
 //
@@ -126,6 +127,10 @@
 //            if ([self.delegate respondsToSelector:@selector(gkPlayer:currentTime:totalTime:progress:)]) {
 //                [self.delegate gkPlayer:self currentTime:currentTime totalTime:totalTime progress:progress];
 //            }
+//        }
+//            break;
+//        case PLAY_ERR_NET_DISCONNECT: { // 失败
+//            NSLog(@"播放失败");
 //        }
 //            break;
 //

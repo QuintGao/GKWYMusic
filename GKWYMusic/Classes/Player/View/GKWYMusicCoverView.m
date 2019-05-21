@@ -145,13 +145,15 @@
     
     [self setAnchorPoint:CGPointMake(25.0f / 97.0f, 25.0f / 153.0f) forView:self.needleView];
     
-    if (animated) {
-        [UIView animateWithDuration:0.5f animations:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (animated) {
+            [UIView animateWithDuration:0.5f animations:^{
+                self.needleView.transform = CGAffineTransformIdentity;
+            }];
+        }else {
             self.needleView.transform = CGAffineTransformIdentity;
-        }];
-    }else {
-        self.needleView.transform = CGAffineTransformIdentity;
-    }
+        }
+    });
     
     // 创建定时器
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(diskAnimation)];
@@ -167,13 +169,15 @@
     
     [self setAnchorPoint:CGPointMake(25.0f / 97.0f, 25.0f / 153.0f) forView:self.needleView];
     
-    if (animated) {
-        [UIView animateWithDuration:0.5f animations:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (animated) {
+            [UIView animateWithDuration:0.5f animations:^{
+                self.needleView.transform = CGAffineTransformMakeRotation(-M_PI_2 / 3);
+            }];
+        }else {
             self.needleView.transform = CGAffineTransformMakeRotation(-M_PI_2 / 3);
-        }];
-    }else {
-        self.needleView.transform = CGAffineTransformMakeRotation(-M_PI_2 / 3);
-    }
+        }
+    });
     
     if (self.displayLink) {
         [self.displayLink invalidate];

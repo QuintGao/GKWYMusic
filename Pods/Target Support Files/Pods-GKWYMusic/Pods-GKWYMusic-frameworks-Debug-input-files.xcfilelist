@@ -1,0 +1,14 @@
+${PODS_ROOT}/Target Support Files/Pods-GKWYMusic/Pods-GKWYMusic-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
+${BUILT_PRODUCTS_DIR}/FreeStreamer/FreeStreamer.framework
+${BUILT_PRODUCTS_DIR}/GKCover/GKCover.framework
+${BUILT_PRODUCTS_DIR}/GKMessageTool/GKMessageTool.framework
+${BUILT_PRODUCTS_DIR}/GKNavigationBarViewController/GKNavigationBarViewController.framework
+${BUILT_PRODUCTS_DIR}/GKPageScrollView/GKPageScrollView.framework
+${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework
+${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework
+${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
+${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework
+${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
+${BUILT_PRODUCTS_DIR}/WMPageController/WMPageController.framework
+${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework

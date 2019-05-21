@@ -25,7 +25,7 @@
 #import "GKHttpManager.h"
 
 #import "GKWYMusicTool.h"
-//#import "GKPlayer.h"
+#import "GKPlayer.h"
 #import "GKAudioPlayer.h"
 #import "GKWYPlayerViewController.h"
 
