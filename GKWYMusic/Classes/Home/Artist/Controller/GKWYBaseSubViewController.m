@@ -90,7 +90,6 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"subTableViewScroll");
     if (!_canScroll) {
         [scrollView setContentOffset:CGPointZero];
     }

@@ -60,6 +60,11 @@
 + (void)showNoClickMessage:(NSString *)message;
 + (void)showNoClickMessage:(NSString *)message toView:(UIView *)toView;
 
+/**
+ 显示自定义视图
+ */
++ (void)showCustomView:(UIView *)customView text:(NSString *)text;
++ (void)showCustomView:(UIView *)customView toView:(UIView *)toView text:(NSString *)text;
 
 /**
  隐藏加载中

@@ -10,7 +10,10 @@
 #endif
 #endif
 
+#import "GKPageDefine.h"
+#import "GKPageListContainerView.h"
 #import "GKPageScrollView.h"
+#import "GKPageSmoothView.h"
 #import "GKPageTableView.h"
 
 FOUNDATION_EXPORT double GKPageScrollViewVersionNumber;
