@@ -1,6 +1,6 @@
 //
 //  GKBaseTransitionAnimation.m
-//  GKNavigationBarViewControllerDemo
+//  GKNavigationBarViewController
 //
 //  Created by gaokun on 2019/1/15.
 //  Copyright © 2019 gaokun. All rights reserved.
@@ -54,6 +54,28 @@
 
 - (void)completeTransition {
     [self.transitionContext completeTransition:!self.transitionContext.transitionWasCancelled];
+}
+
+- (UIImage *)getCaptureWithView:(UIView *)view {
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0);
+    [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:NO];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+@end
+
+static const void* GKCaptureImageKey         = @"GKCaptureImage";
+
+@implementation UIViewController (GKCapture)
+
+- (void)setGk_captureImage:(UIImage *)gk_captureImage {
+    objc_setAssociatedObject(self, &GKCaptureImageKey, gk_captureImage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UIImage *)gk_captureImage{
+    return objc_getAssociatedObject(self, &GKCaptureImageKey);
 }
 
 @end

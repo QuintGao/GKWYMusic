@@ -9,9 +9,6 @@
 #import "GKWYArtistViewController.h"
 #import "GKWYArtistModel.h"
 #import "FXBlurView.h"
-
-#import "GKWYArtistMainTableView.h"
-
 #import "GKPageController.h"
 #import "GKWYArtistSongListViewController.h"
 #import "GKWYArtistAlbumListViewController.h"
@@ -57,6 +54,7 @@
     [super viewDidLoad];
     
     self.gk_navBackgroundColor = [UIColor clearColor];
+    self.gk_navLineHidden = YES;
     self.gk_statusBarStyle = UIStatusBarStyleLightContent;
     self.gk_navTitleColor = [UIColor whiteColor];
     

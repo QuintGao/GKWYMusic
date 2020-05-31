@@ -11,8 +11,6 @@
 
 @interface GKWYBaseSubViewController ()
 
-@property (nonatomic, assign) BOOL canScroll;//是否可以滚动
-
 @property (nonatomic, strong) UIImageView   *loadingView;
 @property (nonatomic, strong) UILabel       *loadLabel;
 
@@ -46,16 +44,6 @@
     }];
     // 默认隐藏mj_footer
     self.tableView.mj_footer.hidden = YES;
-    
-    // 子视图进入临界点的通知
-    [kNotificationCenter addObserver:self selector:@selector(acceptMsg:) name:@"EnterCriticalPoint" object:nil];
-    
-    // 子试图离开临界点的通知
-    [kNotificationCenter addObserver:self selector:@selector(acceptMsg:) name:@"LeaveCriticalPoint" object:nil];
-}
-
-- (void)dealloc {
-    [kNotificationCenter removeObserver:self];
 }
 
 #pragma mark - Publish Methods
@@ -74,30 +62,18 @@
     self.loadLabel.hidden   = YES;
 }
 
-//接收信息，处理通知
-- (void)acceptMsg:(NSNotification *)notify {
-    if ([notify.name isEqualToString:@"EnterCriticalPoint"]) {
-        BOOL canScroll = [notify.object[@"canScroll"] boolValue];
-        if (canScroll) {
-            _canScroll = YES;
-            self.tableView.showsVerticalScrollIndicator = YES;
-        }
-    }else if([notify.name isEqualToString:@"LeaveCriticalPoint"]){
-        _canScroll = NO;
-        self.tableView.contentOffset = CGPointZero;
-        self.tableView.showsVerticalScrollIndicator = NO;
-    }
-}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!_canScroll) {
-        [scrollView setContentOffset:CGPointZero];
-    }
-    
-    CGFloat offsetY = scrollView.contentOffset.y;
-    if (offsetY <= 0) {
-        [kNotificationCenter postNotificationName:@"LeaveCriticalPoint" object:@{@"canScroll":@1}];
-    }
+    !self.scrollCallback ? : self.scrollCallback(scrollView);
+}
+
+#pragma mark - GKPageListViewDelegate
+- (UIScrollView *)listScrollView {
+    return self.tableView;
+}
+
+- (void)listViewDidScrollCallback:(void (^)(UIScrollView *))callback {
+    self.scrollCallback = callback;
 }
 
 #pragma mark - 懒加载
