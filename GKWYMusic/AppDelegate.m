@@ -126,6 +126,14 @@
 }
 
 - (void)topbarPlayBtnClick:(id)sender {
+    UIViewController *vc = [GKWYMusicTool visibleViewController];
+    
+    [vc.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[GKWYPlayerViewController class]]) {
+            [obj removeFromParentViewController];
+        }
+    }];
+    
     [[GKWYMusicTool visibleViewController].navigationController pushViewController:kWYPlayerVC animated:YES];
 }
 
