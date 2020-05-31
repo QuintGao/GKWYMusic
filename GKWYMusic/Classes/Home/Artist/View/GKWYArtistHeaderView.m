@@ -10,10 +10,13 @@
 
 @interface GKWYArtistHeaderView()
 
-@property (nonatomic, strong) UIImageView           *imgView;
-@property (nonatomic, strong) UIVisualEffectView    *effectView;
+@property (nonatomic, strong) UILabel               *countLabel;
 
-@property (nonatomic, assign) CGRect                imageViewFrame;
+@property (nonatomic, strong) UILabel               *tagLabel;
+
+@property (nonatomic, strong) UIButton              *personalBtn;
+
+@property (nonatomic, strong) UIButton              *collectBtn;
 
 @end
 
@@ -21,29 +24,42 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-//        [self addSubview:self.imgView];
-//        [self addSubview:self.effectView];
-//
-//        [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.edges.equalTo(self);
-//        }];
-//
-//        [self.effectView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.edges.equalTo(self);
-//        }];
-        self.imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cm2_default_artist_banner"]];
-        self.imgView.clipsToBounds = YES;
-        self.imgView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-        self.imgView.contentMode = UIViewContentModeScaleAspectFill;
-        [self addSubview:self.imgView];
+        self.backgroundColor = [UIColor clearColor];
+        [self addSubview:self.nameLabel];
+        [self addSubview:self.countLabel];
+        [self addSubview:self.tagLabel];
+        [self addSubview:self.personalBtn];
+        [self addSubview:self.collectBtn];
         
-        self.imageViewFrame = self.imgView.frame;
+        // 110 44
+        [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self).offset(-ADAPTATIONRATIO * 26.0f);
+            make.left.equalTo(self).offset(ADAPTATIONRATIO * 30.0f);
+        }];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, frame.size.height - 30, 200, 30)];
-        label.font = [UIFont systemFontOfSize:20];
-        label.text = @"1212121211";
-        label.textColor = [UIColor redColor];
-        [self addSubview:label];
+        [self.countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.tagLabel);
+            make.bottom.equalTo(self.tagLabel.mas_top).offset(-ADAPTATIONRATIO * 12.0f);
+        }];
+        
+        [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.tagLabel);
+            make.bottom.equalTo(self.countLabel.mas_top).offset(-20.0f);
+        }];
+        
+        [self.collectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.tagLabel.mas_bottom);
+            make.right.equalTo(self).offset(-ADAPTATIONRATIO * 20.0f);
+            make.width.mas_equalTo(ADAPTATIONRATIO * 150.0f);
+            make.height.mas_equalTo(ADAPTATIONRATIO * 50.0f);
+        }];
+        
+        [self.personalBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.tagLabel.mas_bottom);
+            make.right.equalTo(self.collectBtn.mas_left).offset(-ADAPTATIONRATIO * 20.0f);
+            make.width.mas_equalTo(ADAPTATIONRATIO * 150.0f);
+            make.height.mas_equalTo(ADAPTATIONRATIO * 50.0f);
+        }];
     }
     return self;
 }
@@ -51,36 +67,66 @@
 - (void)setModel:(GKWYArtistModel *)model {
     _model = model;
     
-    [self.imgView sd_setImageWithURL:[NSURL URLWithString:self.model.avatar_s500] placeholderImage:[UIImage imageNamed:@"cm2_default_artist_banner"]];
+    self.nameLabel.text = model.name;
+    
+    self.countLabel.text = [NSString stringWithFormat:@"被收藏了%@次", model.collect_num];
+    
+    self.tagLabel.text = model.company;
 }
 
-- (void)scrollViewDidScroll:(CGFloat)contentOffsetY {
-    CGRect frame = self.imageViewFrame;
-    frame.size.height -= contentOffsetY;
-    frame.origin.y = contentOffsetY;
-    self.imgView.frame = frame;
+#pragma mark - 懒加载
+- (UILabel *)nameLabel {
+    if (!_nameLabel) {
+        _nameLabel = [UILabel new];
+        _nameLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+        _nameLabel.textColor = [UIColor whiteColor];
+    }
+    return _nameLabel;
 }
 
-//#pragma mark - 懒加载
-//- (UIImageView *)imgView {
-//    if (!_imgView) {
-//        _imgView                 = [UIImageView new];
-//        _imgView.contentMode     = UIViewContentModeScaleAspectFill;
-//        _imgView.frame           = CGRectMake(0, 0, KScreenW, kArtistHeaderHeight);
-//        _imgView.clipsToBounds   = YES;
-//        _imgView.image           = [UIImage imageNamed:@"cm2_default_artist_banner"];
-//    }
-//    return _imgView;
-//}
-//
-//- (UIVisualEffectView *)effectView {
-//    if (!_effectView) {
-//        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-//
-//        _effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
-//        _effectView.alpha = 0;
-//    }
-//    return _effectView;
-//}
+- (UILabel *)countLabel {
+    if (!_countLabel) {
+        _countLabel = [UILabel new];
+        _countLabel.font = [UIFont systemFontOfSize:13.0f];
+        _countLabel.textColor = [UIColor whiteColor];
+    }
+    return _countLabel;
+}
+
+- (UILabel *)tagLabel {
+    if (!_tagLabel) {
+        _tagLabel = [UILabel new];
+        _tagLabel.font = [UIFont systemFontOfSize:13.0f];
+        _tagLabel.textColor = [UIColor whiteColor];
+    }
+    return _tagLabel;
+}
+
+- (UIButton *)personalBtn {
+    if (!_personalBtn) {
+        _personalBtn = [UIButton new];
+        _personalBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        [_personalBtn setTitle:@"个人主页" forState:UIControlStateNormal];
+        [_personalBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _personalBtn.layer.cornerRadius = ADAPTATIONRATIO * 25.0f;
+        _personalBtn.layer.masksToBounds = YES;
+        _personalBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        _personalBtn.layer.borderWidth = 0.5f;
+    }
+    return _personalBtn;
+}
+
+- (UIButton *)collectBtn {
+    if (!_collectBtn) {
+        _collectBtn = [UIButton new];
+        _collectBtn.backgroundColor = [UIColor redColor];
+        _collectBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        [_collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
+        [_collectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _collectBtn.layer.cornerRadius = ADAPTATIONRATIO * 22.0f;
+        _collectBtn.layer.masksToBounds = YES;
+    }
+    return _collectBtn;
+}
 
 @end

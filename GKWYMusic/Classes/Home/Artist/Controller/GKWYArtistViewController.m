@@ -17,21 +17,25 @@
 #import "GKWYArtistAlbumListViewController.h"
 #import "GKWYArtistVideoListViewController.h"
 #import "GKWYArtistIntroViewController.h"
+#import <GKPageScrollView/GKPageScrollView.h>
+#import "GKWYArtistHeaderView.h"
 
-@interface GKWYArtistViewController ()<UITableViewDataSource, UITableViewDelegate, WMPageControllerDataSource, WMPageControllerDelegate>
+#define kCriticalPoint -ADAPTATIONRATIO * 50.0f
 
-@property (nonatomic, strong) GKWYArtistMainTableView   *mainTableView;
+@interface GKWYArtistViewController ()<GKPageScrollViewDelegate, WMPageControllerDataSource, WMPageControllerDelegate, GKPageControllerDelegate>
+
+@property (nonatomic, strong) GKPageScrollView          *pageScrollView;
+
+@property (nonatomic, strong) GKWYArtistHeaderView      *headerView;
 
 @property (nonatomic, strong) UIView                    *lineView;
 @property (nonatomic, strong) GKPageController          *pageVC;
 @property (nonatomic, strong) UIView                    *pageView;
 
-@property (nonatomic, strong) UIView                    *headerView;
-@property (nonatomic, strong) UIImageView               *topImgView;
+@property (nonatomic, strong) UIImageView               *headerBgImgView;
+@property (nonatomic, strong) UIVisualEffectView        *headerBgEffectView;
 
-@property (nonatomic, strong) GKWYArtistModel   *artistModel;
-
-@property (nonatomic, strong) UIVisualEffectView *effectView;
+@property (nonatomic, strong) GKWYArtistModel           *artistModel;
 
 @property (nonatomic, strong) NSArray                   *titles;
 @property (nonatomic, strong) NSArray                   *childVCs;
@@ -53,27 +57,38 @@
     [super viewDidLoad];
     
     self.gk_navBackgroundColor = [UIColor clearColor];
+    self.gk_statusBarStyle = UIStatusBarStyleLightContent;
+    self.gk_navTitleColor = [UIColor whiteColor];
     
-    self.isCanScroll = YES;
+    [self.view addSubview:self.headerBgImgView];
+    [self.view addSubview:self.headerBgEffectView];
+    [self.view addSubview:self.pageScrollView];
     
-    [self.view addSubview:self.mainTableView];
-    [self.mainTableView addSubview:self.headerView];
+    [self.pageScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(NAVBAR_HEIGHT, 0, 0, 0));
+    }];
     
-    [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(@0);
+        make.width.mas_equalTo(KScreenW);
+        make.height.mas_equalTo(kArtistHeaderHeight);
+    }];
+    
+    [self.headerBgImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(kCriticalPoint);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.headerView.mas_top).offset(kArtistHeaderHeight - kCriticalPoint);
+        make.height.mas_greaterThanOrEqualTo(NAVBAR_HEIGHT);
+    }];
+    
+    [self.headerBgEffectView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(kCriticalPoint);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.headerView.mas_top).offset(kArtistHeaderHeight - kCriticalPoint);
+        make.height.mas_greaterThanOrEqualTo(NAVBAR_HEIGHT);
     }];
     
     [self getArtistInfo];
-    
-    // 添加通知监听
-    // 子视图离开临界点的通知
-    [kNotificationCenter addObserver:self selector:@selector(leaveCritical:) name:@"LeaveCriticalPoint" object:nil];
-    // 子视图水平滑动的通知
-    [kNotificationCenter addObserver:self selector:@selector(horizontalScroll:) name:@"HorizontalScroll" object:nil];
-}
-
-- (void)dealloc {
-    [kNotificationCenter removeObserver:self];
 }
 
 - (void)getArtistInfo {
@@ -84,110 +99,117 @@
         
         self.artistModel = [GKWYArtistModel yy_modelWithDictionary:responseObject];
         
-        self.gk_navigationItem.title = self.artistModel.name;
+        self.headerView.model = self.artistModel;
         
-        [self.topImgView sd_setImageWithURL:[NSURL URLWithString:self.artistModel.avatar_s500]
+        [self.headerBgImgView sd_setImageWithURL:[NSURL URLWithString:self.artistModel.avatar_s500]
                            placeholderImage:[UIImage imageNamed:@"cm2_default_artist_banner"]];
         
-        // 刷新tableview
-        [self.mainTableView reloadData];
-        
-//        [self.pageVC reloadData];
+        // 刷新pageScrollView
+        [self.pageScrollView reloadData];
         
     } failureBlock:^(NSError *error) {
         NSLog(@"%@", error);
     }];
 }
 
-#pragma mark - Notification
-
-- (void)leaveCritical:(NSNotification *)notify {
-    BOOL canScroll = [notify.object[@"canScroll"] boolValue];
-    
-    if (canScroll) {
-        self.isCanScroll = YES;
-    }
+#pragma mark - GKPageScrollViewDelegate
+- (BOOL)shouldLazyLoadListInPageScrollView:(GKPageScrollView *)pageScrollView {
+    return NO;
 }
 
-- (void)horizontalScroll:(NSNotification *)notify {
-    BOOL canScroll = [notify.object[@"canScroll"] boolValue];
-    
-    self.mainTableView.scrollEnabled = canScroll;
+- (UIView *)headerViewInPageScrollView:(GKPageScrollView *)pageScrollView {
+    return self.headerView;
 }
 
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    // 当前偏移量
+- (UIView *)pageViewInPageScrollView:(GKPageScrollView *)pageScrollView {
+    return self.pageView;
+}
+
+- (NSArray<id<GKPageListViewDelegate>> *)listViewsInPageScrollView:(GKPageScrollView *)pageScrollView {
+    return self.childVCs;
+}
+
+- (void)mainTableViewDidScroll:(UIScrollView *)scrollView isMainCanScroll:(BOOL)isMainCanScroll {
     CGFloat offsetY = scrollView.contentOffset.y;
-    // 临界点
-    CGFloat criticalPoint = [self.mainTableView rectForSection:0].origin.y - NAVBAR_HEIGHT;
     
-    if (offsetY > 0) {
-        scrollView.bounces = NO;
+    if (offsetY >= kArtistHeaderHeight) {
+        [self.headerBgImgView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view);
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(NAVBAR_HEIGHT);
+        }];
+        
+        [self.headerBgEffectView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view);
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(NAVBAR_HEIGHT);
+        }];
+        self.headerBgEffectView.alpha = 1.0f;
     }else {
-        scrollView.bounces = YES;
-    }
-    
-    // 蒙层渐变
-    CGFloat alpha = 0;
-    if (offsetY <= 80 - kArtistHeaderHeight) {
-        alpha = 0;
-    }else if (offsetY >= -NAVBAR_HEIGHT) {
-        alpha = 1;
-    }else {
-        // 从 80 - kArtistHeaderHeight 到 -NAVBAR_HEIGHT
-        alpha = 1 - ((-NAVBAR_HEIGHT - offsetY) / (kArtistHeaderHeight - NAVBAR_HEIGHT - 80));
-    }
-    
-    self.effectView.hidden = alpha == 0;
-    self.effectView.alpha = alpha;
-    
-    // 利用contentOffset处理内外层tableView的滑动冲突
-    // 滑动到达临界点时固定mainTableView的位置
-    if (offsetY >= criticalPoint) {
-        scrollView.contentOffset = CGPointMake(0, criticalPoint);
-        self.isCriticalPoint = YES;
-    }else {
-        self.isCriticalPoint = NO;
-    }
-    
-    if (self.isCriticalPoint) {
-        [kNotificationCenter postNotificationName:@"EnterCriticalPoint" object:@{@"canScroll": @1}];
-        self.isCanScroll = NO;
-    }else {
-        if (!self.isCanScroll) {
-            self.mainTableView.contentOffset = CGPointMake(0, criticalPoint);
+        // 0到临界点 高度不变
+        if (offsetY <= 0 && offsetY >= kCriticalPoint) {
+            CGFloat criticalOffsetY = offsetY - kCriticalPoint;
+            
+            [self.headerBgImgView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.view).offset(-criticalOffsetY);
+                make.left.right.equalTo(self.view);
+                make.bottom.equalTo(self.headerView.mas_top).offset(kArtistHeaderHeight + criticalOffsetY);
+            }];
+            
+            [self.headerBgEffectView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.view).offset(-criticalOffsetY);
+                make.left.right.equalTo(self.view);
+                make.bottom.equalTo(self.headerView.mas_top).offset(kArtistHeaderHeight + criticalOffsetY);
+            }];
+        }else { // 小于-20 下拉放大
+            [self.headerBgImgView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.view);
+                make.left.right.equalTo(self.view);
+                make.bottom.equalTo(self.headerView.mas_top).offset(kArtistHeaderHeight);
+            }];
+            
+            [self.headerBgEffectView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.view);
+                make.left.right.equalTo(self.view);
+                make.bottom.equalTo(self.headerView.mas_top).offset(kArtistHeaderHeight);
+            }];
         }
+        
+        // 虚化渐变
+        // 0 - kWYHeaderHeight 透明度0-1
+        CGFloat alpha = 0.0f;
+        if (offsetY <= 0) {
+            alpha = 0.0f;
+        }else if (offsetY < kArtistHeaderHeight) {
+            alpha = offsetY / kArtistHeaderHeight;
+        }else {
+            alpha = 1.0f;
+        }
+        self.headerBgEffectView.alpha = alpha;
     }
     
-    // headerView下拉放大
-    if(offsetY <= -kArtistHeaderHeight) {
-        CGRect f = self.headerView.frame;
-        //上下放大
-        f.origin.y      = offsetY;
-        f.size.height   = -offsetY;
-        //左右放大
-        f.origin.x = (offsetY * KScreenW / kArtistHeaderHeight + KScreenW)/2;
-        f.size.width = -offsetY * KScreenW / kArtistHeaderHeight;
-        //改变头部视图的frame
-        self.headerView.frame = f;
+    // 标题显隐
+    BOOL show = [self isAlbumNameLabelShowingOn];
+    
+    if (show) {
+        self.gk_navTitle = @"";
+    }else {
+        self.gk_navTitle = self.headerView.nameLabel.text;
     }
 }
 
-#pragma mark - UITableViewDelegate
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.isRequest ? 1 : 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell.contentView addSubview:self.pageView];
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return KScreenH - NAVBAR_HEIGHT;
+- (BOOL)isAlbumNameLabelShowingOn {
+    UIView *view = self.headerView.nameLabel;
+    
+    // 获取titlelabel在视图上的位置
+    CGRect showFrame = [self.view convertRect:view.frame fromView:view.superview];
+    
+    showFrame.origin.y -= NAVBAR_HEIGHT;
+    
+    // 判断是否有重叠部分
+    BOOL intersects = CGRectIntersectsRect(self.view.bounds, showFrame);
+    
+    return !view.isHidden && view.alpha > 0.01 && intersects;
 }
 
 #pragma mark - WMPageControllerDataSource
@@ -227,63 +249,55 @@
     GKWYBaseSubViewController *vc = (GKWYBaseSubViewController *)viewController;
     NSLog(@"%@", vc);
     if (self.artistModel) {
+        vc.model = self.artistModel;
+        
         [vc loadData];
     }
 }
 
-#pragma mark - 懒加载
-- (GKWYArtistMainTableView *)mainTableView {
-    if (!_mainTableView) {
-        _mainTableView = [[GKWYArtistMainTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _mainTableView.dataSource   = self;
-        _mainTableView.delegate     = self;
-        _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _mainTableView.showsVerticalScrollIndicator = NO;
-        _mainTableView.contentInset = UIEdgeInsetsMake(kArtistHeaderHeight, 0, 0, 0);
-    }
-    return _mainTableView;
+#pragma mark - GKPageControllerDelegate
+- (void)pageScrollViewWillBeginScroll {
+    [self.pageScrollView horizonScrollViewWillBeginScroll];
 }
 
-- (UIView *)headerView {
+- (void)pageScrollViewDidEndedScroll {
+    [self.pageScrollView horizonScrollViewDidEndedScroll];
+}
+
+#pragma mark - 懒加载
+- (GKPageScrollView *)pageScrollView {
+    if (!_pageScrollView) {
+        _pageScrollView = [[GKPageScrollView alloc] initWithDelegate:self];
+        _pageScrollView.mainTableView.backgroundColor = [UIColor clearColor];
+        _pageScrollView.ceilPointHeight = 0;
+    }
+    return _pageScrollView;
+}
+
+- (GKWYArtistHeaderView *)headerView {
     if (!_headerView) {
-        UIView *headerView = [UIView new];
-        headerView.frame = CGRectMake(0, 0, KScreenW, kArtistHeaderHeight);
-        
-        [headerView addSubview:self.topImgView];
-        [headerView addSubview:self.effectView];
-        
-        [self.topImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(headerView);
-        }];
-        
-        [self.effectView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(headerView);
-        }];
-        
-        _headerView = headerView;
+        _headerView = [GKWYArtistHeaderView new];
     }
     return _headerView;
 }
 
-- (UIImageView *)topImgView {
-    if (!_topImgView) {
-        _topImgView                 = [UIImageView new];
-        _topImgView.contentMode     = UIViewContentModeScaleAspectFill;
-        _topImgView.frame           = CGRectMake(0, 0, KScreenW, kArtistHeaderHeight);
-        _topImgView.clipsToBounds   = YES;
-        _topImgView.image           = [UIImage imageNamed:@"cm2_default_artist_banner"];
+- (UIImageView *)headerBgImgView {
+    if (!_headerBgImgView) {
+        _headerBgImgView = [UIImageView new];
+        _headerBgImgView.contentMode = UIViewContentModeScaleAspectFill;
+        _headerBgImgView.clipsToBounds = YES;
     }
-    return _topImgView;
+    return _headerBgImgView;
 }
 
-- (UIVisualEffectView *)effectView {
-    if (!_effectView) {
+- (UIVisualEffectView *)headerBgEffectView {
+    if (!_headerBgEffectView) {
         UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
         
-        _effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
-        _effectView.alpha = 0;
+        _headerBgEffectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+        _headerBgEffectView.alpha = 0;
     }
-    return _effectView;
+    return _headerBgEffectView;
 }
 
 - (NSArray *)titles {
@@ -296,16 +310,12 @@
 - (NSArray *)childVCs {
     if (!_childVCs) {
         GKWYArtistSongListViewController *songVC = [GKWYArtistSongListViewController new];
-        songVC.model = self.artistModel;
         
         GKWYArtistAlbumListViewController *albumVC = [GKWYArtistAlbumListViewController new];
-        albumVC.model = self.artistModel;
         
         GKWYArtistVideoListViewController *videoVC = [GKWYArtistVideoListViewController new];
-        videoVC.model = self.artistModel;
         
         GKWYArtistIntroViewController *introVC = [GKWYArtistIntroViewController new];
-        introVC.model = self.artistModel;
         
         _childVCs = @[songVC, albumVC, videoVC, introVC];
     }
@@ -327,6 +337,7 @@
         _pageVC                             = [GKPageController new];
         _pageVC.dataSource                  = self;
         _pageVC.delegate                    = self;
+        _pageVC.scrollDelegate              = self;
         
         // 菜单属性
         _pageVC.menuItemWidth               = KScreenW / 4.0f;

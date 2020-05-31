@@ -16,6 +16,7 @@
 #import "UINavigationController+GKCategory.h"
 #import "UINavigationItem+GKCategory.h"
 #import "UIScrollView+GKCategory.h"
+#import "UIView+GKCategory.h"
 #import "UIViewController+GKCategory.h"
 #import "GKCommon.h"
 #import "GKNavigationBar.h"

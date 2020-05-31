@@ -25,7 +25,7 @@
 #import "GKHttpManager.h"
 
 #import "GKWYMusicTool.h"
-//#import "GKPlayer.h"
+#import "GKPlayer.h"
 #import "GKAudioPlayer.h"
 #import "GKWYPlayerViewController.h"
 
@@ -54,7 +54,7 @@
 
 #pragma mark - 歌手详情页宏定义
 // header高度
-#define kArtistHeaderHeight     (kScreenW - 80.0f)
+#define kArtistHeaderHeight     (kScreenW - 80.0f - NAVBAR_HEIGHT)
 // segment高度
 #define kArtistSegmentHeight    kAdaptive(80.0f)
 // 临界点

@@ -13,11 +13,8 @@
 #import "GKActionSheet.h"
 
 #import "GKWYAlbumViewController.h"
-//#import "GKWYArtistViewController.h"
+#import "GKWYArtistViewController.h"
 #import "GKWYVideoViewController.h"
-
-
-#import "GKWYJXArtistViewController.h"
 
 @interface GKWYListViewController ()<GKDownloadManagerDelegate, GKWYListViewCellDelegate>
 
@@ -123,7 +120,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GKWYListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGKWYListViewCell forIndexPath:indexPath];
     cell.row      = indexPath.row;
-    cell.model    = self.listArr[indexPath.row];
+    if (indexPath.row < self.listArr.count) {
+        cell.model = self.listArr[indexPath.row];
+    }
     cell.delegate = self;
     
     return cell;
@@ -178,7 +177,7 @@
             item.title      = titles[idx];
             item.enabled    = YES;
             item.clickBlock = ^{
-                GKWYJXArtistViewController *artistVC = [GKWYJXArtistViewController new];
+                GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
                 artistVC.tinguid  = obj;
                 artistVC.artistid = artists[idx];
                 [weakSelf.navigationController pushViewController:artistVC animated:YES];
@@ -188,7 +187,7 @@
         
         [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手" itemInfos:items];
     }else {
-        GKWYJXArtistViewController *artistVC = [GKWYJXArtistViewController new];
+        GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
         artistVC.tinguid  = tinguids.firstObject;
         artistVC.artistid = artists.firstObject;
         [self.navigationController pushViewController:artistVC animated:YES];

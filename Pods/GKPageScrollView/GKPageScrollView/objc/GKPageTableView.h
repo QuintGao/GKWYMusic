@@ -10,21 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class GKPageTableView;
-
-@protocol GKPageTableViewGestureDelegate <NSObject>
-
-@optional
-
-- (BOOL)pageTableView:(GKPageTableView *)tableView gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer;
-
-- (BOOL)pageTableView:(GKPageTableView *)tableView gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
-
-@end
-
-@interface GKPageTableView : UITableView<UIGestureRecognizerDelegate>
-
-@property (nonatomic, weak) id<GKPageTableViewGestureDelegate> gestureDelegate;
+@interface GKPageTableView : UITableView
 
 @end
 
