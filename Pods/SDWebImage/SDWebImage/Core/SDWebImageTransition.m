@@ -84,10 +84,6 @@ CATransition * SDTransitionFromAnimationOptions(SDWebImageAnimationOptions optio
 @implementation SDWebImageTransition (Conveniences)
 
 + (SDWebImageTransition *)fadeTransition {
-    return [self fadeTransitionWithDuration:0.5];
-}
-
-+ (SDWebImageTransition *)fadeTransitionWithDuration:(NSTimeInterval)duration {
     SDWebImageTransition *transition = [SDWebImageTransition new];
 #if SD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction;
@@ -98,10 +94,6 @@ CATransition * SDTransitionFromAnimationOptions(SDWebImageAnimationOptions optio
 }
 
 + (SDWebImageTransition *)flipFromLeftTransition {
-    return [self flipFromLeftTransitionWithDuration:0.5];
-}
-
-+ (SDWebImageTransition *)flipFromLeftTransitionWithDuration:(NSTimeInterval)duration {
     SDWebImageTransition *transition = [SDWebImageTransition new];
 #if SD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionFlipFromLeft | UIViewAnimationOptionAllowUserInteraction;
@@ -112,10 +104,6 @@ CATransition * SDTransitionFromAnimationOptions(SDWebImageAnimationOptions optio
 }
 
 + (SDWebImageTransition *)flipFromRightTransition {
-    return [self flipFromRightTransitionWithDuration:0.5];
-}
-
-+ (SDWebImageTransition *)flipFromRightTransitionWithDuration:(NSTimeInterval)duration {
     SDWebImageTransition *transition = [SDWebImageTransition new];
 #if SD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionFlipFromRight | UIViewAnimationOptionAllowUserInteraction;
@@ -126,10 +114,6 @@ CATransition * SDTransitionFromAnimationOptions(SDWebImageAnimationOptions optio
 }
 
 + (SDWebImageTransition *)flipFromTopTransition {
-    return [self flipFromTopTransitionWithDuration:0.5];
-}
-
-+ (SDWebImageTransition *)flipFromTopTransitionWithDuration:(NSTimeInterval)duration {
     SDWebImageTransition *transition = [SDWebImageTransition new];
 #if SD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionFlipFromTop | UIViewAnimationOptionAllowUserInteraction;
@@ -140,10 +124,6 @@ CATransition * SDTransitionFromAnimationOptions(SDWebImageAnimationOptions optio
 }
 
 + (SDWebImageTransition *)flipFromBottomTransition {
-    return [self flipFromBottomTransitionWithDuration:0.5];
-}
-
-+ (SDWebImageTransition *)flipFromBottomTransitionWithDuration:(NSTimeInterval)duration {
     SDWebImageTransition *transition = [SDWebImageTransition new];
 #if SD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionFlipFromBottom | UIViewAnimationOptionAllowUserInteraction;
@@ -154,10 +134,6 @@ CATransition * SDTransitionFromAnimationOptions(SDWebImageAnimationOptions optio
 }
 
 + (SDWebImageTransition *)curlUpTransition {
-    return [self curlUpTransitionWithDuration:0.5];
-}
-
-+ (SDWebImageTransition *)curlUpTransitionWithDuration:(NSTimeInterval)duration {
     SDWebImageTransition *transition = [SDWebImageTransition new];
 #if SD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionCurlUp | UIViewAnimationOptionAllowUserInteraction;
@@ -168,17 +144,12 @@ CATransition * SDTransitionFromAnimationOptions(SDWebImageAnimationOptions optio
 }
 
 + (SDWebImageTransition *)curlDownTransition {
-    return [self curlDownTransitionWithDuration:0.5];
-}
-
-+ (SDWebImageTransition *)curlDownTransitionWithDuration:(NSTimeInterval)duration {
     SDWebImageTransition *transition = [SDWebImageTransition new];
 #if SD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionCurlDown | UIViewAnimationOptionAllowUserInteraction;
 #else
     transition.animationOptions = SDWebImageAnimationOptionTransitionCurlDown;
 #endif
-    transition.duration = duration;
     return transition;
 }
 

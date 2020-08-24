@@ -519,7 +519,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.gk_navBackgroundColor = [UIColor clearColor];
-    
+    self.gk_navLineHidden = YES;
     self.gk_navRightBarButtonItem = [UIBarButtonItem itemWithImageName:@"cm2_topbar_icn_share" target:self action:@selector(shareAction)];
     
     // 获取播放方式，并设置

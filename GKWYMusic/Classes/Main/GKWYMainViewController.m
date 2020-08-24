@@ -22,8 +22,7 @@
     [super viewDidLoad];
     
     self.tabBar.translucent = NO;
-    
-    self.tabBar.backgroundImage = [UIImage imageNamed:@"cm2_btm_bg"];
+    self.tabBar.backgroundImage = [UIImage gk_imageWithColor:GKColorRGB(128, 128, 128) size:self.tabBar.frame.size];
     // 主页
     [self addChildVC:[GKWYHomeViewController new] title:@"发现" imgName:@"cm2_btm_icn_discovery" selImgName:@"cm2_btm_icn_discovery_prs"];
     // 我的
@@ -35,6 +34,7 @@
     childVC.tabBarItem.image = [UIImage imageNamed:imgName];
     childVC.tabBarItem.selectedImage = [UIImage imageNamed:selImgName];
     
+    [childVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor redColor]} forState:UIControlStateNormal];
     [childVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]} forState:UIControlStateSelected];
     
     GKWYNavigationController *nav = [GKWYNavigationController rootVC:childVC translationScale:NO];

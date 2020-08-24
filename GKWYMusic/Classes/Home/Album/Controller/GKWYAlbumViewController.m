@@ -45,7 +45,7 @@
     [super viewDidLoad];
     
     self.gk_navBackgroundColor = [UIColor clearColor];
-    
+    self.gk_navLineHidden = YES;
     self.gk_navigationItem.title = @"专辑";
     
     self.headerHeight = kAdaptive(520.0f);

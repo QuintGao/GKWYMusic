@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -81,7 +81,6 @@
 		60938F8320AE5AEA00CD8115 /* GKWYIntroViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938F8220AE5AEA00CD8115 /* GKWYIntroViewCell.m */; };
 		60938F8620AE603F00CD8115 /* GKWYArtistRecModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938F8520AE603F00CD8115 /* GKWYArtistRecModel.m */; };
 		60938F8C20AEDA4A00CD8115 /* GKWYBaseSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938F8B20AEDA4A00CD8115 /* GKWYBaseSubViewController.m */; };
-		60938FAE20AFD1E900CD8115 /* GKWYArtistMainTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938FAD20AFD1E900CD8115 /* GKWYArtistMainTableView.m */; };
 		60938FBC20B1740400CD8115 /* GKWYIntroDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938FBB20B1740400CD8115 /* GKWYIntroDetailViewController.m */; };
 		60938FBE20B29DD300CD8115 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 60938FBD20B29DD300CD8115 /* README.md */; };
 		60938FC120B4198C00CD8115 /* GKWYVideoResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938FC020B4198C00CD8115 /* GKWYVideoResultViewController.m */; };
@@ -292,8 +291,6 @@
 		60938F8520AE603F00CD8115 /* GKWYArtistRecModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArtistRecModel.m; sourceTree = "<group>"; };
 		60938F8A20AEDA4A00CD8115 /* GKWYBaseSubViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYBaseSubViewController.h; sourceTree = "<group>"; };
 		60938F8B20AEDA4A00CD8115 /* GKWYBaseSubViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYBaseSubViewController.m; sourceTree = "<group>"; };
-		60938FAC20AFD1E900CD8115 /* GKWYArtistMainTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYArtistMainTableView.h; sourceTree = "<group>"; };
-		60938FAD20AFD1E900CD8115 /* GKWYArtistMainTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArtistMainTableView.m; sourceTree = "<group>"; };
 		60938FBA20B1740400CD8115 /* GKWYIntroDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYIntroDetailViewController.h; sourceTree = "<group>"; };
 		60938FBB20B1740400CD8115 /* GKWYIntroDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYIntroDetailViewController.m; sourceTree = "<group>"; };
 		60938FBD20B29DD300CD8115 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -899,8 +896,6 @@
 		60938EDC20AAEA2F00CD8115 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				60938FAC20AFD1E900CD8115 /* GKWYArtistMainTableView.h */,
-				60938FAD20AFD1E900CD8115 /* GKWYArtistMainTableView.m */,
 				606176A0209C0ECA0054C8E1 /* GKWYAlbumViewCell.h */,
 				606176A1209C0ECA0054C8E1 /* GKWYAlbumViewCell.m */,
 				60938F7B20ADA2FB00CD8115 /* GKWYVideoViewCell.h */,
@@ -1436,7 +1431,6 @@
 				603A130A208DE472002A5BD3 /* GKPageController.m in Sources */,
 				603A12E6208DBA0D002A5BD3 /* GKWYBaseTableViewController.m in Sources */,
 				6093900C20B66A7800CD8115 /* GKWYSearchViewCell.m in Sources */,
-				60938FAE20AFD1E900CD8115 /* GKWYArtistMainTableView.m in Sources */,
 				60938EF820AB01D900CD8115 /* GKWYArtistSongListViewController.m in Sources */,
 				790A26B52173237C00BD7D8C /* JXCategoryDotCellModel.m in Sources */,
 				603A1298208989B0002A5BD3 /* GKWYMainViewController.m in Sources */,

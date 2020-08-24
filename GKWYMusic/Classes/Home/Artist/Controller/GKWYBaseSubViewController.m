@@ -44,21 +44,6 @@
     }];
     // 默认隐藏mj_footer
     self.tableView.mj_footer.hidden = YES;
-    
-    self.mainScrollView = self.tableView;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    !self.scrollCallback ? : self.scrollCallback(scrollView);
-}
-
-#pragma mark - GKPageListViewDelegate
-- (UIScrollView *)listScrollView {
-    return self.mainScrollView;
-}
-
-- (void)listViewDidScrollCallback:(void (^)(UIScrollView *))callback {
-    self.scrollCallback = callback;
 }
 
 #pragma mark - Publish Methods
@@ -75,6 +60,20 @@
     [self.loadingView stopAnimating];
     self.loadingView.hidden = YES;
     self.loadLabel.hidden   = YES;
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    !self.scrollCallback ? : self.scrollCallback(scrollView);
+}
+
+#pragma mark - GKPageListViewDelegate
+- (UIScrollView *)listScrollView {
+    return self.tableView;
+}
+
+- (void)listViewDidScrollCallback:(void (^)(UIScrollView *))callback {
+    self.scrollCallback = callback;
 }
 
 #pragma mark - 懒加载
