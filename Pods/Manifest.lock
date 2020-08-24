@@ -1,33 +1,33 @@
 PODS:
-  - AFNetworking (3.2.1):
-    - AFNetworking/NSURLSession (= 3.2.1)
-    - AFNetworking/Reachability (= 3.2.1)
-    - AFNetworking/Security (= 3.2.1)
-    - AFNetworking/Serialization (= 3.2.1)
-    - AFNetworking/UIKit (= 3.2.1)
-  - AFNetworking/NSURLSession (3.2.1):
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.1)
-  - AFNetworking/Security (3.2.1)
-  - AFNetworking/Serialization (3.2.1)
-  - AFNetworking/UIKit (3.2.1):
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - FreeStreamer (3.9.3):
+  - FreeStreamer (4.0.0):
     - Reachability (~> 3.0)
-  - GKCover (2.5.4)
-  - GKMessageTool (1.0.4):
+  - GKCover (2.5.5)
+  - GKMessageTool (1.0.5):
     - MBProgressHUD
-  - GKNavigationBarViewController (2.2.5)
-  - GKPageScrollView (1.2.4)
+  - GKNavigationBarViewController (2.5.8)
+  - GKPageScrollView (1.3.8)
   - Masonry (1.1.0)
-  - MBProgressHUD (1.1.0)
-  - MJRefresh (3.2.0)
+  - MBProgressHUD (1.2.0)
+  - MJRefresh (3.5.0)
   - Reachability (3.2)
-  - SDWebImage (5.0.3):
-    - SDWebImage/Core (= 5.0.3)
-  - SDWebImage/Core (5.0.3)
+  - SDWebImage (5.8.4):
+    - SDWebImage/Core (= 5.8.4)
+  - SDWebImage/Core (5.8.4)
   - WMPageController (2.5.2)
   - YYModel (1.0.4)
 
@@ -45,7 +45,7 @@ DEPENDENCIES:
   - YYModel
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - FreeStreamer
     - GKCover
@@ -61,20 +61,20 @@ SPEC REPOS:
     - YYModel
 
 SPEC CHECKSUMS:
-  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  FreeStreamer: 8d52b299dc97e557ff156480bf86a666165bd1e5
-  GKCover: 5340b5d73adf127a72a4a7649fe3bc6f734f7d23
-  GKMessageTool: c5730c895e061d5f8ad69ffc4c19e688ceb4d5f9
-  GKNavigationBarViewController: 127e7015e43d3e38e9dedc2353d42a68fabf2921
-  GKPageScrollView: 02a248274710aea3f7b80140daf728eaa8041615
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  FreeStreamer: 7e9c976045701ac2f7e9c14c17245203c37bf2ea
+  GKCover: 54663b6ee16ea0b4c0e203a0ffd5a0622223af6e
+  GKMessageTool: fcf46cca30f62eaebb8fea288c9452f3682645f2
+  GKNavigationBarViewController: 7ea1781f5056e6f55e8c11e4f54fadbcbb50d96a
+  GKPageScrollView: 5cd374fd7d34c0fb89f313307ac0e31939f82c30
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
-  MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SDWebImage: d4f87d7d36c8a4d9f9459dc282e0caa057fdf935
+  SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   WMPageController: 0c7624d2b48e4f1ab92371688cf6744ed701575d
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 91d978fecb4494a162ead047b99d62ecf309cab0
+PODFILE CHECKSUM: 31a63b2df84c9017c03cb4770aa82b76d4e5485e
 
-COCOAPODS: 1.7.0.beta.3
+COCOAPODS: 1.10.0.beta.2

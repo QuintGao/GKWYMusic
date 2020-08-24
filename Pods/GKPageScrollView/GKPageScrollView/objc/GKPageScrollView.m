@@ -7,30 +7,17 @@
 //
 
 #import "GKPageScrollView.h"
-
-// 是否是iPhone X系列
-#define GKPAGE_IS_iPhoneX       ([UIScreen instancesRespondToSelector:@selector(currentMode)] ?\
-(\
-CGSizeEqualToSize(CGSizeMake(375, 812),[UIScreen mainScreen].bounds.size)\
-||\
-CGSizeEqualToSize(CGSizeMake(812, 375),[UIScreen mainScreen].bounds.size)\
-||\
-CGSizeEqualToSize(CGSizeMake(414, 896),[UIScreen mainScreen].bounds.size)\
-||\
-CGSizeEqualToSize(CGSizeMake(896, 414),[UIScreen mainScreen].bounds.size))\
-:\
-NO)
-
-// 屏幕宽高
-#define GKPAGE_SCREEN_WIDTH     [UIScreen mainScreen].bounds.size.width
-#define GKPAGE_SCREEN_HEIGHT    [UIScreen mainScreen].bounds.size.height
-// 导航栏+状态栏高度
-#define GKPAGE_NAVBAR_HEIGHT    (GKPAGE_IS_iPhoneX ? 88.0f : 64.0f)
+#import "GKPageDefine.h"
 
 @interface GKPageScrollView()<UITableViewDataSource, UITableViewDelegate, GKPageListContainerViewDelegate>
 
 @property (nonatomic, strong) GKPageTableView           *mainTableView;
 @property (nonatomic, strong) GKPageListContainerView   *listContainerView;
+
+@property (nonatomic, weak) id<GKPageScrollViewDelegate> delegate;
+
+// 当前滑动的listView
+@property (nonatomic, weak) UIScrollView                *currentListScrollView;
 @property (nonatomic, strong) NSMutableDictionary <NSNumber *, id<GKPageListViewDelegate>> *validListDict;
 
 // 是否滑动到临界点，可有偏差
@@ -52,15 +39,12 @@ NO)
 // 是否加载
 @property (nonatomic, assign) BOOL                      isLoaded;
 
-// 当前滑动的listView
-@property (nonatomic, weak) UIScrollView                *currentListScrollView;
-
 @end
 
 @implementation GKPageScrollView
 
 - (instancetype)initWithDelegate:(id<GKPageScrollViewDelegate>)delegate {
-    if (self = [super init]) {
+    if (self = [super initWithFrame:CGRectZero]) {
         self.delegate = delegate;
         self.ceilPointHeight = GKPAGE_NAVBAR_HEIGHT;
         self.validListDict = [NSMutableDictionary new];
@@ -94,10 +78,16 @@ NO)
     }
     [self addSubview:self.mainTableView];
     
-    // 是否懒加载
-    BOOL shouldLazyload = [self.delegate shouldLazyLoadListInPageScrollView:self];
+    if ([self shouldLazyLoadListView]) {
+        self.listContainerView = [[GKPageListContainerView alloc] initWithDelegate:self];
+        self.listContainerView.mainTableView = self.mainTableView;
+    }
+}
+
+- (void)setIsLazyLoadList:(BOOL)isLazyLoadList {
+    _isLazyLoadList = isLazyLoadList;
     
-    if (shouldLazyload) {
+    if ([self shouldLazyLoadListView]) {
         self.listContainerView = [[GKPageListContainerView alloc] initWithDelegate:self];
         self.listContainerView.mainTableView = self.mainTableView;
     }else {
@@ -119,15 +109,14 @@ NO)
     }
     [_validListDict removeAllObjects];
     
-    if (![self.delegate shouldLazyLoadListInPageScrollView:self]) {
+    // 判断加载方式
+    if ([self shouldLazyLoadListView]) {
+        [self.listContainerView reloadData];
+    }else {
         [self configListViewScroll];
     }
     
     [self.mainTableView reloadData];
-    
-    if ([self.delegate shouldLazyLoadListInPageScrollView:self]) {
-        [self.listContainerView reloadData];
-    }
 }
 
 - (void)horizonScrollViewWillBeginScroll {
@@ -146,8 +135,8 @@ NO)
         self.isScrollToOriginal  = YES;
         self.isCeilPoint         = NO;
         
-        self.isMainCanScroll = YES;
-        self.isListCanScroll = NO;
+        self.isMainCanScroll     = YES;
+        self.isListCanScroll     = NO;
         
         [self.mainTableView setContentOffset:CGPointZero animated:YES];
     });
@@ -195,9 +184,11 @@ NO)
             }else {
                 self.isMainCanScroll = YES;
                 self.isListCanScroll = NO;
-                
+
                 scrollView.contentOffset = CGPointZero;
-                scrollView.showsVerticalScrollIndicator = NO;
+                if (self.isControlVerticalIndicator) {
+                    scrollView.showsVerticalScrollIndicator = NO;
+                }
             }
         }else {
             if (self.isAllowListRefresh && offsetY < 0 && self.mainTableView.contentOffset.y == 0) {
@@ -206,34 +197,57 @@ NO)
             }else {
                 self.isMainCanScroll = YES;
                 self.isListCanScroll = NO;
-                
+
+                if (scrollView.isDecelerating) return;
                 scrollView.contentOffset = CGPointZero;
-                scrollView.showsVerticalScrollIndicator = NO;
+                if (self.isControlVerticalIndicator) {
+                    scrollView.showsVerticalScrollIndicator = NO;
+                }
             }
         }
     }else {
         if (self.isListCanScroll) {
-            scrollView.showsVerticalScrollIndicator = YES;
+            if (self.isControlVerticalIndicator) {
+                scrollView.showsVerticalScrollIndicator = YES;
+            }
             
-            // 如果此时mianTableView并没有滑动，则禁止listView滑动
-            if (self.mainTableView.contentOffset.y == 0) {
-                self.isMainCanScroll = YES;
-                self.isListCanScroll = NO;
-                
-                scrollView.contentOffset = CGPointZero;
-                scrollView.showsHorizontalScrollIndicator = NO;
-            }else { // 矫正mainTableView的位置
+            CGFloat headerHeight = CGRectGetHeight([self.delegate headerViewInPageScrollView:self].frame);
+            
+            if (floor(headerHeight) == 0) {
                 CGFloat criticalPoint = [self.mainTableView rectForSection:0].origin.y - self.ceilPointHeight;
                 self.mainTableView.contentOffset = CGPointMake(0, criticalPoint);
+            }else {
+                // 如果此时mianTableView并没有滑动，则禁止listView滑动
+                if (self.mainTableView.contentOffset.y == 0 && floor(headerHeight) != 0) {
+                    self.isMainCanScroll = YES;
+                    self.isListCanScroll = NO;
+
+                    if (scrollView.isDecelerating) return;
+                    scrollView.contentOffset = CGPointZero;
+                    if (self.isControlVerticalIndicator) {
+                        scrollView.showsVerticalScrollIndicator = NO;
+                    }
+                }else { // 矫正mainTableView的位置
+                    CGFloat criticalPoint = [self.mainTableView rectForSection:0].origin.y - self.ceilPointHeight;
+                    self.mainTableView.contentOffset = CGPointMake(0, criticalPoint);
+                }
             }
         }else {
+            if (scrollView.isDecelerating) return;
             scrollView.contentOffset = CGPointZero;
         }
     }
 }
 
 - (void)mainScrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!self.isBeginDragging) return;
+    if (!self.isBeginDragging) {
+        // 点击状态栏滑动
+        [self listScrollViewOffsetFixed];
+        
+        [self mainTableViewCanScrollUpdate];
+        
+        return;
+    }
     // 获取mainScrollview偏移量
     CGFloat offsetY = scrollView.contentOffset.y;
     // 临界点
@@ -249,7 +263,7 @@ NO)
     }
     
     // 无偏差临界点，对float值取整判断
-    if (!self.isCeilPoint) {
+    if (!self.isCeilPoint ) {
         if (floor(offsetY) == floor(criticalPoint)) {
             self.isCeilPoint = YES;
         }
@@ -277,7 +291,7 @@ NO)
                 }
             }else {
                 // 如果允许列表刷新，并且mainTableView的offsetY小于0 或者 当前列表的offsetY小于0,mainScrollView不可滑动
-                if (self.isAllowListRefresh && (offsetY <= 0 || self.currentListScrollView.contentOffset.y < 0)) {
+                if (self.isAllowListRefresh && ((offsetY <= 0 && self.isMainCanScroll) || (self.currentListScrollView.contentOffset.y < 0 && self.isListCanScroll))) {
                     scrollView.contentOffset = CGPointZero;
                 }else {
                     if (self.isMainCanScroll) {
@@ -300,7 +314,7 @@ NO)
     // 获取临界点位置
     CGFloat criticalPoint = [self.mainTableView rectForSection:0].origin.y - self.ceilPointHeight;
     
-    if ([self.delegate shouldLazyLoadListInPageScrollView:self]) {
+    if ([self shouldLazyLoadListView]) {
         for (id<GKPageListViewDelegate> listItem in self.validListDict.allValues) {
             UIScrollView *listScrollView = [listItem listScrollView];
             if (listScrollView.contentOffset.y != 0) {
@@ -319,17 +333,21 @@ NO)
 
 // 修正listScrollView的位置
 - (void)listScrollViewOffsetFixed {
-    if ([self.delegate shouldLazyLoadListInPageScrollView:self]) {
+    if ([self shouldLazyLoadListView]) {
         for (id<GKPageListViewDelegate> listItem in self.validListDict.allValues) {
             UIScrollView *listScrollView = [listItem listScrollView];
             listScrollView.contentOffset = CGPointZero;
-            listScrollView.showsVerticalScrollIndicator = NO;
+            if (self.isControlVerticalIndicator) {
+                listScrollView.showsVerticalScrollIndicator = NO;
+            }
         }
     }else {
         [[self.delegate listViewsInPageScrollView:self] enumerateObjectsUsingBlock:^(id<GKPageListViewDelegate>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             UIScrollView *listScrollView = [obj listScrollView];
             listScrollView.contentOffset = CGPointZero;
-            listScrollView.showsVerticalScrollIndicator = NO;
+            if (self.isControlVerticalIndicator) {
+                listScrollView.showsVerticalScrollIndicator = NO;
+            }
         }];
     }
 }
@@ -337,6 +355,14 @@ NO)
 - (void)mainTableViewCanScrollUpdate {
     if ([self.delegate respondsToSelector:@selector(mainTableViewDidScroll:isMainCanScroll:)]) {
         [self.delegate mainTableViewDidScroll:self.mainTableView isMainCanScroll:self.isMainCanScroll];
+    }
+}
+
+- (BOOL)shouldLazyLoadListView {
+    if ([self.delegate respondsToSelector:@selector(shouldLazyLoadListInPageScrollView:)]) {
+        return [self.delegate shouldLazyLoadListInPageScrollView:self];
+    }else {
+        return self.isLazyLoadList;
     }
 }
 
@@ -349,16 +375,18 @@ NO)
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    CGFloat width  = self.frame.size.width == 0 ? GKPAGE_SCREEN_WIDTH : self.frame.size.width;
+    CGFloat height = self.frame.size.height == 0 ? GKPAGE_SCREEN_HEIGHT : self.frame.size.height;
     UIView *pageView = nil;
-    if ([self.delegate shouldLazyLoadListInPageScrollView:self]) {
+    if ([self shouldLazyLoadListView]) {
         pageView = [UIView new];
         
         UIView *segmentedView = [self.delegate segmentedViewInPageScrollView:self];
         
         CGFloat x = 0;
         CGFloat y = segmentedView.frame.size.height;
-        CGFloat w = GKPAGE_SCREEN_WIDTH;
-        CGFloat h = GKPAGE_SCREEN_HEIGHT - self.ceilPointHeight - y;
+        CGFloat w = width;
+        CGFloat h = height - self.ceilPointHeight - y;
         
         self.listContainerView.frame = CGRectMake(x, y, w, h);
         [pageView addSubview:segmentedView];
@@ -366,13 +394,14 @@ NO)
     }else {
         pageView = [self.delegate pageViewInPageScrollView:self];
     }
-    pageView.frame = CGRectMake(0, 0, GKPAGE_SCREEN_WIDTH, GKPAGE_SCREEN_HEIGHT - self.ceilPointHeight);
+    pageView.frame = CGRectMake(0, 0, width, height - self.ceilPointHeight);
     [cell.contentView addSubview:pageView];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return GKPAGE_SCREEN_HEIGHT - self.ceilPointHeight;
+    CGFloat height = self.frame.size.height == 0 ? GKPAGE_SCREEN_HEIGHT : self.frame.size.height;
+    return height - self.ceilPointHeight;
 }
 
 #pragma mark - GKPageListContainerViewDelegate
@@ -389,13 +418,6 @@ NO)
             [weakSelf listScrollViewDidScroll:scrollView];
         }];
         _validListDict[@(row)] = list;
-    }
-    for (id<GKPageListViewDelegate> listItem in self.validListDict.allValues) {
-        if (listItem == list) {
-            [listItem listScrollView].scrollsToTop = YES;
-        }else {
-            [listItem listScrollView].scrollsToTop = NO;
-        }
     }
     return [list listView];
 }

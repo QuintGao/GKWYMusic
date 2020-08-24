@@ -46,7 +46,7 @@
     
     CGFloat loadingCenterX = self.mj_w * 0.5;
     if (!self.isRefreshingTitleHidden) {
-        loadingCenterX -= self.stateLabel.mj_textWith * 0.5 + self.labelLeftInset;
+        loadingCenterX -= self.stateLabel.mj_textWidth * 0.5 + self.labelLeftInset;
     }
     CGFloat loadingCenterY = self.mj_h * 0.5;
     self.loadingView.center = CGPointMake(loadingCenterX, loadingCenterY);

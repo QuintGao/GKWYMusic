@@ -34,7 +34,7 @@
 @optional
 
 /**
- 返回listView
+ 返回listView，懒加载方式时必传
  
  @return UIView
  */
@@ -47,14 +47,6 @@
 @required
 
 /**
- 返回是否懒加载列表（据此代理实现懒加载和非懒加载相应方法）
- 
- @param pageScrollView paegScrollView description
- @return 是否懒加载
- */
-- (BOOL)shouldLazyLoadListInPageScrollView:(GKPageScrollView *)pageScrollView;
-
-/**
  返回tableHeaderView
 
  @param pageScrollView pageScrollView description
@@ -63,6 +55,15 @@
 - (UIView *)headerViewInPageScrollView:(GKPageScrollView *)pageScrollView;
 
 @optional
+
+#pragma mark - 是否懒加载列表，优先级高于属性isLazyLoadList
+/**
+ 返回是否懒加载列表（据此代理实现懒加载和非懒加载相应方法）
+ 
+ @param pageScrollView paegScrollView description
+ @return 是否懒加载
+ */
+- (BOOL)shouldLazyLoadListInPageScrollView:(GKPageScrollView *)pageScrollView;
 
 #pragma mark - 非懒加载相关方法(`shouldLazyLoadListInPageScrollView`方法返回NO时必须实现下面的方法)
 /**
@@ -143,10 +144,13 @@
 
 @interface GKPageScrollView : UIView
 
-@property (nonatomic, weak) id<GKPageScrollViewDelegate> delegate;
-
+/// 主列表
 @property (nonatomic, strong, readonly) GKPageTableView   *mainTableView;
 
+/// 当前滑动的子列表
+@property (nonatomic, weak, readonly) UIScrollView *currentListScrollView;
+
+/// 懒加载形式的容器
 @property (nonatomic, strong, readonly) GKPageListContainerView *listContainerView;
 
 // 当前已经加载过的可用的列表字典，key是index值，value是对应列表
@@ -161,7 +165,16 @@
 // 是否在吸顶状态下禁止mainScroll滑动
 @property (nonatomic, assign) BOOL              isDisableMainScrollInCeil;
 
-- (instancetype)initWithDelegate:(id <GKPageScrollViewDelegate>)delegate;
+// 是否懒加载列表（默认为NO）
+@property (nonatomic, assign) BOOL              isLazyLoadList;
+
+// 是否内部控制指示器的显示与隐藏（默认为NO）
+@property (nonatomic, assign) BOOL              isControlVerticalIndicator;
+
+- (instancetype)initWithDelegate:(id <GKPageScrollViewDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
+- (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
 
 /**
  刷新headerView，headerView高度改变时调用

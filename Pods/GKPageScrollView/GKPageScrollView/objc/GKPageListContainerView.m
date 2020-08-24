@@ -9,9 +9,67 @@
 #import "GKPageListContainerView.h"
 #import "GKPageTableView.h"
 
+@implementation GKPageListContainerCollectionView
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if ([self.gestureDelegate respondsToSelector:@selector(pageListContainerCollectionView:gestureRecognizerShouldBegin:)]) {
+        return [self.gestureDelegate pageListContainerCollectionView:self gestureRecognizerShouldBegin:gestureRecognizer];
+    }else {
+        if (self.isNestEnabled) {
+            if ([gestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")]) {
+                CGFloat velocityX = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:gestureRecognizer.view].x;
+                // x大于0就是右滑
+                if (velocityX > 0) {
+                    if (self.contentOffset.x == 0) {
+                        return NO;
+                    }
+                }else if (velocityX < 0) { // x小于0是往左滑
+                    if (self.contentOffset.x + self.bounds.size.width == self.contentSize.width) {
+                        return NO;
+                    }
+                }
+            }
+        }
+    }
+    
+    if ([self panBack:gestureRecognizer]) return NO;
+    
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ([self.gestureDelegate respondsToSelector:@selector(pageListContainerCollectionView:gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
+        return [self.gestureDelegate pageListContainerCollectionView:self gestureRecognizer:gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
+    }
+    
+    if ([self panBack:gestureRecognizer]) return YES;
+    
+    return NO;
+}
+
+- (BOOL)panBack:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer == self.panGestureRecognizer) {
+        CGPoint point = [self.panGestureRecognizer translationInView:self];
+        UIGestureRecognizerState state = gestureRecognizer.state;
+        
+        // 设置手势滑动的位置距屏幕左边的区域
+        CGFloat locationDistance = [UIScreen mainScreen].bounds.size.width;
+        
+        if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStatePossible) {
+            CGPoint location = [gestureRecognizer locationInView:self];
+            if (point.x > 0 && location.x < locationDistance && self.contentOffset.x <= 0) {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
+@end
+
 @interface GKPageListContainerView()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, strong) UICollectionView  *collectionView;
+@property (nonatomic, strong) GKPageListContainerCollectionView  *collectionView;
 
 @end
 
@@ -31,7 +89,7 @@
     layout.minimumInteritemSpacing = 0;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    self.collectionView = [[GKPageListContainerCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.collectionView.showsVerticalScrollIndicator = NO;
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.pagingEnabled = YES;
@@ -78,21 +136,17 @@
     return NO;
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.mainTableView.scrollEnabled = NO;
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     self.mainTableView.scrollEnabled = YES;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    self.mainTableView.scrollEnabled = YES;
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    self.mainTableView.scrollEnabled = YES;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.isTracking || scrollView.isDecelerating) {
-        self.mainTableView.scrollEnabled = NO;
+    if (!decelerate) {
+        self.mainTableView.scrollEnabled = YES;
     }
 }
 
