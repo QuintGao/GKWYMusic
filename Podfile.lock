@@ -25,9 +25,9 @@ PODS:
   - MBProgressHUD (1.2.0)
   - MJRefresh (3.5.0)
   - Reachability (3.2)
-  - SDWebImage (5.8.4):
-    - SDWebImage/Core (= 5.8.4)
-  - SDWebImage/Core (5.8.4)
+  - SDWebImage (5.9.0):
+    - SDWebImage/Core (= 5.9.0)
+  - SDWebImage/Core (5.9.0)
   - WMPageController (2.5.2)
   - YYModel (1.0.4)
 
@@ -71,7 +71,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
+  SDWebImage: 62ae4a18473520c67b79e9724c31a63599cc9423
   WMPageController: 0c7624d2b48e4f1ab92371688cf6744ed701575d
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
