@@ -9,8 +9,8 @@
 #import "GKHttpManager.h"
 
 //#define kBaseUrl @"http://music.baidu.com/"
-//#define kBaseUrl @"http://tingapi.ting.baidu.com/v1/restserver/ting?format=json&calback=&from=ios&method="
-#define kBaseUrl @"https://musicapi.qianqian.com/v1/restserver/ting?format=json&from=ios&channel=appstore&method="
+#define kBaseUrl @"http://tingapi.ting.baidu.com/v1/restserver/ting?format=json&calback=&from=ios&method="
+//#define kBaseUrl @"https://musicapi.qianqian.com/v1/restserver/ting?format=json&from=ios&channel=appstore&method="
 
 @interface GKHttpManager()
 

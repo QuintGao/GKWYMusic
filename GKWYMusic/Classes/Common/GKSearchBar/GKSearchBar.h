@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSUInteger, GKSearchBarIconAlign) {
     GKSearchBarIconAlignLeft,           // 搜索图标显示在左侧
     GKSearchBarIconAlignCenter          // 搜索图标显示在右侧
@@ -52,5 +54,6 @@ typedef NS_ENUM(NSUInteger, GKSearchBarIconAlign) {
 // 点击搜索后隐藏取消按钮？
 @property (nonatomic, assign) BOOL hideCancelBtnWhenSearched;
 
-
 @end
+
+NS_ASSUME_NONNULL_END

@@ -188,5 +188,22 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    NSString *scheme = [url.scheme lowercaseString];
+    
+    if ([scheme isEqualToString:@"gkwywidget"]) {
+        // 处理跳转后的逻辑
+        NSString *host = url.host;
+        NSLog(@"%@", host);
+        if ([host isEqualToString:@"com.wy.music"]) { // 歌单推荐
+            
+        }else {
+            // ...
+        }
+        
+        return YES;
+    }
+    return YES;
+}
 
 @end

@@ -89,6 +89,19 @@
 		6093900C20B66A7800CD8115 /* GKWYSearchViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6093900B20B66A7800CD8115 /* GKWYSearchViewCell.m */; };
 		609391AF20BCD63400CD8115 /* GKWYVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609391AE20BCD63400CD8115 /* GKWYVideoViewController.m */; };
 		609391B220BD062800CD8115 /* GKWYVideoDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 609391B120BD062700CD8115 /* GKWYVideoDetailModel.m */; };
+		6096DC57255BD3520060D6FA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6096DC56255BD3520060D6FA /* WidgetKit.framework */; };
+		6096DC59255BD3520060D6FA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6096DC58255BD3520060D6FA /* SwiftUI.framework */; };
+		6096DC5C255BD3520060D6FA /* GKWYWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6096DC5B255BD3520060D6FA /* GKWYWidget.swift */; };
+		6096DC5F255BD3540060D6FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6096DC5E255BD3540060D6FA /* Assets.xcassets */; };
+		6096DC61255BD3540060D6FA /* GKWYWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 6096DC5D255BD3520060D6FA /* GKWYWidget.intentdefinition */; };
+		6096DC62255BD3540060D6FA /* GKWYWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 6096DC5D255BD3520060D6FA /* GKWYWidget.intentdefinition */; };
+		6096DC65255BD3540060D6FA /* GKWYWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6096DC55255BD3520060D6FA /* GKWYWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		60AD288A255BE55200A7D27A /* GKWYWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AD2889255BE55200A7D27A /* GKWYWidgetView.swift */; };
+		60AD2890255BE5AB00A7D27A /* GKWYDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AD288F255BE5AB00A7D27A /* GKWYDataLoader.swift */; };
+		60E53CBE255D114E00AAA97E /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E53CBD255D114E00AAA97E /* IntentHandler.swift */; };
+		60E53CC2255D114E00AAA97E /* GKWYIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 60E53CBB255D114E00AAA97E /* GKWYIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		60E53CCB255D118900AAA97E /* GKWYWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 6096DC5D255BD3520060D6FA /* GKWYWidget.intentdefinition */; };
+		60E53CD1255D131500AAA97E /* GKWYDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AD288F255BE5AB00A7D27A /* GKWYDataLoader.swift */; };
 		790A26AA2173237C00BD7D8C /* JXCategoryIndicatorLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26652173237C00BD7D8C /* JXCategoryIndicatorLineView.m */; };
 		790A26AB2173237C00BD7D8C /* JXCategoryIndicatorTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26662173237C00BD7D8C /* JXCategoryIndicatorTriangleView.m */; };
 		790A26AC2173237C00BD7D8C /* JXCategoryIndicatorImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26682173237C00BD7D8C /* JXCategoryIndicatorImageView.m */; };
@@ -137,7 +150,36 @@
 			remoteGlobalIDString = 603F822020887A20004A8F29;
 			remoteInfo = GKWYMusic;
 		};
+		6096DC63255BD3540060D6FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 603F821920887A20004A8F29 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6096DC54255BD3520060D6FA;
+			remoteInfo = GKWYWidgetExtension;
+		};
+		60E53CC0255D114E00AAA97E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 603F821920887A20004A8F29 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 60E53CBA255D114E00AAA97E;
+			remoteInfo = GKWYIntent;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6096DC66255BD3540060D6FA /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				60E53CC2255D114E00AAA97E /* GKWYIntent.appex in Embed App Extensions */,
+				6096DC65255BD3540060D6FA /* GKWYWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		205E02C3FE102D1B4512A3B0 /* Pods-GKWYMusic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GKWYMusic.release.xcconfig"; path = "Pods/Target Support Files/Pods-GKWYMusic/Pods-GKWYMusic.release.xcconfig"; sourceTree = "<group>"; };
@@ -306,6 +348,18 @@
 		609391AE20BCD63400CD8115 /* GKWYVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYVideoViewController.m; sourceTree = "<group>"; };
 		609391B020BD062700CD8115 /* GKWYVideoDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYVideoDetailModel.h; sourceTree = "<group>"; };
 		609391B120BD062700CD8115 /* GKWYVideoDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYVideoDetailModel.m; sourceTree = "<group>"; };
+		6096DC55255BD3520060D6FA /* GKWYWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GKWYWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6096DC56255BD3520060D6FA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		6096DC58255BD3520060D6FA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		6096DC5B255BD3520060D6FA /* GKWYWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKWYWidget.swift; sourceTree = "<group>"; };
+		6096DC5D255BD3520060D6FA /* GKWYWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = GKWYWidget.intentdefinition; sourceTree = "<group>"; };
+		6096DC5E255BD3540060D6FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6096DC60255BD3540060D6FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		60AD2889255BE55200A7D27A /* GKWYWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKWYWidgetView.swift; sourceTree = "<group>"; };
+		60AD288F255BE5AB00A7D27A /* GKWYDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKWYDataLoader.swift; sourceTree = "<group>"; };
+		60E53CBB255D114E00AAA97E /* GKWYIntent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GKWYIntent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		60E53CBD255D114E00AAA97E /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		60E53CBF255D114E00AAA97E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		790A26612173237C00BD7D8C /* JXCategoryIndicatorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorCell.h; sourceTree = "<group>"; };
 		790A26622173237C00BD7D8C /* JXCategoryIndicatorCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorCellModel.h; sourceTree = "<group>"; };
 		790A26632173237C00BD7D8C /* JXCategoryIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorView.h; sourceTree = "<group>"; };
@@ -391,6 +445,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		603F824120887A21004A8F29 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6096DC52255BD3520060D6FA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6096DC59255BD3520060D6FA /* SwiftUI.framework in Frameworks */,
+				6096DC57255BD3520060D6FA /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60E53CB8255D114E00AAA97E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -695,6 +765,8 @@
 				603F822320887A20004A8F29 /* GKWYMusic */,
 				603F823C20887A21004A8F29 /* GKWYMusicTests */,
 				603F824720887A21004A8F29 /* GKWYMusicUITests */,
+				6096DC5A255BD3520060D6FA /* GKWYWidget */,
+				60E53CBC255D114E00AAA97E /* GKWYIntent */,
 				603F822220887A20004A8F29 /* Products */,
 				16A816F62438C3C164BF72FA /* Pods */,
 				A399A1B98F97CBDD31E29FAF /* Frameworks */,
@@ -707,6 +779,8 @@
 				603F822120887A20004A8F29 /* GKWYMusic.app */,
 				603F823920887A21004A8F29 /* GKWYMusicTests.xctest */,
 				603F824420887A21004A8F29 /* GKWYMusicUITests.xctest */,
+				6096DC55255BD3520060D6FA /* GKWYWidgetExtension.appex */,
+				60E53CBB255D114E00AAA97E /* GKWYIntent.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1022,6 +1096,28 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		6096DC5A255BD3520060D6FA /* GKWYWidget */ = {
+			isa = PBXGroup;
+			children = (
+				6096DC5B255BD3520060D6FA /* GKWYWidget.swift */,
+				60AD2889255BE55200A7D27A /* GKWYWidgetView.swift */,
+				60AD288F255BE5AB00A7D27A /* GKWYDataLoader.swift */,
+				6096DC5D255BD3520060D6FA /* GKWYWidget.intentdefinition */,
+				6096DC5E255BD3540060D6FA /* Assets.xcassets */,
+				6096DC60255BD3540060D6FA /* Info.plist */,
+			);
+			path = GKWYWidget;
+			sourceTree = "<group>";
+		};
+		60E53CBC255D114E00AAA97E /* GKWYIntent */ = {
+			isa = PBXGroup;
+			children = (
+				60E53CBD255D114E00AAA97E /* IntentHandler.swift */,
+				60E53CBF255D114E00AAA97E /* Info.plist */,
+			);
+			path = GKWYIntent;
+			sourceTree = "<group>";
+		};
 		790A265F2173237C00BD7D8C /* JXCategoryView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1170,6 +1266,8 @@
 			isa = PBXGroup;
 			children = (
 				316EC85788B8A4208D922C6A /* Pods_GKWYMusic.framework */,
+				6096DC56255BD3520060D6FA /* WidgetKit.framework */,
+				6096DC58255BD3520060D6FA /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1186,10 +1284,13 @@
 				603F821E20887A20004A8F29 /* Frameworks */,
 				603F821F20887A20004A8F29 /* Resources */,
 				BD145F779D1FD0F6A3635311 /* [CP] Embed Pods Frameworks */,
+				6096DC66255BD3540060D6FA /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6096DC64255BD3540060D6FA /* PBXTargetDependency */,
+				60E53CC1255D114E00AAA97E /* PBXTargetDependency */,
 			);
 			name = GKWYMusic;
 			productName = GKWYMusic;
@@ -1232,6 +1333,40 @@
 			productReference = 603F824420887A21004A8F29 /* GKWYMusicUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		6096DC54255BD3520060D6FA /* GKWYWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6096DC69255BD3540060D6FA /* Build configuration list for PBXNativeTarget "GKWYWidgetExtension" */;
+			buildPhases = (
+				6096DC51255BD3520060D6FA /* Sources */,
+				6096DC52255BD3520060D6FA /* Frameworks */,
+				6096DC53255BD3520060D6FA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GKWYWidgetExtension;
+			productName = GKWYWidgetExtension;
+			productReference = 6096DC55255BD3520060D6FA /* GKWYWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		60E53CBA255D114E00AAA97E /* GKWYIntent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60E53CC3255D114E00AAA97E /* Build configuration list for PBXNativeTarget "GKWYIntent" */;
+			buildPhases = (
+				60E53CB7255D114E00AAA97E /* Sources */,
+				60E53CB8255D114E00AAA97E /* Frameworks */,
+				60E53CB9255D114E00AAA97E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GKWYIntent;
+			productName = GKWYIntent;
+			productReference = 60E53CBB255D114E00AAA97E /* GKWYIntent.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1239,7 +1374,8 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = GKWY;
-				LastUpgradeCheck = 0930;
+				LastSwiftUpdateCheck = 1210;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = gaokun;
 				TargetAttributes = {
 					603F822020887A20004A8F29 = {
@@ -1257,6 +1393,12 @@
 					603F824320887A21004A8F29 = {
 						CreatedOnToolsVersion = 9.3;
 						TestTargetID = 603F822020887A20004A8F29;
+					};
+					6096DC54255BD3520060D6FA = {
+						CreatedOnToolsVersion = 12.1;
+					};
+					60E53CBA255D114E00AAA97E = {
+						CreatedOnToolsVersion = 12.1;
 					};
 				};
 			};
@@ -1276,6 +1418,8 @@
 				603F822020887A20004A8F29 /* GKWYMusic */,
 				603F823820887A21004A8F29 /* GKWYMusicTests */,
 				603F824320887A21004A8F29 /* GKWYMusicUITests */,
+				6096DC54255BD3520060D6FA /* GKWYWidgetExtension */,
+				60E53CBA255D114E00AAA97E /* GKWYIntent */,
 			);
 		};
 /* End PBXProject section */
@@ -1299,6 +1443,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		603F824220887A21004A8F29 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6096DC53255BD3520060D6FA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6096DC5F255BD3540060D6FA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60E53CB9255D114E00AAA97E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1360,6 +1519,7 @@
 				603A12862088A86A002A5BD3 /* GKWYHomeViewController.m in Sources */,
 				6061767D209AB5920054C8E1 /* GKWYSearchViewController.m in Sources */,
 				603A12A420898CCF002A5BD3 /* GKWYMusicModel.m in Sources */,
+				6096DC62255BD3540060D6FA /* GKWYWidget.intentdefinition in Sources */,
 				609391B220BD062800CD8115 /* GKWYVideoDetailModel.m in Sources */,
 				6061769F209C0EC10054C8E1 /* GKWYArtistViewCell.m in Sources */,
 				60938F8320AE5AEA00CD8115 /* GKWYIntroViewCell.m in Sources */,
@@ -1476,6 +1636,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6096DC51255BD3520060D6FA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60AD288A255BE55200A7D27A /* GKWYWidgetView.swift in Sources */,
+				6096DC61255BD3540060D6FA /* GKWYWidget.intentdefinition in Sources */,
+				60AD2890255BE5AB00A7D27A /* GKWYDataLoader.swift in Sources */,
+				6096DC5C255BD3520060D6FA /* GKWYWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60E53CB7255D114E00AAA97E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60E53CCB255D118900AAA97E /* GKWYWidget.intentdefinition in Sources */,
+				60E53CBE255D114E00AAA97E /* IntentHandler.swift in Sources */,
+				60E53CD1255D131500AAA97E /* GKWYDataLoader.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1488,6 +1669,16 @@
 			isa = PBXTargetDependency;
 			target = 603F822020887A20004A8F29 /* GKWYMusic */;
 			targetProxy = 603F824520887A21004A8F29 /* PBXContainerItemProxy */;
+		};
+		6096DC64255BD3540060D6FA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6096DC54255BD3520060D6FA /* GKWYWidgetExtension */;
+			targetProxy = 6096DC63255BD3540060D6FA /* PBXContainerItemProxy */;
+		};
+		60E53CC1255D114E00AAA97E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 60E53CBA255D114E00AAA97E /* GKWYIntent */;
+			targetProxy = 60E53CC0255D114E00AAA97E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1518,6 +1709,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1543,7 +1735,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1576,6 +1768,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1595,9 +1788,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1606,6 +1800,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AC63263F3F790C8CA35FADA1 /* Pods-GKWYMusic.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
@@ -1613,7 +1808,7 @@
 				DEVELOPMENT_TEAM = X52753HQNM;
 				GCC_PREFIX_HEADER = GKWYMusic/PrefixHeader.pch;
 				INFOPLIST_FILE = GKWYMusic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1630,6 +1825,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 205E02C3FE102D1B4512A3B0 /* Pods-GKWYMusic.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
@@ -1637,7 +1833,7 @@
 				DEVELOPMENT_TEAM = X52753HQNM;
 				GCC_PREFIX_HEADER = GKWYMusic/PrefixHeader.pch;
 				INFOPLIST_FILE = GKWYMusic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1720,6 +1916,105 @@
 			};
 			name = Release;
 		};
+		6096DC67255BD3540060D6FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X52753HQNM;
+				INFOPLIST_FILE = GKWYWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.GKWYMusic.GKWYWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6096DC68255BD3540060D6FA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X52753HQNM;
+				INFOPLIST_FILE = GKWYWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.GKWYMusic.GKWYWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		60E53CC4255D114E00AAA97E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X52753HQNM;
+				INFOPLIST_FILE = GKWYIntent/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.GKWYMusic.GKWYIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		60E53CC5255D114E00AAA97E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X52753HQNM;
+				INFOPLIST_FILE = GKWYIntent/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.GKWYMusic.GKWYIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1755,6 +2050,24 @@
 			buildConfigurations = (
 				603F825420887A21004A8F29 /* Debug */,
 				603F825520887A21004A8F29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6096DC69255BD3540060D6FA /* Build configuration list for PBXNativeTarget "GKWYWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6096DC67255BD3540060D6FA /* Debug */,
+				6096DC68255BD3540060D6FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		60E53CC3255D114E00AAA97E /* Build configuration list for PBXNativeTarget "GKWYIntent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60E53CC4255D114E00AAA97E /* Debug */,
+				60E53CC5255D114E00AAA97E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

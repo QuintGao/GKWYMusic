@@ -61,7 +61,7 @@
 - (NSString *)pic_radio {
     if (!_pic_radio || [_pic_radio isEqualToString:@""]) {
         _pic_radio = self.pic_big;
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                               
+    }                                                                                  
     return _pic_radio;
 }
 
