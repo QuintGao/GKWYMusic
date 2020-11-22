@@ -22,7 +22,7 @@
     [super viewDidLoad];
     
     self.tabBar.translucent = NO;
-    self.tabBar.backgroundImage = [UIImage gk_imageWithColor:GKColorRGB(128, 128, 128) size:self.tabBar.frame.size];
+    self.tabBar.backgroundImage = [UIImage gk_imageWithColor:GKColorRGB(0, 0, 0) size:self.tabBar.frame.size];
     // 主页
     [self addChildVC:[GKWYHomeViewController new] title:@"发现" imgName:@"cm2_btm_icn_discovery" selImgName:@"cm2_btm_icn_discovery_prs"];
     // 我的

@@ -30,11 +30,7 @@
 			<array/>
 			<key>IntentsSupported</key>
 			<array>
-				<string>GKWYWidget2ConfigurationIntent</string>
-				<string>GKWYWidgetConfigurationIntent</string>
-				<string>INSearchForMessagesIntent</string>
-				<string>INSendMessageIntent</string>
-				<string>INSetMessageAttributeIntent</string>
+				<string>WidgetConfiguration</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>

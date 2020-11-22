@@ -84,19 +84,25 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
-    self.needleView.gk_centerX = KScreenW * 0.5 + 25.0f;
-    self.needleView.gk_y       = -25.0f;
-    
-    [self pausedWithAnimated:NO];
-    
-    CGFloat diskW = CGRectGetWidth(self.diskScrollView.frame);
-    CGFloat diskH = CGRectGetHeight(self.diskScrollView.frame);
-    
-    // 设置frame
-    self.leftDiskView.frame     = CGRectMake(0, 0, diskW, diskH);
-    self.centerDiskView.frame   = CGRectMake(diskW, 0, diskW, diskH);
-    self.rightDiskView.frame    = CGRectMake(2 * diskW, 0, diskW, diskH);
+
+    if (!CGRectIsEmpty(self.diskScrollView.frame)) {
+        // 保证只设置一次
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            self.needleView.gk_centerX = KScreenW * 0.5 + 25.0f;
+            self.needleView.gk_y       = -25.0f;
+
+            CGFloat diskW = CGRectGetWidth(self.diskScrollView.frame);
+            CGFloat diskH = CGRectGetHeight(self.diskScrollView.frame);
+
+            // 设置frame
+            self.leftDiskView.frame     = CGRectMake(0, 0, diskW, diskH);
+            self.centerDiskView.frame   = CGRectMake(diskW, 0, diskW, diskH);
+            self.rightDiskView.frame    = CGRectMake(2 * diskW, 0, diskW, diskH);
+            
+            [self pausedWithAnimated:NO];
+        });
+    }
 }
 
 #pragma mark - Public Methods
@@ -158,7 +164,7 @@
     // 创建定时器
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(diskAnimation)];
     // 加入到主循环中
-    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 }
 
 // 暂停音乐时，指针旋转-30°，图片停止旋转
@@ -194,7 +200,6 @@
 
 - (void)diskAnimation {
     self.centerDiskView.diskImgView.transform = CGAffineTransformRotate(self.centerDiskView.diskImgView.transform, M_PI_4 / 100.0f);
-//    NSLog(@"旋转中。。。");
 }
 
 #pragma mark - Private Methods
