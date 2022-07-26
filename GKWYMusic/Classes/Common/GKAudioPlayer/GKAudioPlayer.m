@@ -151,7 +151,7 @@
 
 - (void)startTimer {
     if (self.playTimer) return;
-    self.playTimer = [GKTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
+    self.playTimer = [GKTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
 }
 
 - (void)stopTimer {
