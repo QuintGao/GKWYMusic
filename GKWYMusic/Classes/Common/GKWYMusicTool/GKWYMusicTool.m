@@ -227,11 +227,9 @@
         GKDownloadModel *dModel = [GKDownloadModel new];
         dModel.fileID           = model.song_id;
         dModel.fileName         = model.song_name;
-        dModel.fileArtistId     = model.artist_id;
-        dModel.fileArtistName   = model.artist_name;
         dModel.fileAlbumId      = model.album_id;
         dModel.fileAlbumName    = model.album_title;
-        dModel.fileCover        = model.pic_radio;
+        dModel.fileCover        = model.album_pic;
         dModel.fileUrl          = model.file_link;
         dModel.fileDuration     = model.file_duration;
         dModel.fileFormat       = model.file_extension;

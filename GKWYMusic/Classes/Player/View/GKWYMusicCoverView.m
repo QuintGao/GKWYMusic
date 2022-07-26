@@ -216,7 +216,7 @@
         GKWYMusicModel *rightM  = self.musics[rightIndex];
         
         // 设置图片
-        self.centerDiskView.imgUrl = centerM.pic_radio;
+        self.centerDiskView.imgUrl = centerM.album_pic;
         
         if (needChange) {
             self.centerDiskView.diskImgView.transform = CGAffineTransformIdentity;
@@ -226,8 +226,8 @@
                 
                 [self setScrollViewContentOffsetCenter];
                 
-                self.leftDiskView.imgUrl    = leftM.pic_radio;
-                self.rightDiskView.imgUrl   = rightM.pic_radio;
+                self.leftDiskView.imgUrl    = leftM.album_pic;
+                self.rightDiskView.imgUrl   = rightM.album_pic;
                 
                 if (self.isUserChanged) {
                     !self.finished ? : self.finished();
@@ -236,8 +236,8 @@
             });
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.leftDiskView.imgUrl    = leftM.pic_radio;
-                self.rightDiskView.imgUrl   = rightM.pic_radio;
+                self.leftDiskView.imgUrl    = leftM.album_pic;
+                self.rightDiskView.imgUrl   = rightM.album_pic;
             });
         }
     }

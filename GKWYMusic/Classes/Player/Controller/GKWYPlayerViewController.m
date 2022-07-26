@@ -520,7 +520,7 @@
     
     self.gk_navBackgroundColor = [UIColor clearColor];
     self.gk_navLineHidden = YES;
-    self.gk_navRightBarButtonItem = [UIBarButtonItem itemWithImageName:@"cm2_topbar_icn_share" target:self action:@selector(shareAction)];
+    self.gk_navRightBarButtonItem = [UIBarButtonItem gk_itemWithImage:[UIImage imageNamed:@"cm2_topbar_icn_share"] target:self action:@selector(shareAction)];
     
     // 获取播放方式，并设置
     self.playStyle = [kUserDefaults integerForKey:GKWYMUSIC_USERDEFAULTSKEY_PLAYSTYLE];
@@ -652,47 +652,45 @@
         }
         
         // 获取歌曲信息
-        NSString *api = [NSString stringWithFormat:@"baidu.ting.song.play&songid=%@", self.model.song_id];
+        NSString *api = [NSString stringWithFormat:@"song/url?id=%@", self.model.song_id];
         
         [kHttpManager get:api params:nil successBlock:^(id responseObject) {
-            self.model = [GKWYMusicModel yy_modelWithDictionary:responseObject[@"songinfo"]];
-            
-            NSDictionary *bitrate = responseObject[@"bitrate"];
-            self.model.file_link        = bitrate[@"file_link"];
-            self.model.file_duration    = bitrate[@"file_duration"];
-            self.model.file_size        = bitrate[@"file_size"];
-            self.model.file_extension   = bitrate[@"file_extension"];
-            
-            // 背景图片
-            [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:self.model.pic_radio] placeholderImage:[UIImage imageNamed:@"cm2_fm_bg-ip6"]];
-            
-            [self resetCoverViewWithModel:self.model];
-            
-            [self setupTitleWithModel:self.model];
-            
-            NSInteger duration = self.model.file_duration.integerValue;
-            // 总时间
-            self.controlView.totalTime = [GKWYMusicTool timeStrWithSecTime:duration];
-            
-            if (self.toSeekProgress) {
-                self.controlView.currentTime = [GKWYMusicTool timeStrWithSecTime:duration * self.toSeekProgress];
+            if ([responseObject[@"code"] integerValue] == 200) {
+                NSDictionary *data = [responseObject[@"data"] firstObject];
+                self.model.file_link = data[@"url"];
+                self.model.file_duration = [self getAudioDurationWithURL:self.model.file_link];
+                self.model.file_size = data[@"size"];
+                self.model.file_extension = data[@"type"];
                 
-                self.controlView.progress = self.toSeekProgress;
-            }
-            
-            // 设置播放地址
-            kPlayer.playUrlStr = self.model.file_link;
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                // 背景图片
+                [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:self.model.album_pic] placeholderImage:[UIImage imageNamed:@"cm2_fm_bg-ip6"]];
                 
-                if (self.ifNowPlay) {
-                    [kPlayer play];
+                [self resetCoverViewWithModel:self.model];
+                
+                [self setupTitleWithModel:self.model];
+                
+                NSInteger duration = self.model.file_duration.integerValue;
+                // 总时间
+                self.controlView.totalTime = [GKWYMusicTool timeStrWithSecTime:duration];
+                
+                if (self.toSeekProgress) {
+                    self.controlView.currentTime = [GKWYMusicTool timeStrWithSecTime:duration * self.toSeekProgress];
+                    self.controlView.progress = self.toSeekProgress;
                 }
-            });
-            
-            // 解析歌词
-            self.lyricView.lyrics = [GKLyricParser lyricParserWithUrl:self.model.lrclink isDelBlank:YES];
-            
+                
+                // 设置播放地址
+                kPlayer.playUrlStr = self.model.file_link;
+                
+                // 获取歌词
+                [self getSongLyric];
+                
+                // 开始播放
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    if (self.ifNowPlay) {
+                        [kPlayer play];
+                    }
+                });
+            }
         } failureBlock:^(NSError *error) {
             NSLog(@"获取详情失败==%@", error);
             [GKMessageTool showError:@"数据请求失败，请检查网络后重试！"];
@@ -700,9 +698,37 @@
     }
 }
 
+- (NSString *)getAudioDurationWithURL:(NSString *)url {
+    AVURLAsset *audioAsset = nil;
+    NSDictionary *dic = @{AVURLAssetPreferPreciseDurationAndTimingKey:@(YES)};
+    if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
+        audioAsset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:url] options:dic];
+    }else {
+        audioAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:url] options:dic];
+    }
+    CMTime audioDuration = audioAsset.duration;
+    float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
+    return [NSString stringWithFormat:@"%.f", audioDurationSeconds];
+}
+
+- (void)getSongLyric {
+    NSString *api = [NSString stringWithFormat:@"lyric?id=%@", self.model.song_id];
+    
+    [kHttpManager get:api params:nil successBlock:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 200) {
+            NSString *lyric = responseObject[@"lrc"][@"lyric"];
+            
+            // 解析歌词
+            self.lyricView.lyrics = [GKLyricParser lyricParserWithStr:lyric];
+        }
+    } failureBlock:^(NSError *error) {
+        [GKMessageTool showError:@"获取歌词失败"];
+    }];
+}
+
 - (void)setupTitleWithModel:(GKWYMusicModel *)model {
     [self.nameLabel setText:model.song_name refreshLabels:YES];
-    self.artistLabel.text = model.artist_name;
+    self.artistLabel.text = model.artists_name;
     
     self.nameLabel.gk_centerX = self.titleView.gk_width * 0.5;
     
@@ -878,7 +904,7 @@
     NSMutableDictionary *playingInfo = [NSMutableDictionary new];
     playingInfo[MPMediaItemPropertyAlbumTitle] = self.model.album_title;
     playingInfo[MPMediaItemPropertyTitle]      = self.model.song_name;
-    playingInfo[MPMediaItemPropertyArtist]     = self.model.artist_name;
+    playingInfo[MPMediaItemPropertyArtist]     = self.model.artists_name;
     
     MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:self.bgImageView.image];
     playingInfo[MPMediaItemPropertyArtwork] = artwork;
@@ -904,7 +930,7 @@
     NSMutableDictionary *playingInfo = [NSMutableDictionary new];
     playingInfo[MPMediaItemPropertyAlbumTitle] = self.model.album_title;
     playingInfo[MPMediaItemPropertyTitle]      = self.model.song_name;
-    playingInfo[MPMediaItemPropertyArtist]     = self.model.artist_name;
+    playingInfo[MPMediaItemPropertyArtist]     = self.model.artists_name;
     
     MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:[UIImage imageNamed:@"cm2_default_cover_fm"]];
     playingInfo[MPMediaItemPropertyArtwork] = artwork;
@@ -1280,7 +1306,7 @@
     [items addObject:shareItem];
     
     GKActionSheetItem *artistItem = [GKActionSheetItem new];
-    artistItem.title = [NSString stringWithFormat:@"歌手：%@", self.model.artist_name];
+    artistItem.title = [NSString stringWithFormat:@"歌手：%@", self.model.artists_name];
     artistItem.imgName = @"cm2_lay_icn_artist_new";
     artistItem.enabled = YES;
     artistItem.clickBlock = ^{
@@ -1528,21 +1554,17 @@
 }
 
 - (void)pushToArtistVC {
-    NSArray *tinguids = [self.model.all_artist_ting_uid componentsSeparatedByString:@","];
-    NSArray *artists  = [self.model.all_artist_id componentsSeparatedByString:@","];
-    if (tinguids.count == artists.count && tinguids.count > 1) {
+    if (self.model.ar.count > 1) {
         NSMutableArray *items = [NSMutableArray new];
-        NSArray *titles = [self.model.artist_name componentsSeparatedByString:@","];
         
         __typeof(self) __weak weakSelf = self;
-        [tinguids enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.model.ar enumerateObjectsUsingBlock:^(GKWYMusicArModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             GKActionSheetItem *item = [GKActionSheetItem new];
-            item.title = titles[idx];
+            item.title = obj.name;
             item.enabled = YES;
             item.clickBlock = ^{
                 GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
-                artistVC.tinguid  = obj;
-                artistVC.artistid = artists[idx];
+                artistVC.artistid = obj.ar_id;
                 [weakSelf.navigationController pushViewController:artistVC animated:YES];
             };
             [items addObject:item];
@@ -1551,8 +1573,7 @@
         [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手" itemInfos:items];
     }else {
         GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
-        artistVC.tinguid  = tinguids.firstObject;
-        artistVC.artistid = artists.firstObject;
+        artistVC.artistid = self.model.ar.firstObject.ar_id;
         [self.navigationController pushViewController:artistVC animated:YES];
     }
 }

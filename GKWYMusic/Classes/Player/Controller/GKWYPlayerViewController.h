@@ -14,9 +14,9 @@ typedef NS_ENUM(NSUInteger, GKWYPlayerPlayStyle) {
 
 #define kWYPlayerVC [GKWYPlayerViewController sharedInstance]
 
-#import <GKNavigationBarViewController/GKNavigationBarViewController.h>
+#import <UIKit/UIKit.h>
 
-@interface GKWYPlayerViewController : GKNavigationBarViewController
+@interface GKWYPlayerViewController : UIViewController
 
 @property (nonatomic, assign) GKWYPlayerPlayStyle   playStyle;      // 循环类型
 

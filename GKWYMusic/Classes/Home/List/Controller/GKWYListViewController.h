@@ -6,10 +6,11 @@
 //  Copyright © 2018年 gaokun. All rights reserved.
 //
 
-#import "GKWYBaseTableViewController.h"
+#import "GKWYBaseListViewController.h"
+#import "GKWYListTagModel.h"
 
-@interface GKWYListViewController : GKWYBaseTableViewController
+@interface GKWYListViewController : GKWYBaseListViewController
 
-@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, strong) GKWYListTagModel *tagModel;
 
 @end

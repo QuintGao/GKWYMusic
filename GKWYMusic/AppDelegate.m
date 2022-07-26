@@ -50,9 +50,13 @@
         configure.titleColor      = [UIColor whiteColor];
         configure.titleFont       = [UIFont systemFontOfSize:18.0f];
         configure.statusBarStyle  = UIStatusBarStyleLightContent;
-        configure.backStyle       = GKNavigationBarBackStyleNone;
+        configure.backImage       = [UIImage imageNamed:@"cm2_topbar_icn_back"];
         configure.gk_navItemLeftSpace   = 4.0f;
         configure.gk_navItemRightSpace  = 4.0f;
+    }];
+    
+    [GKGestureConfigure setupCustomConfigure:^(GKGestureHandleConfigure * _Nonnull configure) {
+        configure.gk_hidesBottomBarWhenPushed = YES;
     }];
     
     // 适配iOS11

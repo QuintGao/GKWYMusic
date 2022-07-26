@@ -8,6 +8,7 @@
 
 #import "GKWYMusicLyricView.h"
 #import "GKWYMusicVolumeView.h"
+#import "GKWYMusicLyricCell.h"
 
 @interface GKWYMusicLyricView()<UITableViewDataSource, UITableViewDelegate>
 
@@ -146,30 +147,32 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LyricCell" forIndexPath:indexPath];
-    cell.textLabel.textColor     = [UIColor grayColor];
-    cell.textLabel.textAlignment = NSTextAlignmentCenter;
-    cell.textLabel.numberOfLines = 0;
-    cell.textLabel.font          = [UIFont systemFontOfSize:16.0];
+    GKWYMusicLyricCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GKWYMusicLyricCell" forIndexPath:indexPath];
     cell.selectedBackgroundView  = [UIView new];
     cell.backgroundColor         = [UIColor clearColor];
     
     if (indexPath.row < 5 || indexPath.row > self.lyrics.count + 4) {
-        cell.textLabel.textColor = [UIColor clearColor];
-        cell.textLabel.text      = @"";
+        cell.lyricLabel.textColor = [UIColor clearColor];
+        cell.lyricLabel.text      = @"";
     }else {
-        cell.textLabel.text = [self.lyrics[indexPath.row - 5] content];
+        cell.lyricLabel.text = [self.lyrics[indexPath.row - 5] content];
         
         if (indexPath.row == self.lyricIndex + 5) {
-            cell.textLabel.textColor = [UIColor whiteColor];
-            cell.textLabel.font      = [UIFont systemFontOfSize:18.0];
+            cell.lyricLabel.textColor = [UIColor whiteColor];
         }else {
-            cell.textLabel.textColor = [UIColor grayColor];
-            cell.textLabel.font      = [UIFont systemFontOfSize:16.0];
+            cell.lyricLabel.textColor = [UIColor grayColor];
         }
     }
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < 5 || indexPath.row > self.lyrics.count + 4) {
+        return 44;
+    }else {
+        return [self.lyrics[indexPath.row - 5] cellHeight];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -265,7 +268,7 @@
         _lyricTable.delegate        = self;
         _lyricTable.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _lyricTable.backgroundColor = [UIColor clearColor];
-        [_lyricTable registerClass:[UITableViewCell class] forCellReuseIdentifier:@"LyricCell"];
+        [_lyricTable registerClass:[GKWYMusicLyricCell class] forCellReuseIdentifier:@"GKWYMusicLyricCell"];
     }
     return _lyricTable;
 }

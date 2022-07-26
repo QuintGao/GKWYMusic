@@ -23,7 +23,6 @@
 		603A12912088A8BA002A5BD3 /* GKLyricParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A128F2088A8BA002A5BD3 /* GKLyricParser.m */; };
 		603A12952089858B002A5BD3 /* GKHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A12942089858B002A5BD3 /* GKHttpManager.m */; };
 		603A1298208989B0002A5BD3 /* GKWYMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A1297208989B0002A5BD3 /* GKWYMainViewController.m */; };
-		603A129B208989CD002A5BD3 /* GKWYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A129A208989CD002A5BD3 /* GKWYNavigationController.m */; };
 		603A129E20898C1A002A5BD3 /* GKWYMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A129D20898C1A002A5BD3 /* GKWYMineViewController.m */; };
 		603A12A420898CCF002A5BD3 /* GKWYMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A12A320898CCF002A5BD3 /* GKWYMusicModel.m */; };
 		603A12A720898D24002A5BD3 /* GKWYMusicTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A12A620898D24002A5BD3 /* GKWYMusicTool.m */; };
@@ -42,7 +41,6 @@
 		603A12DD208DB794002A5BD3 /* GKWYPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A12DC208DB794002A5BD3 /* GKWYPageViewController.m */; };
 		603A12E6208DBA0D002A5BD3 /* GKWYBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A12E5208DBA0D002A5BD3 /* GKWYBaseTableViewController.m */; };
 		603A1307208DD6EE002A5BD3 /* GKWYListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A1306208DD6EE002A5BD3 /* GKWYListViewController.m */; };
-		603A130A208DE472002A5BD3 /* GKPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A1309208DE472002A5BD3 /* GKPageController.m */; };
 		603A130D208EFFF1002A5BD3 /* GKAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A130C208EFFF1002A5BD3 /* GKAudioPlayer.m */; };
 		603A13582091C691002A5BD3 /* GKRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A13572091C691002A5BD3 /* GKRefreshHeader.m */; };
 		603F822620887A20004A8F29 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 603F822520887A20004A8F29 /* AppDelegate.m */; };
@@ -102,38 +100,18 @@
 		60E53CC2255D114E00AAA97E /* GKWYIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 60E53CBB255D114E00AAA97E /* GKWYIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		60E53CCB255D118900AAA97E /* GKWYWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 6096DC5D255BD3520060D6FA /* GKWYWidget.intentdefinition */; };
 		60E53CD1255D131500AAA97E /* GKWYDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AD288F255BE5AB00A7D27A /* GKWYDataLoader.swift */; };
-		790A26AA2173237C00BD7D8C /* JXCategoryIndicatorLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26652173237C00BD7D8C /* JXCategoryIndicatorLineView.m */; };
-		790A26AB2173237C00BD7D8C /* JXCategoryIndicatorTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26662173237C00BD7D8C /* JXCategoryIndicatorTriangleView.m */; };
-		790A26AC2173237C00BD7D8C /* JXCategoryIndicatorImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26682173237C00BD7D8C /* JXCategoryIndicatorImageView.m */; };
-		790A26AD2173237C00BD7D8C /* JXCategoryIndicatorBallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26692173237C00BD7D8C /* JXCategoryIndicatorBallView.m */; };
-		790A26AE2173237C00BD7D8C /* JXCategoryIndicatorComponentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A266A2173237C00BD7D8C /* JXCategoryIndicatorComponentView.m */; };
-		790A26AF2173237C00BD7D8C /* JXCategoryIndicatorBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A266F2173237C00BD7D8C /* JXCategoryIndicatorBackgroundView.m */; };
-		790A26B02173237C00BD7D8C /* JXCategoryIndicatorCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26712173237C00BD7D8C /* JXCategoryIndicatorCellModel.m */; };
-		790A26B12173237C00BD7D8C /* JXCategoryIndicatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26722173237C00BD7D8C /* JXCategoryIndicatorCell.m */; };
-		790A26B22173237C00BD7D8C /* JXCategoryIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26732173237C00BD7D8C /* JXCategoryIndicatorView.m */; };
-		790A26B32173237C00BD7D8C /* JXCategoryDotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26752173237C00BD7D8C /* JXCategoryDotCell.m */; };
-		790A26B42173237C00BD7D8C /* JXCategoryDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26772173237C00BD7D8C /* JXCategoryDotView.m */; };
-		790A26B52173237C00BD7D8C /* JXCategoryDotCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A267A2173237C00BD7D8C /* JXCategoryDotCellModel.m */; };
-		790A26B62173237C00BD7D8C /* JXCategoryTitleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A267C2173237C00BD7D8C /* JXCategoryTitleImageView.m */; };
-		790A26B72173237C00BD7D8C /* JXCategoryTitleImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A267D2173237C00BD7D8C /* JXCategoryTitleImageCell.m */; };
-		790A26B82173237C00BD7D8C /* JXCategoryTitleImageCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26802173237C00BD7D8C /* JXCategoryTitleImageCellModel.m */; };
-		790A26B92173237C00BD7D8C /* JXCategoryTitleCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26862173237C00BD7D8C /* JXCategoryTitleCellModel.m */; };
-		790A26BA2173237C00BD7D8C /* JXCategoryTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26872173237C00BD7D8C /* JXCategoryTitleCell.m */; };
-		790A26BB2173237C00BD7D8C /* JXCategoryTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26882173237C00BD7D8C /* JXCategoryTitleView.m */; };
-		790A26BC2173237C00BD7D8C /* JXCategoryImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A268B2173237C00BD7D8C /* JXCategoryImageView.m */; };
-		790A26BD2173237C00BD7D8C /* JXCategoryImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A268C2173237C00BD7D8C /* JXCategoryImageCell.m */; };
-		790A26BE2173237C00BD7D8C /* JXCategoryImageCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26902173237C00BD7D8C /* JXCategoryImageCellModel.m */; };
-		790A26BF2173237C00BD7D8C /* JXCategoryNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26932173237C00BD7D8C /* JXCategoryNumberView.m */; };
-		790A26C02173237C00BD7D8C /* JXCategoryNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26942173237C00BD7D8C /* JXCategoryNumberCell.m */; };
-		790A26C12173237C00BD7D8C /* JXCategoryNumberCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26952173237C00BD7D8C /* JXCategoryNumberCellModel.m */; };
-		790A26C22173237C00BD7D8C /* JXCategoryListVCContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A269A2173237C00BD7D8C /* JXCategoryListVCContainerView.m */; };
-		790A26C32173237C00BD7D8C /* JXCategoryFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A269D2173237C00BD7D8C /* JXCategoryFactory.m */; };
-		790A26C42173237C00BD7D8C /* JXCategoryCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A269F2173237C00BD7D8C /* JXCategoryCollectionView.m */; };
-		790A26C52173237C00BD7D8C /* UIColor+JXAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26A12173237C00BD7D8C /* UIColor+JXAdd.m */; };
-		790A26C62173237C00BD7D8C /* JXCategoryBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26A72173237C00BD7D8C /* JXCategoryBaseView.m */; };
-		790A26C72173237C00BD7D8C /* JXCategoryBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26A82173237C00BD7D8C /* JXCategoryBaseCell.m */; };
-		790A26C82173237C00BD7D8C /* JXCategoryBaseCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 790A26A92173237C00BD7D8C /* JXCategoryBaseCellModel.m */; };
+		790DB75A288A3A17000260BC /* GKWYPlayListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790DB759288A3A17000260BC /* GKWYPlayListHeaderView.m */; };
 		79136871256AA1CE008AB9F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79136870256AA1CE008AB9F5 /* LaunchScreen.storyboard */; };
+		79E451792887D794004282A3 /* GKWYListTagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E451782887D794004282A3 /* GKWYListTagModel.m */; };
+		79E4517C2887F347004282A3 /* GKWYBaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4517B2887F347004282A3 /* GKWYBaseListViewController.m */; };
+		79E4517F28880223004282A3 /* GKWYPlayListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4517E28880223004282A3 /* GKWYPlayListCell.m */; };
+		79E4518228891080004282A3 /* GKWYListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4518128891080004282A3 /* GKWYListModel.m */; };
+		79E4518528891312004282A3 /* GKWYCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4518428891312004282A3 /* GKWYCoverView.m */; };
+		79E4518B28892111004282A3 /* UITabBarAppearance+GKCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4518A28892111004282A3 /* UITabBarAppearance+GKCategory.m */; };
+		79E4518E288937C6004282A3 /* GKWYPlayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4518D288937C6004282A3 /* GKWYPlayListViewController.m */; };
+		79E571F7288E393A005EB065 /* UIButton+GKWYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E571F6288E3939005EB065 /* UIButton+GKWYCategory.m */; };
+		79E571FB288E6504005EB065 /* GKLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E571FA288E6504005EB065 /* GKLoadingView.m */; };
+		79E57201288F7EC2005EB065 /* GKWYMusicLyricCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E57200288F7EC2005EB065 /* GKWYMusicLyricCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,8 +194,6 @@
 		603A12942089858B002A5BD3 /* GKHttpManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKHttpManager.m; sourceTree = "<group>"; };
 		603A1296208989B0002A5BD3 /* GKWYMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYMainViewController.h; sourceTree = "<group>"; };
 		603A1297208989B0002A5BD3 /* GKWYMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYMainViewController.m; sourceTree = "<group>"; };
-		603A1299208989CD002A5BD3 /* GKWYNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYNavigationController.h; sourceTree = "<group>"; };
-		603A129A208989CD002A5BD3 /* GKWYNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYNavigationController.m; sourceTree = "<group>"; };
 		603A129C20898C1A002A5BD3 /* GKWYMineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYMineViewController.h; sourceTree = "<group>"; };
 		603A129D20898C1A002A5BD3 /* GKWYMineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYMineViewController.m; sourceTree = "<group>"; };
 		603A12A220898CCF002A5BD3 /* GKWYMusicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYMusicModel.h; sourceTree = "<group>"; };
@@ -254,8 +230,6 @@
 		603A12E5208DBA0D002A5BD3 /* GKWYBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYBaseTableViewController.m; sourceTree = "<group>"; };
 		603A1305208DD6EE002A5BD3 /* GKWYListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYListViewController.h; sourceTree = "<group>"; };
 		603A1306208DD6EE002A5BD3 /* GKWYListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYListViewController.m; sourceTree = "<group>"; };
-		603A1308208DE472002A5BD3 /* GKPageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKPageController.h; sourceTree = "<group>"; };
-		603A1309208DE472002A5BD3 /* GKPageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKPageController.m; sourceTree = "<group>"; };
 		603A130B208EFFF1002A5BD3 /* GKAudioPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKAudioPlayer.h; sourceTree = "<group>"; };
 		603A130C208EFFF1002A5BD3 /* GKAudioPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKAudioPlayer.m; sourceTree = "<group>"; };
 		603A13562091C691002A5BD3 /* GKRefreshHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKRefreshHeader.h; sourceTree = "<group>"; };
@@ -361,72 +335,29 @@
 		60E53CBB255D114E00AAA97E /* GKWYIntent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GKWYIntent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		60E53CBD255D114E00AAA97E /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		60E53CBF255D114E00AAA97E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		790A26612173237C00BD7D8C /* JXCategoryIndicatorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorCell.h; sourceTree = "<group>"; };
-		790A26622173237C00BD7D8C /* JXCategoryIndicatorCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorCellModel.h; sourceTree = "<group>"; };
-		790A26632173237C00BD7D8C /* JXCategoryIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorView.h; sourceTree = "<group>"; };
-		790A26652173237C00BD7D8C /* JXCategoryIndicatorLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryIndicatorLineView.m; sourceTree = "<group>"; };
-		790A26662173237C00BD7D8C /* JXCategoryIndicatorTriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryIndicatorTriangleView.m; sourceTree = "<group>"; };
-		790A26672173237C00BD7D8C /* JXCategoryIndicatorBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorBackgroundView.h; sourceTree = "<group>"; };
-		790A26682173237C00BD7D8C /* JXCategoryIndicatorImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryIndicatorImageView.m; sourceTree = "<group>"; };
-		790A26692173237C00BD7D8C /* JXCategoryIndicatorBallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryIndicatorBallView.m; sourceTree = "<group>"; };
-		790A266A2173237C00BD7D8C /* JXCategoryIndicatorComponentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryIndicatorComponentView.m; sourceTree = "<group>"; };
-		790A266B2173237C00BD7D8C /* JXCategoryIndicatorLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorLineView.h; sourceTree = "<group>"; };
-		790A266C2173237C00BD7D8C /* JXCategoryIndicatorTriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorTriangleView.h; sourceTree = "<group>"; };
-		790A266D2173237C00BD7D8C /* JXCategoryIndicatorBallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorBallView.h; sourceTree = "<group>"; };
-		790A266E2173237C00BD7D8C /* JXCategoryIndicatorImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorImageView.h; sourceTree = "<group>"; };
-		790A266F2173237C00BD7D8C /* JXCategoryIndicatorBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryIndicatorBackgroundView.m; sourceTree = "<group>"; };
-		790A26702173237C00BD7D8C /* JXCategoryIndicatorComponentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorComponentView.h; sourceTree = "<group>"; };
-		790A26712173237C00BD7D8C /* JXCategoryIndicatorCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryIndicatorCellModel.m; sourceTree = "<group>"; };
-		790A26722173237C00BD7D8C /* JXCategoryIndicatorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryIndicatorCell.m; sourceTree = "<group>"; };
-		790A26732173237C00BD7D8C /* JXCategoryIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryIndicatorView.m; sourceTree = "<group>"; };
-		790A26752173237C00BD7D8C /* JXCategoryDotCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryDotCell.m; sourceTree = "<group>"; };
-		790A26762173237C00BD7D8C /* JXCategoryDotCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryDotCellModel.h; sourceTree = "<group>"; };
-		790A26772173237C00BD7D8C /* JXCategoryDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryDotView.m; sourceTree = "<group>"; };
-		790A26782173237C00BD7D8C /* JXCategoryDotCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryDotCell.h; sourceTree = "<group>"; };
-		790A26792173237C00BD7D8C /* JXCategoryDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryDotView.h; sourceTree = "<group>"; };
-		790A267A2173237C00BD7D8C /* JXCategoryDotCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryDotCellModel.m; sourceTree = "<group>"; };
-		790A267C2173237C00BD7D8C /* JXCategoryTitleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryTitleImageView.m; sourceTree = "<group>"; };
-		790A267D2173237C00BD7D8C /* JXCategoryTitleImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryTitleImageCell.m; sourceTree = "<group>"; };
-		790A267E2173237C00BD7D8C /* JXCategoryTitleImageCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleImageCellModel.h; sourceTree = "<group>"; };
-		790A267F2173237C00BD7D8C /* JXCategoryTitleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleImageView.h; sourceTree = "<group>"; };
-		790A26802173237C00BD7D8C /* JXCategoryTitleImageCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryTitleImageCellModel.m; sourceTree = "<group>"; };
-		790A26812173237C00BD7D8C /* JXCategoryTitleImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleImageCell.h; sourceTree = "<group>"; };
-		790A26832173237C00BD7D8C /* JXCategoryTitleCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleCellModel.h; sourceTree = "<group>"; };
-		790A26842173237C00BD7D8C /* JXCategoryTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleCell.h; sourceTree = "<group>"; };
-		790A26852173237C00BD7D8C /* JXCategoryTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleView.h; sourceTree = "<group>"; };
-		790A26862173237C00BD7D8C /* JXCategoryTitleCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryTitleCellModel.m; sourceTree = "<group>"; };
-		790A26872173237C00BD7D8C /* JXCategoryTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryTitleCell.m; sourceTree = "<group>"; };
-		790A26882173237C00BD7D8C /* JXCategoryTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryTitleView.m; sourceTree = "<group>"; };
-		790A26892173237C00BD7D8C /* JXCategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryView.h; sourceTree = "<group>"; };
-		790A268B2173237C00BD7D8C /* JXCategoryImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryImageView.m; sourceTree = "<group>"; };
-		790A268C2173237C00BD7D8C /* JXCategoryImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryImageCell.m; sourceTree = "<group>"; };
-		790A268D2173237C00BD7D8C /* JXCategoryImageCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryImageCellModel.h; sourceTree = "<group>"; };
-		790A268E2173237C00BD7D8C /* JXCategoryImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryImageView.h; sourceTree = "<group>"; };
-		790A268F2173237C00BD7D8C /* JXCategoryImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryImageCell.h; sourceTree = "<group>"; };
-		790A26902173237C00BD7D8C /* JXCategoryImageCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryImageCellModel.m; sourceTree = "<group>"; };
-		790A26922173237C00BD7D8C /* JXCategoryNumberCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryNumberCellModel.h; sourceTree = "<group>"; };
-		790A26932173237C00BD7D8C /* JXCategoryNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryNumberView.m; sourceTree = "<group>"; };
-		790A26942173237C00BD7D8C /* JXCategoryNumberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryNumberCell.m; sourceTree = "<group>"; };
-		790A26952173237C00BD7D8C /* JXCategoryNumberCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryNumberCellModel.m; sourceTree = "<group>"; };
-		790A26962173237C00BD7D8C /* JXCategoryNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryNumberView.h; sourceTree = "<group>"; };
-		790A26972173237C00BD7D8C /* JXCategoryNumberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryNumberCell.h; sourceTree = "<group>"; };
-		790A26992173237C00BD7D8C /* JXCategoryCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryCollectionView.h; sourceTree = "<group>"; };
-		790A269A2173237C00BD7D8C /* JXCategoryListVCContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryListVCContainerView.m; sourceTree = "<group>"; };
-		790A269B2173237C00BD7D8C /* JXCategoryIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorProtocol.h; sourceTree = "<group>"; };
-		790A269C2173237C00BD7D8C /* JXCategoryViewDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryViewDefines.h; sourceTree = "<group>"; };
-		790A269D2173237C00BD7D8C /* JXCategoryFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryFactory.m; sourceTree = "<group>"; };
-		790A269E2173237C00BD7D8C /* UIColor+JXAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+JXAdd.h"; sourceTree = "<group>"; };
-		790A269F2173237C00BD7D8C /* JXCategoryCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryCollectionView.m; sourceTree = "<group>"; };
-		790A26A02173237C00BD7D8C /* JXCategoryListVCContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryListVCContainerView.h; sourceTree = "<group>"; };
-		790A26A12173237C00BD7D8C /* UIColor+JXAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JXAdd.m"; sourceTree = "<group>"; };
-		790A26A22173237C00BD7D8C /* JXCategoryFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryFactory.h; sourceTree = "<group>"; };
-		790A26A42173237C00BD7D8C /* JXCategoryBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryBaseView.h; sourceTree = "<group>"; };
-		790A26A52173237C00BD7D8C /* JXCategoryBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryBaseCell.h; sourceTree = "<group>"; };
-		790A26A62173237C00BD7D8C /* JXCategoryBaseCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryBaseCellModel.h; sourceTree = "<group>"; };
-		790A26A72173237C00BD7D8C /* JXCategoryBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryBaseView.m; sourceTree = "<group>"; };
-		790A26A82173237C00BD7D8C /* JXCategoryBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryBaseCell.m; sourceTree = "<group>"; };
-		790A26A92173237C00BD7D8C /* JXCategoryBaseCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryBaseCellModel.m; sourceTree = "<group>"; };
+		790DB758288A3A17000260BC /* GKWYPlayListHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYPlayListHeaderView.h; sourceTree = "<group>"; };
+		790DB759288A3A17000260BC /* GKWYPlayListHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYPlayListHeaderView.m; sourceTree = "<group>"; };
 		79136870256AA1CE008AB9F5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		79E451772887D794004282A3 /* GKWYListTagModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYListTagModel.h; sourceTree = "<group>"; };
+		79E451782887D794004282A3 /* GKWYListTagModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYListTagModel.m; sourceTree = "<group>"; };
+		79E4517A2887F347004282A3 /* GKWYBaseListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYBaseListViewController.h; sourceTree = "<group>"; };
+		79E4517B2887F347004282A3 /* GKWYBaseListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYBaseListViewController.m; sourceTree = "<group>"; };
+		79E4517D28880223004282A3 /* GKWYPlayListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYPlayListCell.h; sourceTree = "<group>"; };
+		79E4517E28880223004282A3 /* GKWYPlayListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYPlayListCell.m; sourceTree = "<group>"; };
+		79E4518028891080004282A3 /* GKWYListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYListModel.h; sourceTree = "<group>"; };
+		79E4518128891080004282A3 /* GKWYListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYListModel.m; sourceTree = "<group>"; };
+		79E4518328891312004282A3 /* GKWYCoverView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYCoverView.h; sourceTree = "<group>"; };
+		79E4518428891312004282A3 /* GKWYCoverView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYCoverView.m; sourceTree = "<group>"; };
+		79E4518928892111004282A3 /* UITabBarAppearance+GKCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarAppearance+GKCategory.h"; sourceTree = "<group>"; };
+		79E4518A28892111004282A3 /* UITabBarAppearance+GKCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarAppearance+GKCategory.m"; sourceTree = "<group>"; };
+		79E4518C288937C6004282A3 /* GKWYPlayListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYPlayListViewController.h; sourceTree = "<group>"; };
+		79E4518D288937C6004282A3 /* GKWYPlayListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYPlayListViewController.m; sourceTree = "<group>"; };
+		79E571F5288E3939005EB065 /* UIButton+GKWYCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+GKWYCategory.h"; sourceTree = "<group>"; };
+		79E571F6288E3939005EB065 /* UIButton+GKWYCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+GKWYCategory.m"; sourceTree = "<group>"; };
+		79E571F9288E6504005EB065 /* GKLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKLoadingView.h; sourceTree = "<group>"; };
+		79E571FA288E6504005EB065 /* GKLoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKLoadingView.m; sourceTree = "<group>"; };
+		79E571FF288F7EC2005EB065 /* GKWYMusicLyricCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYMusicLyricCell.h; sourceTree = "<group>"; };
+		79E57200288F7EC2005EB065 /* GKWYMusicLyricCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYMusicLyricCell.m; sourceTree = "<group>"; };
 		AC63263F3F790C8CA35FADA1 /* Pods-GKWYMusic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GKWYMusic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GKWYMusic/Pods-GKWYMusic.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -528,6 +459,7 @@
 		603A12662088811E002A5BD3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				79E571F8288E64F5005EB065 /* GKLoadingView */,
 				60938FB620B11F2400CD8115 /* GKWYMusicTool */,
 				606176C720A58CA60054C8E1 /* GKVerticalButton */,
 				60617696209BF57C0054C8E1 /* GKSearchBar */,
@@ -596,6 +528,8 @@
 				603A12852088A86A002A5BD3 /* GKWYHomeViewController.m */,
 				603A1305208DD6EE002A5BD3 /* GKWYListViewController.h */,
 				603A1306208DD6EE002A5BD3 /* GKWYListViewController.m */,
+				79E4518C288937C6004282A3 /* GKWYPlayListViewController.h */,
+				79E4518D288937C6004282A3 /* GKWYPlayListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -605,6 +539,12 @@
 			children = (
 				603A12C8208C37A0002A5BD3 /* GKWYListViewCell.h */,
 				603A12C9208C37A0002A5BD3 /* GKWYListViewCell.m */,
+				79E4517D28880223004282A3 /* GKWYPlayListCell.h */,
+				79E4517E28880223004282A3 /* GKWYPlayListCell.m */,
+				79E4518328891312004282A3 /* GKWYCoverView.h */,
+				79E4518428891312004282A3 /* GKWYCoverView.m */,
+				790DB758288A3A17000260BC /* GKWYPlayListHeaderView.h */,
+				790DB759288A3A17000260BC /* GKWYPlayListHeaderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -612,6 +552,10 @@
 		603A127F2088A826002A5BD3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				79E451772887D794004282A3 /* GKWYListTagModel.h */,
+				79E451782887D794004282A3 /* GKWYListTagModel.m */,
+				79E4518028891080004282A3 /* GKWYListModel.h */,
+				79E4518128891080004282A3 /* GKWYListModel.m */,
 				603A12A220898CCF002A5BD3 /* GKWYMusicModel.h */,
 				603A12A320898CCF002A5BD3 /* GKWYMusicModel.m */,
 			);
@@ -699,6 +643,8 @@
 				603A12B72089A92E002A5BD3 /* GKWYDiskView.m */,
 				603A12B92089C70A002A5BD3 /* GKWYMusicLyricView.h */,
 				603A12BA2089C70A002A5BD3 /* GKWYMusicLyricView.m */,
+				79E571FF288F7EC2005EB065 /* GKWYMusicLyricCell.h */,
+				79E57200288F7EC2005EB065 /* GKWYMusicLyricCell.m */,
 				603A12BC2089C8BB002A5BD3 /* GKWYMusicVolumeView.h */,
 				603A12BD2089C8BB002A5BD3 /* GKWYMusicVolumeView.m */,
 				603A12C22089C8F1002A5BD3 /* GKVolumeView.h */,
@@ -719,6 +665,10 @@
 				603A12AB2089901B002A5BD3 /* UIViewController+GKWYCategory.m */,
 				603A12AD2089902A002A5BD3 /* UIImage+GKWYCategory.h */,
 				603A12AE2089902A002A5BD3 /* UIImage+GKWYCategory.m */,
+				79E4518928892111004282A3 /* UITabBarAppearance+GKCategory.h */,
+				79E4518A28892111004282A3 /* UITabBarAppearance+GKCategory.m */,
+				79E571F5288E3939005EB065 /* UIButton+GKWYCategory.h */,
+				79E571F6288E3939005EB065 /* UIButton+GKWYCategory.m */,
 			);
 			path = GKCategory;
 			sourceTree = "<group>";
@@ -730,12 +680,10 @@
 				603A12D9208DB72E002A5BD3 /* GKWYBaseViewController.m */,
 				603A12E4208DBA0D002A5BD3 /* GKWYBaseTableViewController.h */,
 				603A12E5208DBA0D002A5BD3 /* GKWYBaseTableViewController.m */,
-				603A1299208989CD002A5BD3 /* GKWYNavigationController.h */,
-				603A129A208989CD002A5BD3 /* GKWYNavigationController.m */,
 				603A12DB208DB794002A5BD3 /* GKWYPageViewController.h */,
 				603A12DC208DB794002A5BD3 /* GKWYPageViewController.m */,
-				603A1308208DE472002A5BD3 /* GKPageController.h */,
-				603A1309208DE472002A5BD3 /* GKPageController.m */,
+				79E4517A2887F347004282A3 /* GKWYBaseListViewController.h */,
+				79E4517B2887F347004282A3 /* GKWYBaseListViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -743,7 +691,6 @@
 		603A12E7208DBE26002A5BD3 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				790A265F2173237C00BD7D8C /* JXCategoryView */,
 				606176BE20A581720054C8E1 /* FXBlurView */,
 				606176B020A42F1B0054C8E1 /* CBAutoScrollLabel */,
 			);
@@ -1121,148 +1068,13 @@
 			path = GKWYIntent;
 			sourceTree = "<group>";
 		};
-		790A265F2173237C00BD7D8C /* JXCategoryView */ = {
+		79E571F8288E64F5005EB065 /* GKLoadingView */ = {
 			isa = PBXGroup;
 			children = (
-				790A26602173237C00BD7D8C /* Indicator */,
-				790A26742173237C00BD7D8C /* Dot */,
-				790A267B2173237C00BD7D8C /* TitleImage */,
-				790A26822173237C00BD7D8C /* Title */,
-				790A26892173237C00BD7D8C /* JXCategoryView.h */,
-				790A268A2173237C00BD7D8C /* Image */,
-				790A26912173237C00BD7D8C /* Number */,
-				790A26982173237C00BD7D8C /* Common */,
-				790A26A32173237C00BD7D8C /* Base */,
+				79E571F9288E6504005EB065 /* GKLoadingView.h */,
+				79E571FA288E6504005EB065 /* GKLoadingView.m */,
 			);
-			path = JXCategoryView;
-			sourceTree = "<group>";
-		};
-		790A26602173237C00BD7D8C /* Indicator */ = {
-			isa = PBXGroup;
-			children = (
-				790A26612173237C00BD7D8C /* JXCategoryIndicatorCell.h */,
-				790A26622173237C00BD7D8C /* JXCategoryIndicatorCellModel.h */,
-				790A26632173237C00BD7D8C /* JXCategoryIndicatorView.h */,
-				790A26642173237C00BD7D8C /* IndicatorViews */,
-				790A26712173237C00BD7D8C /* JXCategoryIndicatorCellModel.m */,
-				790A26722173237C00BD7D8C /* JXCategoryIndicatorCell.m */,
-				790A26732173237C00BD7D8C /* JXCategoryIndicatorView.m */,
-			);
-			path = Indicator;
-			sourceTree = "<group>";
-		};
-		790A26642173237C00BD7D8C /* IndicatorViews */ = {
-			isa = PBXGroup;
-			children = (
-				790A26652173237C00BD7D8C /* JXCategoryIndicatorLineView.m */,
-				790A26662173237C00BD7D8C /* JXCategoryIndicatorTriangleView.m */,
-				790A26672173237C00BD7D8C /* JXCategoryIndicatorBackgroundView.h */,
-				790A26682173237C00BD7D8C /* JXCategoryIndicatorImageView.m */,
-				790A26692173237C00BD7D8C /* JXCategoryIndicatorBallView.m */,
-				790A266A2173237C00BD7D8C /* JXCategoryIndicatorComponentView.m */,
-				790A266B2173237C00BD7D8C /* JXCategoryIndicatorLineView.h */,
-				790A266C2173237C00BD7D8C /* JXCategoryIndicatorTriangleView.h */,
-				790A266D2173237C00BD7D8C /* JXCategoryIndicatorBallView.h */,
-				790A266E2173237C00BD7D8C /* JXCategoryIndicatorImageView.h */,
-				790A266F2173237C00BD7D8C /* JXCategoryIndicatorBackgroundView.m */,
-				790A26702173237C00BD7D8C /* JXCategoryIndicatorComponentView.h */,
-			);
-			path = IndicatorViews;
-			sourceTree = "<group>";
-		};
-		790A26742173237C00BD7D8C /* Dot */ = {
-			isa = PBXGroup;
-			children = (
-				790A26752173237C00BD7D8C /* JXCategoryDotCell.m */,
-				790A26762173237C00BD7D8C /* JXCategoryDotCellModel.h */,
-				790A26772173237C00BD7D8C /* JXCategoryDotView.m */,
-				790A26782173237C00BD7D8C /* JXCategoryDotCell.h */,
-				790A26792173237C00BD7D8C /* JXCategoryDotView.h */,
-				790A267A2173237C00BD7D8C /* JXCategoryDotCellModel.m */,
-			);
-			path = Dot;
-			sourceTree = "<group>";
-		};
-		790A267B2173237C00BD7D8C /* TitleImage */ = {
-			isa = PBXGroup;
-			children = (
-				790A267C2173237C00BD7D8C /* JXCategoryTitleImageView.m */,
-				790A267D2173237C00BD7D8C /* JXCategoryTitleImageCell.m */,
-				790A267E2173237C00BD7D8C /* JXCategoryTitleImageCellModel.h */,
-				790A267F2173237C00BD7D8C /* JXCategoryTitleImageView.h */,
-				790A26802173237C00BD7D8C /* JXCategoryTitleImageCellModel.m */,
-				790A26812173237C00BD7D8C /* JXCategoryTitleImageCell.h */,
-			);
-			path = TitleImage;
-			sourceTree = "<group>";
-		};
-		790A26822173237C00BD7D8C /* Title */ = {
-			isa = PBXGroup;
-			children = (
-				790A26832173237C00BD7D8C /* JXCategoryTitleCellModel.h */,
-				790A26842173237C00BD7D8C /* JXCategoryTitleCell.h */,
-				790A26852173237C00BD7D8C /* JXCategoryTitleView.h */,
-				790A26862173237C00BD7D8C /* JXCategoryTitleCellModel.m */,
-				790A26872173237C00BD7D8C /* JXCategoryTitleCell.m */,
-				790A26882173237C00BD7D8C /* JXCategoryTitleView.m */,
-			);
-			path = Title;
-			sourceTree = "<group>";
-		};
-		790A268A2173237C00BD7D8C /* Image */ = {
-			isa = PBXGroup;
-			children = (
-				790A268B2173237C00BD7D8C /* JXCategoryImageView.m */,
-				790A268C2173237C00BD7D8C /* JXCategoryImageCell.m */,
-				790A268D2173237C00BD7D8C /* JXCategoryImageCellModel.h */,
-				790A268E2173237C00BD7D8C /* JXCategoryImageView.h */,
-				790A268F2173237C00BD7D8C /* JXCategoryImageCell.h */,
-				790A26902173237C00BD7D8C /* JXCategoryImageCellModel.m */,
-			);
-			path = Image;
-			sourceTree = "<group>";
-		};
-		790A26912173237C00BD7D8C /* Number */ = {
-			isa = PBXGroup;
-			children = (
-				790A26922173237C00BD7D8C /* JXCategoryNumberCellModel.h */,
-				790A26932173237C00BD7D8C /* JXCategoryNumberView.m */,
-				790A26942173237C00BD7D8C /* JXCategoryNumberCell.m */,
-				790A26952173237C00BD7D8C /* JXCategoryNumberCellModel.m */,
-				790A26962173237C00BD7D8C /* JXCategoryNumberView.h */,
-				790A26972173237C00BD7D8C /* JXCategoryNumberCell.h */,
-			);
-			path = Number;
-			sourceTree = "<group>";
-		};
-		790A26982173237C00BD7D8C /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				790A26992173237C00BD7D8C /* JXCategoryCollectionView.h */,
-				790A269A2173237C00BD7D8C /* JXCategoryListVCContainerView.m */,
-				790A269B2173237C00BD7D8C /* JXCategoryIndicatorProtocol.h */,
-				790A269C2173237C00BD7D8C /* JXCategoryViewDefines.h */,
-				790A269D2173237C00BD7D8C /* JXCategoryFactory.m */,
-				790A269E2173237C00BD7D8C /* UIColor+JXAdd.h */,
-				790A269F2173237C00BD7D8C /* JXCategoryCollectionView.m */,
-				790A26A02173237C00BD7D8C /* JXCategoryListVCContainerView.h */,
-				790A26A12173237C00BD7D8C /* UIColor+JXAdd.m */,
-				790A26A22173237C00BD7D8C /* JXCategoryFactory.h */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		790A26A32173237C00BD7D8C /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				790A26A42173237C00BD7D8C /* JXCategoryBaseView.h */,
-				790A26A52173237C00BD7D8C /* JXCategoryBaseCell.h */,
-				790A26A62173237C00BD7D8C /* JXCategoryBaseCellModel.h */,
-				790A26A72173237C00BD7D8C /* JXCategoryBaseView.m */,
-				790A26A82173237C00BD7D8C /* JXCategoryBaseCell.m */,
-				790A26A92173237C00BD7D8C /* JXCategoryBaseCellModel.m */,
-			);
-			path = Base;
+			path = GKLoadingView;
 			sourceTree = "<group>";
 		};
 		A399A1B98F97CBDD31E29FAF /* Frameworks */ = {
@@ -1513,90 +1325,68 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				790A26C02173237C00BD7D8C /* JXCategoryNumberCell.m in Sources */,
-				790A26AF2173237C00BD7D8C /* JXCategoryIndicatorBackgroundView.m in Sources */,
-				790A26C32173237C00BD7D8C /* JXCategoryFactory.m in Sources */,
-				790A26C22173237C00BD7D8C /* JXCategoryListVCContainerView.m in Sources */,
 				603A12902088A8BA002A5BD3 /* GKLyricModel.m in Sources */,
-				790A26C52173237C00BD7D8C /* UIColor+JXAdd.m in Sources */,
 				6061767A209AACD60054C8E1 /* GKRefreshFooter.m in Sources */,
 				603A12862088A86A002A5BD3 /* GKWYHomeViewController.m in Sources */,
+				79E4518B28892111004282A3 /* UITabBarAppearance+GKCategory.m in Sources */,
 				6061767D209AB5920054C8E1 /* GKWYSearchViewController.m in Sources */,
 				603A12A420898CCF002A5BD3 /* GKWYMusicModel.m in Sources */,
 				6096DC62255BD3540060D6FA /* GKWYWidget.intentdefinition in Sources */,
 				609391B220BD062800CD8115 /* GKWYVideoDetailModel.m in Sources */,
 				6061769F209C0EC10054C8E1 /* GKWYArtistViewCell.m in Sources */,
 				60938F8320AE5AEA00CD8115 /* GKWYIntroViewCell.m in Sources */,
+				79E4518228891080004282A3 /* GKWYListModel.m in Sources */,
 				603F823420887A21004A8F29 /* main.m in Sources */,
 				603A1275208881A3002A5BD3 /* GKDownloadManager.m in Sources */,
 				60938F8620AE603F00CD8115 /* GKWYArtistRecModel.m in Sources */,
 				603A12DA208DB72E002A5BD3 /* GKWYBaseViewController.m in Sources */,
 				6093900620B63F5D00CD8115 /* GKWYSearchHeaderView.m in Sources */,
-				790A26C62173237C00BD7D8C /* JXCategoryBaseView.m in Sources */,
-				790A26B72173237C00BD7D8C /* JXCategoryTitleImageCell.m in Sources */,
 				603A12C42089C8F1002A5BD3 /* GKVolumeView.m in Sources */,
 				60938F8020ADA5AB00CD8115 /* GKWYVideoModel.m in Sources */,
 				60938F0220ABBBC600CD8115 /* GKWYArtistIntroViewController.m in Sources */,
 				6061768F209B195A0054C8E1 /* GKWYSongResultViewController.m in Sources */,
-				790A26BB2173237C00BD7D8C /* JXCategoryTitleView.m in Sources */,
 				603A12912088A8BA002A5BD3 /* GKLyricParser.m in Sources */,
 				603A12BE2089C8BB002A5BD3 /* GKWYMusicVolumeView.m in Sources */,
 				6093900920B6435100CD8115 /* GKWYTagModel.m in Sources */,
 				60938FC120B4198C00CD8115 /* GKWYVideoResultViewController.m in Sources */,
-				790A26B92173237C00BD7D8C /* JXCategoryTitleCellModel.m in Sources */,
 				60938F8C20AEDA4A00CD8115 /* GKWYBaseSubViewController.m in Sources */,
 				60938EFE20ABBA3B00CD8115 /* GKWYArtistVideoListViewController.m in Sources */,
-				790A26AC2173237C00BD7D8C /* JXCategoryIndicatorImageView.m in Sources */,
 				603A13582091C691002A5BD3 /* GKRefreshHeader.m in Sources */,
-				790A26BE2173237C00BD7D8C /* JXCategoryImageCellModel.m in Sources */,
-				790A26AA2173237C00BD7D8C /* JXCategoryIndicatorLineView.m in Sources */,
 				603F822620887A20004A8F29 /* AppDelegate.m in Sources */,
 				603A12BB2089C70A002A5BD3 /* GKWYMusicLyricView.m in Sources */,
 				603A1273208881A3002A5BD3 /* GKActionSheetViewCell.m in Sources */,
-				790A26B42173237C00BD7D8C /* JXCategoryDotView.m in Sources */,
 				60938EEF20AAF1C300CD8115 /* GKWYAlbumHeader.m in Sources */,
-				790A26BC2173237C00BD7D8C /* JXCategoryImageView.m in Sources */,
 				606C158C20CA2782005ECEF8 /* GKVideoPlayer.m in Sources */,
-				790A26BF2173237C00BD7D8C /* JXCategoryNumberView.m in Sources */,
+				79E4518E288937C6004282A3 /* GKWYPlayListViewController.m in Sources */,
 				60264F43216F5793006E6837 /* GKWYArtistHeaderView.m in Sources */,
 				606176A8209C6CB20054C8E1 /* GKWYMyListViewController.m in Sources */,
 				60617692209B19680054C8E1 /* GKWYArtistResultViewController.m in Sources */,
 				603A12AC2089901B002A5BD3 /* UIViewController+GKWYCategory.m in Sources */,
-				790A26B12173237C00BD7D8C /* JXCategoryIndicatorCell.m in Sources */,
+				79E4517C2887F347004282A3 /* GKWYBaseListViewController.m in Sources */,
 				60938EF220AAF1D900CD8115 /* GKVerticalButton.m in Sources */,
 				60125564217F169900547CE5 /* GKWYPlayListResultViewController.m in Sources */,
+				79E4518528891312004282A3 /* GKWYCoverView.m in Sources */,
 				603A12CF208D60A9002A5BD3 /* GKWYMusicListView.m in Sources */,
-				790A26AE2173237C00BD7D8C /* JXCategoryIndicatorComponentView.m in Sources */,
 				603A12C72089D11C002A5BD3 /* GKWYMusicControlView.m in Sources */,
 				603A12952089858B002A5BD3 /* GKHttpManager.m in Sources */,
 				60125567217F16AB00547CE5 /* GKWYUserResultViewController.m in Sources */,
-				790A26B32173237C00BD7D8C /* JXCategoryDotCell.m in Sources */,
-				790A26C12173237C00BD7D8C /* JXCategoryNumberCellModel.m in Sources */,
+				79E451792887D794004282A3 /* GKWYListTagModel.m in Sources */,
 				603A127C20888228002A5BD3 /* GKPlayer.m in Sources */,
-				790A26AB2173237C00BD7D8C /* JXCategoryIndicatorTriangleView.m in Sources */,
 				603A1274208881A3002A5BD3 /* GKDownloadModel.m in Sources */,
-				790A26AD2173237C00BD7D8C /* JXCategoryIndicatorBallView.m in Sources */,
 				603A1272208881A3002A5BD3 /* GKActionSheet.m in Sources */,
-				603A129B208989CD002A5BD3 /* GKWYNavigationController.m in Sources */,
 				603A12A720898D24002A5BD3 /* GKWYMusicTool.m in Sources */,
 				60938EE920AAF1AE00CD8115 /* GKWYAlbumViewController.m in Sources */,
-				790A26C42173237C00BD7D8C /* JXCategoryCollectionView.m in Sources */,
 				606176C520A581720054C8E1 /* FXBlurView.m in Sources */,
-				790A26B22173237C00BD7D8C /* JXCategoryIndicatorView.m in Sources */,
 				60938EEC20AAF1B800CD8115 /* GKWYAlbumModel.m in Sources */,
 				606176A2209C0ECA0054C8E1 /* GKWYAlbumViewCell.m in Sources */,
 				606176722099635C0054C8E1 /* GKTimer.m in Sources */,
 				603A1307208DD6EE002A5BD3 /* GKWYListViewController.m in Sources */,
-				790A26BA2173237C00BD7D8C /* JXCategoryTitleCell.m in Sources */,
 				60938F7D20ADA2FB00CD8115 /* GKWYVideoViewCell.m in Sources */,
 				603A12DD208DB794002A5BD3 /* GKWYPageViewController.m in Sources */,
 				606176A5209C6CA10054C8E1 /* GKWYMyListViewCell.m in Sources */,
-				790A26C82173237C00BD7D8C /* JXCategoryBaseCellModel.m in Sources */,
-				603A130A208DE472002A5BD3 /* GKPageController.m in Sources */,
 				603A12E6208DBA0D002A5BD3 /* GKWYBaseTableViewController.m in Sources */,
 				6093900C20B66A7800CD8115 /* GKWYSearchViewCell.m in Sources */,
 				60938EF820AB01D900CD8115 /* GKWYArtistSongListViewController.m in Sources */,
-				790A26B52173237C00BD7D8C /* JXCategoryDotCellModel.m in Sources */,
 				603A1298208989B0002A5BD3 /* GKWYMainViewController.m in Sources */,
 				603A129E20898C1A002A5BD3 /* GKWYMineViewController.m in Sources */,
 				60617699209BF5B30054C8E1 /* GKSearchBar.m in Sources */,
@@ -1605,22 +1395,22 @@
 				603A12B520899A49002A5BD3 /* GKWYMusicCoverView.m in Sources */,
 				6061769C209C0EB60054C8E1 /* GKWYSongViewCell.m in Sources */,
 				603A12B82089A92E002A5BD3 /* GKWYDiskView.m in Sources */,
-				790A26C72173237C00BD7D8C /* JXCategoryBaseCell.m in Sources */,
 				60938FBC20B1740400CD8115 /* GKWYIntroDetailViewController.m in Sources */,
-				790A26B82173237C00BD7D8C /* JXCategoryTitleImageCellModel.m in Sources */,
-				790A26BD2173237C00BD7D8C /* JXCategoryImageCell.m in Sources */,
+				79E571FB288E6504005EB065 /* GKLoadingView.m in Sources */,
 				603A128A2088A899002A5BD3 /* GKSliderView.m in Sources */,
 				603A12CA208C37A0002A5BD3 /* GKWYListViewCell.m in Sources */,
 				60938EFB20ABB6AB00CD8115 /* GKWYArtistAlbumListViewController.m in Sources */,
 				603A12AF2089902A002A5BD3 /* UIImage+GKWYCategory.m in Sources */,
+				79E571F7288E393A005EB065 /* UIButton+GKWYCategory.m in Sources */,
+				790DB75A288A3A17000260BC /* GKWYPlayListHeaderView.m in Sources */,
 				606176B320A42F1B0054C8E1 /* CBAutoScrollLabel.m in Sources */,
 				60617689209B158B0054C8E1 /* GKWYResultModel.m in Sources */,
 				609391AF20BCD63400CD8115 /* GKWYVideoViewController.m in Sources */,
 				603A130D208EFFF1002A5BD3 /* GKAudioPlayer.m in Sources */,
-				790A26B62173237C00BD7D8C /* JXCategoryTitleImageView.m in Sources */,
 				60938EE620AAEBB800CD8115 /* GKWYArtistViewController.m in Sources */,
 				60938EE320AAEACC00CD8115 /* GKWYArtistModel.m in Sources */,
-				790A26B02173237C00BD7D8C /* JXCategoryIndicatorCellModel.m in Sources */,
+				79E4517F28880223004282A3 /* GKWYPlayListCell.m in Sources */,
+				79E57201288F7EC2005EB065 /* GKWYMusicLyricCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1808,8 +1598,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = X52753HQNM;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P756K496H9;
 				GCC_PREFIX_HEADER = GKWYMusic/PrefixHeader.pch;
 				INFOPLIST_FILE = GKWYMusic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1819,8 +1610,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.GKWYMusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1fe1af09-c71e-4300-94d8-76d14cec2eb4";
-				PROVISIONING_PROFILE_SPECIFIER = aystfm_dev_test;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1833,8 +1624,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = X52753HQNM;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P756K496H9;
 				GCC_PREFIX_HEADER = GKWYMusic/PrefixHeader.pch;
 				INFOPLIST_FILE = GKWYMusic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1844,8 +1636,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.GKWYMusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1fe1af09-c71e-4300-94d8-76d14cec2eb4";
-				PROVISIONING_PROFILE_SPECIFIER = aystfm_dev_test;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1927,7 +1719,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X52753HQNM;
+				DEVELOPMENT_TEAM = P756K496H9;
 				INFOPLIST_FILE = GKWYWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1954,7 +1746,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X52753HQNM;
+				DEVELOPMENT_TEAM = P756K496H9;
 				INFOPLIST_FILE = GKWYWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1977,7 +1769,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X52753HQNM;
+				DEVELOPMENT_TEAM = P756K496H9;
 				INFOPLIST_FILE = GKWYIntent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2001,7 +1793,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X52753HQNM;
+				DEVELOPMENT_TEAM = P756K496H9;
 				INFOPLIST_FILE = GKWYIntent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (

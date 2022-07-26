@@ -16,19 +16,29 @@ PODS:
     - AFNetworking/NSURLSession
   - FreeStreamer (4.0.0):
     - Reachability (~> 3.0)
-  - GKCover (2.5.5)
+  - GKCover (3.0.1)
   - GKMessageTool (1.0.5):
     - MBProgressHUD
-  - GKNavigationBarViewController (2.6.3)
-  - GKPageScrollView (1.3.9)
+  - GKNavigationBar (1.7.6):
+    - GKNavigationBar/GestureHandle (= 1.7.6)
+    - GKNavigationBar/NavigationBar (= 1.7.6)
+  - GKNavigationBar/GestureHandle (1.7.6)
+  - GKNavigationBar/NavigationBar (1.7.6)
+  - GKPageScrollView (1.7.4):
+    - GKPageScrollView/Objc (= 1.7.4)
+  - GKPageScrollView/Objc (1.7.4)
+  - JXCategoryViewExt/Core (1.1.7)
+  - JXCategoryViewExt/Indicator/Line (1.1.7):
+    - JXCategoryViewExt/Core
+  - JXCategoryViewExt/Title (1.1.7):
+    - JXCategoryViewExt/Core
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
-  - MJRefresh (3.5.0)
+  - MJRefresh (3.7.5)
   - Reachability (3.2)
-  - SDWebImage (5.9.5):
-    - SDWebImage/Core (= 5.9.5)
-  - SDWebImage/Core (5.9.5)
-  - WMPageController (2.5.2)
+  - SDWebImage (5.13.1):
+    - SDWebImage/Core (= 5.13.1)
+  - SDWebImage/Core (5.13.1)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -36,12 +46,13 @@ DEPENDENCIES:
   - FreeStreamer
   - GKCover
   - GKMessageTool
-  - GKNavigationBarViewController
+  - GKNavigationBar
   - GKPageScrollView
+  - JXCategoryViewExt/Indicator/Line
+  - JXCategoryViewExt/Title
   - Masonry
   - MJRefresh
   - SDWebImage
-  - WMPageController
   - YYModel
 
 SPEC REPOS:
@@ -50,31 +61,31 @@ SPEC REPOS:
     - FreeStreamer
     - GKCover
     - GKMessageTool
-    - GKNavigationBarViewController
+    - GKNavigationBar
     - GKPageScrollView
+    - JXCategoryViewExt
     - Masonry
     - MBProgressHUD
     - MJRefresh
     - Reachability
     - SDWebImage
-    - WMPageController
     - YYModel
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   FreeStreamer: 7e9c976045701ac2f7e9c14c17245203c37bf2ea
-  GKCover: 54663b6ee16ea0b4c0e203a0ffd5a0622223af6e
+  GKCover: 6486cf87c0a5cae4bb5c3a09e17925ad8b466412
   GKMessageTool: fcf46cca30f62eaebb8fea288c9452f3682645f2
-  GKNavigationBarViewController: d682ec891050fccfd3e6695ee0f3ee2f75970535
-  GKPageScrollView: 3e032726302704737c56edcd01abb4bdd7aab6db
+  GKNavigationBar: 169c7491c1739cffe569c07ffdeb8bf4c327f699
+  GKPageScrollView: 845a915a4e8be4cf99510b3a2534d5dacf6dbe45
+  JXCategoryViewExt: b4a05d3fb001ea6cbc72e3092ab5bcaff62b7dde
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
-  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
+  MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SDWebImage: 0b2ba0d56479bf6a45ecddbfd5558bea93150d25
-  WMPageController: 0c7624d2b48e4f1ab92371688cf6744ed701575d
+  SDWebImage: fb26a455eeda4c7a55e4dcb6172dbb258af7a4ca
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 9ae9f993743fb3afbe1b9427c3d048415ee25edd
+PODFILE CHECKSUM: dbd97b409481c86fca3d51c4c07112ac2cf6dae6
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.11.3

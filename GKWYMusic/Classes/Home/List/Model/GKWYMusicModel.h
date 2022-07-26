@@ -8,33 +8,41 @@
 
 #import <Foundation/Foundation.h>
 
+// 歌手
+@interface GKWYMusicArModel : NSObject
+
+@property (nonatomic, copy) NSString *ar_id;
+@property (nonatomic, copy) NSString *name;
+
+@end
+
 @interface GKWYMusicModel : NSObject<NSCoding>
 // 歌曲id
 @property (nonatomic, copy) NSString *song_id;
 // 歌曲名称
 @property (nonatomic, copy) NSString *song_name;
-// 歌手id
-@property (nonatomic, copy) NSString *ting_uid;
-@property (nonatomic, copy) NSString *artist_id;
-// 所有歌手uid
-@property (nonatomic, copy) NSString *all_artist_ting_uid;
-@property (nonatomic, copy) NSString *all_artist_id;
-@property (nonatomic, strong) NSArray *artist_list;
-// 歌手名称
-@property (nonatomic, copy) NSString *artist_name;
+// 歌手信息
+@property (nonatomic, strong) NSArray <GKWYMusicArModel *> *ar;
+
+@property (nonatomic, strong) NSArray *alia;
+@property (nonatomic, copy) NSString *alia_name;
+
+@property (nonatomic, copy) NSString *artists_name;
 // 专辑id
 @property (nonatomic, copy) NSString *album_id;
 // 专辑名称
 @property (nonatomic, copy) NSString *album_title;
+// 专辑图片
+@property (nonatomic, copy) NSString *album_pic;
 
-// 用于背景图
-@property (nonatomic, copy) NSString *pic_huge;
-
-// 用于锁屏图片
-@property (nonatomic, copy) NSString *pic_radio;
-
-@property (nonatomic, copy) NSString *pic_big;
-@property (nonatomic, copy) NSString *pic_small;
+//// 用于背景图
+//@property (nonatomic, copy) NSString *pic_huge;
+//
+//// 用于锁屏图片
+//@property (nonatomic, copy) NSString *pic_radio;
+//
+//@property (nonatomic, copy) NSString *pic_big;
+//@property (nonatomic, copy) NSString *pic_small;
 // 是否有mv
 @property (nonatomic, assign) BOOL has_mv;
 @property (nonatomic, assign) BOOL has_mv_mobile;

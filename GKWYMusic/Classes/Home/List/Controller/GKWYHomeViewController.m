@@ -10,10 +10,13 @@
 #import "GKWYListViewController.h"
 #import "GKWYSearchViewController.h"
 #import "GKSearchBar.h"
+#import "GKWYListTagModel.h"
 
-@interface GKWYHomeViewController ()<GKSearchBarDelegate>
+@interface GKWYHomeViewController ()<GKSearchBarDelegate, JXCategoryTitleViewDataSource>
 
 @property (nonatomic, strong) GKSearchBar *searchBar;
+
+@property (nonatomic, strong) NSArray *tags;
 
 @end
 
@@ -24,33 +27,7 @@
     
     [self.gk_navigationBar addSubview:self.searchBar];
     
-    NSArray *data = @[@{@"title": @"新歌", @"type": @1},
-                      @{@"title": @"热歌", @"type": @2},
-                      @{@"title": @"摇滚", @"type": @11},
-                      @{@"title": @"爵士", @"type": @12},
-                      @{@"title": @"流行", @"type": @16},
-                      @{@"title": @"欧美金曲", @"type": @21},
-                      @{@"title": @"经典老歌", @"type": @22},
-                      @{@"title": @"情歌对唱", @"type": @23},
-                      @{@"title": @"影视金曲", @"type": @24},
-                      @{@"title": @"网络歌曲", @"type": @25}];
-    
-    NSMutableArray *titles   = [NSMutableArray new];
-    NSMutableArray *childVCs = [NSMutableArray new];
-    
-    [data enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [titles addObject:obj[@"title"]];
-        
-        GKWYListViewController *listVC = [GKWYListViewController new];
-        listVC.type = [obj[@"type"] integerValue];
-        
-        [childVCs addObject:listVC];
-    }];
-    
-    self.childVCs = childVCs;
-    self.titles   = titles;
-    
-    [self reloadData];
+    [self requestData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -73,12 +50,52 @@
     [self.searchBar layoutIfNeeded];
 }
 
-#pragma mark - EVNCustomSearchBarDelegate
+- (void)initializeViews {
+    self.categoryView.titleDataSource = self;
+    
+    JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
+    lineView.indicatorColor = kAPPDefaultColor;
+    lineView.indicatorWidthIncrement = 2;
+    lineView.indicatorHeight = 8;
+    lineView.indicatorCornerRadius = 4;
+    self.indicatorView = lineView;
+}
+
+- (void)requestData {
+    [kHttpManager get:@"playlist/highquality/tags" params:nil successBlock:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 200) {
+            self.tags = [NSArray yy_modelArrayWithClass:[GKWYListTagModel class] json:responseObject[@"tags"]];
+            [self reloadData];
+        }else {
+            [GKMessageTool showError:@"请求失败"];
+        }
+    } failureBlock:^(NSError *error) {
+        [GKMessageTool showError:@"请求失败"];
+    }];
+}
+
+#pragma mark - GKSearchBarDelegate
 - (BOOL)searchBarShouldBeginEditing:(GKSearchBar *)searchBar {
     GKWYSearchViewController *searchVC = [GKWYSearchViewController new];
     [self.navigationController pushViewController:searchVC animated:NO];
     
     return NO;
+}
+
+#pragma mark - JXCategoryTitleViewDataSource
+- (NSInteger)numberOfTitleView:(JXCategoryTitleView *)titleView {
+    return self.tags.count;
+}
+
+- (NSString *)titleView:(JXCategoryTitleView *)titleView titleForIndex:(NSInteger)index {
+    return [self.tags[index] name];
+}
+
+#pragma mark - JXCategoryListContainerViewDelegate
+- (id<JXCategoryListContentViewDelegate>)listContainerView:(JXCategoryListContainerView *)listContainerView initListForIndex:(NSInteger)index {
+    GKWYListViewController *listVC = [[GKWYListViewController alloc] initWithType:GKWYListType_CollectionView];
+    listVC.tagModel = self.tags[index];
+    return listVC;
 }
 
 #pragma mark - 懒加载

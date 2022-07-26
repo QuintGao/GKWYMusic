@@ -11,5 +11,6 @@
 
 #import "UIViewController+GKWYCategory.h"
 #import "UIImage+GKWYCategory.h"
+#import "UITabBarAppearance+GKCategory.h"
 
 #endif /* GKWYCategory_h */

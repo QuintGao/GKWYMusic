@@ -11,39 +11,28 @@
 
 @interface GKWYListViewCell()
 
-/**
- 序号
- */
+// 序号
 @property (nonatomic, strong) UIButton      *numberBtn;
 
-/**
- 名称
- */
+// 名称
 @property (nonatomic, strong) UILabel       *nameLabel;
 
-/**
- 下载图片
- */
+// 别名
+@property (nonatomic, strong) UILabel       *aliaLabel;
+
+// 下载图片
 @property (nonatomic, strong) UIImageView   *downloadImgView;
 
-/**
- 作者
- */
+// 作者
 @property (nonatomic, strong) UILabel       *artistLabel;
 
-/**
- 分割线
- */
+// 分割线
 @property (nonatomic, strong) UIView        *lineView;
 
-/**
- mv标志
- */
+// mv标志
 @property (nonatomic, strong) UIButton      *mvBtn;
 
-/**
- 更多按钮
- */
+// 更多按钮
 @property (nonatomic, strong) UIButton      *moreBtn;
 
 @end
@@ -54,6 +43,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.contentView addSubview:self.numberBtn];
         [self.contentView addSubview:self.nameLabel];
+        [self.contentView addSubview:self.aliaLabel];
         [self.contentView addSubview:self.downloadImgView];
         [self.contentView addSubview:self.artistLabel];
         [self.contentView addSubview:self.mvBtn];
@@ -62,18 +52,25 @@
         
         [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(50);
-            make.top.equalTo(self.contentView).offset(6);
+            make.bottom.equalTo(self.contentView.mas_centerY).offset(-kAdaptive(6.0f));
+        }];
+        
+        [self.aliaLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.nameLabel.mas_right);
+            make.centerY.equalTo(self.nameLabel);
+            make.right.lessThanOrEqualTo(self.mvBtn.mas_left).offset(-10);
         }];
         
         [self.downloadImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.nameLabel.mas_left);
-            make.bottom.equalTo(self.contentView).offset(-6);
             make.width.height.mas_equalTo(12.0f);
+            make.top.equalTo(self.contentView.mas_centerY).offset(kAdaptive(6.0f));
         }];
         
         [self.artistLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.nameLabel.mas_left);
             make.centerY.equalTo(self.downloadImgView.mas_centerY);
+            make.right.equalTo(self.mvBtn.mas_left).offset(-10);
         }];
         
         [self.numberBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -105,22 +102,23 @@
     _model = model;
     
     self.nameLabel.text   = model.song_name;
-    self.artistLabel.text = [NSString stringWithFormat:@"%@ - %@", model.artist_name, model.album_title];
+    self.aliaLabel.text   = model.alia_name;
+    self.artistLabel.text = [NSString stringWithFormat:@"%@ - %@", model.artists_name, model.album_title];
     self.mvBtn.hidden     = !model.has_mv;
     
-    if (model.has_mv) {
-        [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(50);
-            make.top.equalTo(self.contentView).offset(6);
-            make.right.equalTo(self.contentView).offset(-kAdaptive(160.0f));
-        }];
-    }else {
-        [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(50);
-            make.top.equalTo(self.contentView).offset(6);
-            make.right.equalTo(self.contentView).offset(-kAdaptive(80.0f));
-        }];
-    }
+//    if (model.has_mv) {
+//        [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.contentView).offset(50);
+//            make.top.equalTo(self.contentView).offset(6);
+//            make.right.equalTo(self.contentView).offset(-kAdaptive(160.0f));
+//        }];
+//    }else {
+//        [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.contentView).offset(50);
+//            make.top.equalTo(self.contentView).offset(6);
+//            make.right.equalTo(self.contentView).offset(-kAdaptive(80.0f));
+//        }];
+//    }
     
     if (model.isDownload) {
         self.downloadImgView.hidden = NO;
@@ -162,7 +160,7 @@
         self.nameLabel.textColor   = GKColorRGB(200, 38, 39);
         self.artistLabel.textColor = GKColorRGB(200, 38, 39);
     }else {
-        NSString *num = [NSString stringWithFormat:@"%02zd", self.row + 1];
+        NSString *num = [NSString stringWithFormat:@"%zd", self.row + 1];
         
         [self.numberBtn setTitle:num forState:UIControlStateNormal];
         [self.numberBtn setImage:nil forState:UIControlStateNormal];
@@ -178,7 +176,7 @@
     self.numberBtn.hidden = YES;
     
     self.nameLabel.text   = songModel.song_name;
-    self.artistLabel.text = [NSString stringWithFormat:@"%@ - %@", songModel.artist_name, songModel.album_title];
+    self.artistLabel.text = [NSString stringWithFormat:@"%@ - %@", songModel.artists_name, songModel.album_title];
     self.mvBtn.hidden     = !songModel.has_mv;
     
     if (songModel.has_mv) {
@@ -313,7 +311,7 @@
     [items addObject:loveItem];
     
     GKActionSheetItem *artistItem = [GKActionSheetItem new];
-    artistItem.title = [NSString stringWithFormat:@"歌手：%@", model.artist_name];
+    artistItem.title = [NSString stringWithFormat:@"歌手：%@", model.artists_name];
     artistItem.imgName = @"cm2_lay_icn_artist_new";
     artistItem.enabled = YES;
     artistItem.clickBlock = ^{
@@ -373,6 +371,15 @@
     return _nameLabel;
 }
 
+- (UILabel *)aliaLabel {
+    if (!_aliaLabel) {
+        _aliaLabel = [[UILabel alloc] init];
+        _aliaLabel.textColor = GKColorGray(98);
+        _aliaLabel.font = [UIFont systemFontOfSize:16];
+    }
+    return _aliaLabel;
+}
+
 - (UIImageView *)downloadImgView {
     if (!_downloadImgView) {
         _downloadImgView        = [UIImageView new];
@@ -395,6 +402,7 @@
     if (!_lineView) {
         _lineView = [UIView new];
         _lineView.backgroundColor = kAppLineColor;
+        _lineView.hidden = YES;
     }
     return _lineView;
 }

@@ -177,12 +177,6 @@
         // 用户
         [titles addObject:@"用户"];
         
-        self.pageVC.titles = titles;
-        self.pageVC.childVCs = childVCs;
-        
-        self.pageVC.view.hidden = NO;
-        [self.pageVC reloadData];
-        
     } failureBlock:^(NSError *error) {
         NSLog(@"搜索失败==%@", error);
     }];
@@ -257,15 +251,6 @@
         };
     }
     return _headerView;
-}
-
-- (GKWYPageViewController *)pageVC {
-    if (!_pageVC) {
-        _pageVC = [GKWYPageViewController new];
-        _pageVC.view.hidden = YES;
-        _pageVC.hideNavBar  = YES;
-    }
-    return _pageVC;
 }
 
 @end

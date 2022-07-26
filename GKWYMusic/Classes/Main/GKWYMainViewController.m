@@ -7,7 +7,6 @@
 //
 
 #import "GKWYMainViewController.h"
-#import "GKWYNavigationController.h"
 
 #import "GKWYHomeViewController.h"
 #import "GKWYMineViewController.h"
@@ -22,23 +21,53 @@
     [super viewDidLoad];
     
     self.tabBar.translucent = NO;
-    self.tabBar.backgroundImage = [UIImage gk_imageWithColor:GKColorRGB(0, 0, 0) size:self.tabBar.frame.size];
+    self.tabBar.tintColor = kAPPDefaultColor;
+    
     // 主页
     [self addChildVC:[GKWYHomeViewController new] title:@"发现" imgName:@"cm2_btm_icn_discovery" selImgName:@"cm2_btm_icn_discovery_prs"];
     // 我的
     [self addChildVC:[GKWYMineViewController new] title:@"我的" imgName:@"cm2_btm_icn_music" selImgName:@"cm2_btm_icn_music_prs"];
+    
+    [self setupTabBarAppearance];
 }
 
 - (void)addChildVC:(UIViewController *)childVC title:(NSString *)title imgName:(NSString *)imgName selImgName:(NSString *)selImgName {
     childVC.tabBarItem.title = title;
-    childVC.tabBarItem.image = [UIImage imageNamed:imgName];
-    childVC.tabBarItem.selectedImage = [UIImage imageNamed:selImgName];
+    childVC.tabBarItem.image = [[UIImage imageNamed:imgName] changeImageWithColor:UIColor.grayColor];
+    childVC.tabBarItem.selectedImage = [[UIImage imageNamed:selImgName] changeImageWithColor:kAPPDefaultColor];
     
     [childVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor redColor]} forState:UIControlStateNormal];
     [childVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]} forState:UIControlStateSelected];
     
-    GKWYNavigationController *nav = [GKWYNavigationController rootVC:childVC translationScale:NO];
+    UINavigationController *nav = [UINavigationController rootVC:childVC];
     [self addChildViewController:nav];
+}
+
+- (void)setupTabBarAppearance {
+    NSDictionary *normalTitleAttr = @{NSForegroundColorAttributeName: UIColor.grayColor, NSFontAttributeName: [UIFont systemFontOfSize:13.0]};
+    NSDictionary *selectTitleAttr = @{NSForegroundColorAttributeName: kAPPDefaultColor, NSFontAttributeName: [UIFont systemFontOfSize:13.0]};
+    if (@available(iOS 13.0, * )) {
+        UITabBarAppearance *appearance = self.tabBar.standardAppearance;
+        appearance.backgroundColor = UIColor.whiteColor;
+        appearance.backgroundImage = UIImage.new;
+        appearance.shadowColor = UIColor.clearColor;
+        appearance.shadowImage = UIImage.new;
+        [appearance applyItemAppearanceWithBlock:^(UITabBarItemAppearance * _Nullable itemAppearance) {
+            itemAppearance.normal.titleTextAttributes = normalTitleAttr;
+            itemAppearance.selected.titleTextAttributes = selectTitleAttr;
+        }];
+        self.tabBar.standardAppearance = appearance;
+        if (@available(iOS 15.0, * )) {
+            self.tabBar.scrollEdgeAppearance = appearance;
+        }
+    }else {
+        self.tabBar.backgroundImage = UIImage.new;
+        self.tabBar.backgroundColor = UIColor.whiteColor;
+        [self.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj.tabBarItem setTitleTextAttributes:normalTitleAttr forState:UIControlStateNormal];
+            [obj.tabBarItem setTitleTextAttributes:selectTitleAttr forState:UIControlStateSelected];
+        }];
+    }
 }
 
 @end

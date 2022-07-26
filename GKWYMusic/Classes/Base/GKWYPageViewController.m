@@ -8,7 +8,8 @@
 
 #import "GKWYPageViewController.h"
 
-@interface GKWYPageViewController ()<WMPageControllerDataSource>
+@interface GKWYPageViewController ()
+
 
 @end
 
@@ -17,85 +18,65 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self addChildViewController:self.pageVC];
-    [self.view addSubview:self.pageVC.view];
+    [self initializeViews];
     
-    [self.pageVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
+    [self.view addSubview:self.categoryView];
+    [self.view addSubview:self.containerView];
+    
+    [self.categoryView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
         make.top.equalTo(self.gk_navigationBar.mas_bottom);
+        make.height.mas_equalTo(kAdaptive(80));
+    }];
+    
+    [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(self.categoryView.mas_bottom);
     }];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    [self hideNavLine];
-    
-    if (self.hideNavBar) {
-        self.gk_navigationBar.hidden = YES;
-        
-        [self.pageVC.view mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
-        }];
-    }
+- (void)initializeViews {
+    // subclass implementation
 }
 
 - (void)reloadData {
-    [self.pageVC reloadData];
+    self.categoryView.indicators = @[self.indicatorView];
+    self.categoryView.listContainer = self.containerView;
     
-    self.pageVC.menuView.backgroundColor = kAPPDefaultColor;
+    [self.categoryView reloadData];
 }
 
-#pragma mark - WMPageControllerDataSource
-- (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
-    return self.childVCs.count;
+#pragma mark - JXCategoryListContainerViewDelegate
+- (NSInteger)numberOfListsInlistContainerView:(JXCategoryListContainerView *)listContainerView {
+    if (self.categoryView.titleDataSource && [self.categoryView.titleDataSource respondsToSelector:@selector(numberOfTitleView:)]) {
+        return [self.categoryView.titleDataSource numberOfTitleView:self.categoryView];
+    }
+    return self.categoryView.titles.count;
 }
 
-- (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-    return self.childVCs[index];
-}
-
-- (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
-    return self.titles[index];
-}
-
-- (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
-    CGFloat leftMargin  = 0;
-    CGFloat originY     = 0;
-    return CGRectMake(leftMargin, originY, self.view.frame.size.width - 2 * leftMargin, 36.0f);
-}
-
-- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
-    CGFloat originY = CGRectGetMaxY([self pageController:pageController preferredFrameForMenuView:pageController.menuView]);
-    
-    CGFloat height = self.gk_navigationBar.hidden ? (self.view.frame.size.height - originY) : (self.view.frame.size.height - originY - self.gk_navigationBar.gk_height);
-    
-    return CGRectMake(0, originY, self.view.frame.size.width, height);
+- (id<JXCategoryListContentViewDelegate>)listContainerView:(JXCategoryListContainerView *)listContainerView initListForIndex:(NSInteger)index {
+    return nil;
 }
 
 #pragma mark - 懒加载
-- (GKPageController *)pageVC {
-    if (!_pageVC) {
-        _pageVC                             = [[GKPageController alloc] init];
-        _pageVC.view.backgroundColor        = [UIColor whiteColor];
-        _pageVC.menuViewStyle               = WMMenuViewStyleLine;
-        _pageVC.pageAnimatable              = YES;
-        _pageVC.postNotification            = YES;
-        _pageVC.bounces                     = YES;
-        _pageVC.automaticallyCalculatesItemWidths = YES; // 自动根据字符串计算item宽度
-        
-        _pageVC.titleSizeNormal             = 15.0f;
-        _pageVC.titleSizeSelected           = 16.0f;
-        _pageVC.titleColorNormal            = [UIColor whiteColor];
-        _pageVC.titleColorSelected          = [UIColor whiteColor];
-        _pageVC.progressWidth               = 30.0f;
-        _pageVC.progressHeight              = 2.0f;
-        _pageVC.progressColor               = [UIColor whiteColor];
-        _pageVC.progressViewBottomSpace     = 2.0f;
-        _pageVC.dataSource                  = self;
-        _pageVC.itemMargin                  = 20.0f;
+- (JXCategoryTitleView *)categoryView {
+    if (!_categoryView) {
+        _categoryView = [[JXCategoryTitleView alloc] init];
+        _categoryView.titleFont = [UIFont systemFontOfSize:15];
+        _categoryView.titleSelectedFont = [UIFont systemFontOfSize:16];
+        _categoryView.titleLabelStrokeWidthEnabled = YES;
+        _categoryView.titleColor = UIColor.whiteColor;
+        _categoryView.titleSelectedColor = UIColor.whiteColor;
+        _categoryView.backgroundColor = kAPPDefaultColor;
     }
-    return _pageVC;
+    return _categoryView;
+}
+
+- (JXCategoryListContainerView *)containerView {
+    if (!_containerView) {
+        _containerView = [[JXCategoryListContainerView alloc] initWithType:JXCategoryListContainerType_CollectionView delegate:self];
+    }
+    return _containerView;
 }
 
 @end

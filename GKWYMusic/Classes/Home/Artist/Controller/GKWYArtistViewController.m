@@ -9,25 +9,23 @@
 #import "GKWYArtistViewController.h"
 #import "GKWYArtistModel.h"
 #import "FXBlurView.h"
-#import "GKPageController.h"
 #import "GKWYArtistSongListViewController.h"
 #import "GKWYArtistAlbumListViewController.h"
 #import "GKWYArtistVideoListViewController.h"
 #import "GKWYArtistIntroViewController.h"
 #import <GKPageScrollView/GKPageScrollView.h>
 #import "GKWYArtistHeaderView.h"
+#import <JXCategoryViewExt/JXCategoryView.h>
 
 #define kCriticalPoint -ADAPTATIONRATIO * 50.0f
 
-@interface GKWYArtistViewController ()<GKPageScrollViewDelegate, WMPageControllerDataSource, WMPageControllerDelegate, GKPageControllerDelegate>
+@interface GKWYArtistViewController ()<GKPageScrollViewDelegate>
 
 @property (nonatomic, strong) GKPageScrollView          *pageScrollView;
 
 @property (nonatomic, strong) GKWYArtistHeaderView      *headerView;
 
-@property (nonatomic, strong) UIView                    *lineView;
-@property (nonatomic, strong) GKPageController          *pageVC;
-@property (nonatomic, strong) UIView                    *pageView;
+@property (nonatomic, strong) JXCategoryTitleView       *categoryView;
 
 @property (nonatomic, strong) UIImageView               *headerBgImgView;
 @property (nonatomic, strong) UIVisualEffectView        *headerBgEffectView;
@@ -112,19 +110,33 @@
 
 #pragma mark - GKPageScrollViewDelegate
 - (BOOL)shouldLazyLoadListInPageScrollView:(GKPageScrollView *)pageScrollView {
-    return NO;
+    return YES;
 }
 
 - (UIView *)headerViewInPageScrollView:(GKPageScrollView *)pageScrollView {
     return self.headerView;
 }
 
-- (UIView *)pageViewInPageScrollView:(GKPageScrollView *)pageScrollView {
-    return self.pageView;
+- (UIView *)segmentedViewInPageScrollView:(GKPageScrollView *)pageScrollView {
+    return self.categoryView;
 }
 
-- (NSArray<id<GKPageListViewDelegate>> *)listViewsInPageScrollView:(GKPageScrollView *)pageScrollView {
-    return self.childVCs;
+- (id<GKPageListViewDelegate>)pageScrollView:(GKPageScrollView *)pageScrollView initListAtIndex:(NSInteger)index {
+    GKWYBaseSubViewController *vc = nil;
+    if (index == 0) {
+        vc = [GKWYArtistSongListViewController new];
+    }else if (index == 1) {
+        vc = [GKWYArtistAlbumListViewController new];
+    }else if (index == 2) {
+        vc = [GKWYArtistVideoListViewController new];
+    }else if (index == 3) {
+        vc = [GKWYArtistIntroViewController new];
+    }
+    if (self.artistModel) {
+        vc.model = self.artistModel;
+    }
+    [vc loadData];
+    return vc;
 }
 
 - (void)mainTableViewDidScroll:(UIScrollView *)scrollView isMainCanScroll:(BOOL)isMainCanScroll {
@@ -210,49 +222,6 @@
     return !view.isHidden && view.alpha > 0.01 && intersects;
 }
 
-#pragma mark - WMPageControllerDataSource
-- (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
-    return self.childVCs.count;
-}
-
-- (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
-    return self.titles[index];
-}
-
-- (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-    return self.childVCs[index];
-}
-
-- (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
-    // 设置menuView的frame
-    return CGRectMake(0, 0, KScreenW, kArtistSegmentHeight);
-}
-
-- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
-    // 设置contentView的frame
-    CGFloat maxY = CGRectGetMaxY([self pageController:pageController preferredFrameForMenuView:pageController.menuView]);
-    return CGRectMake(0, maxY, KScreenW, KScreenH - maxY - NAVBAR_HEIGHT);
-}
-
-#pragma mark - WMPageControllerDelegate
-- (void)pageController:(WMPageController *)pageController didEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info {
-    WMMenuItem *lastItem = [pageController.menuView itemAtIndex:self.lastIndex];
-    lastItem.font = [UIFont systemFontOfSize:16.0f];
-    
-    NSInteger index = [info[@"index"] integerValue];
-    self.lastIndex = index;
-    WMMenuItem *item = [pageController.menuView itemAtIndex:index];
-    item.font = [UIFont boldSystemFontOfSize:16.0f];
-    
-    GKWYBaseSubViewController *vc = (GKWYBaseSubViewController *)viewController;
-    NSLog(@"%@", vc);
-    if (self.artistModel) {
-        vc.model = self.artistModel;
-        
-        [vc loadData];
-    }
-}
-
 #pragma mark - GKPageControllerDelegate
 - (void)pageScrollViewWillBeginScroll {
     [self.pageScrollView horizonScrollViewWillBeginScroll];
@@ -320,44 +289,25 @@
     return _childVCs;
 }
 
-- (UIView *)pageView {
-    if (!_pageView) {
-        [self addChildViewController:self.pageVC];
-        [self.pageVC didMoveToParentViewController:self];
+- (JXCategoryTitleView *)categoryView {
+    if (!_categoryView) {
+        _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kArtistSegmentHeight)];
+        _categoryView.titleFont             = [UIFont systemFontOfSize:16];
+        _categoryView.titleSelectedFont     = [UIFont systemFontOfSize:16];
+        _categoryView.titleColor            = [UIColor blackColor];
+        _categoryView.titleSelectedColor    = kAPPDefaultColor;
         
-        _pageView = self.pageVC.view;
+        JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
+        lineView.indicatorColor = kAPPDefaultColor;
+        lineView.indicatorWidth = kAdaptive(60.0);
+        lineView.indicatorHeight = 3.0;
+        lineView.verticalMargin = kAdaptive(10.0);
+        lineView.indicatorCornerRadius = 1.5;
+        _categoryView.indicators = @[lineView];
+        
+        _categoryView.contentScrollView = self.pageScrollView.listContainerView.collectionView;
     }
-    return _pageView;
-}
-
-- (GKPageController *)pageVC {
-    if (!_pageVC) {
-        _pageVC                             = [GKPageController new];
-        _pageVC.dataSource                  = self;
-        _pageVC.delegate                    = self;
-        _pageVC.scrollDelegate              = self;
-        
-        // 菜单属性
-        _pageVC.menuItemWidth               = KScreenW / 4.0f;
-        _pageVC.menuViewStyle               = WMMenuViewStyleLine;
-        
-        // 菜单文字属性
-        _pageVC.titleSizeNormal             = 16.0f;
-        _pageVC.titleSizeSelected           = 16.0f;
-        _pageVC.titleColorNormal            = [UIColor blackColor];
-        _pageVC.titleColorSelected          = kAPPDefaultColor;
-        
-        // 进度条属性
-        _pageVC.progressColor               = kAPPDefaultColor;
-        _pageVC.progressWidth               = kAdaptive(60.0f);
-        _pageVC.progressHeight              = 3.0f;
-        _pageVC.progressViewBottomSpace     = kAdaptive(10.0f);
-        _pageVC.progressViewCornerRadius    = _pageVC.progressHeight / 2;
-        
-        // 调皮效果
-        _pageVC.progressViewIsNaughty       = YES;
-    }
-    return _pageVC;
+    return _categoryView;
 }
 
 @end

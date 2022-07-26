@@ -42,8 +42,9 @@
     CGContextClipToMask(context, rect, self.CGImage);
     [color setFill];
     CGContextFillRect(context, rect);
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage*newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+
     return newImage;
 }
 

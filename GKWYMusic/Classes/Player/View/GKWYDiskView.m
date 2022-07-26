@@ -64,7 +64,7 @@
 - (void)setModel:(GKWYMusicModel *)model {
     _model = model;
     
-    NSString *imgUrl = model.pic_radio;
+    NSString *imgUrl = model.album_pic;
     
     if (imgUrl) {
         if ([imgUrl hasPrefix:@"http"] || [imgUrl hasPrefix:@"https"]) { // 网络图片

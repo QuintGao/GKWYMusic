@@ -8,12 +8,59 @@
 
 #import "GKWYMusicModel.h"
 
+@implementation GKWYMusicArModel
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"ar_id"       : @"id"};
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    return [self yy_modelInitWithCoder:aDecoder];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [self yy_modelEncodeWithCoder:aCoder];
+}
+
+@end
+
 @implementation GKWYMusicModel
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"song_name"       : @"title",
-             @"artist_name"     : @"author"
+    return @{@"song_id"     : @"id",
+             @"song_name"   : @"name",
+             @"album_id"    : @"al.id",
+             @"album_title" : @"al.name",
+             @"album_pic"   : @"al.picUrl"
              };
+}
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"ar"  : [GKWYMusicArModel class]};
+}
+
+- (NSString *)artists_name {
+    if (!_artists_name) {
+        [self.ar enumerateObjectsUsingBlock:^(GKWYMusicArModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (_artists_name == nil) {
+                _artists_name = obj.name;
+            }else {
+                _artists_name = [NSString stringWithFormat:@"%@/%@", _artists_name, obj.name];
+            }
+        }];
+    }
+    return _artists_name;
+}
+
+- (NSString *)alia_name {
+    if (!_alia_name) {
+        if (self.alia.count > 0) {
+            _alia_name = [NSString stringWithFormat:@"(%@)", self.alia.firstObject];
+        }else {
+            _alia_name = @"";
+        }
+    }
+    return _alia_name;
 }
 
 - (BOOL)isPlaying {
@@ -58,12 +105,12 @@
     return nil;
 }
 
-- (NSString *)pic_radio {
-    if (!_pic_radio || [_pic_radio isEqualToString:@""]) {
-        _pic_radio = self.pic_big;
-    }                                                                                  
-    return _pic_radio;
-}
+//- (NSString *)pic_radio {
+//    if (!_pic_radio || [_pic_radio isEqualToString:@""]) {
+//        _pic_radio = self.pic_big;
+//    }                                                                                  
+//    return _pic_radio;
+//}
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     return [self yy_modelInitWithCoder:aDecoder];

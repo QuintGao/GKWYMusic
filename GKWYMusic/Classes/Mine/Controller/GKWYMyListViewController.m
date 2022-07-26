@@ -44,12 +44,11 @@
             GKWYMusicModel *model = [GKWYMusicModel new];
             model.song_id           = obj.fileID;
             model.song_name         = obj.fileName;
-            model.artist_id         = obj.fileArtistId;
-            model.artist_name       = obj.fileArtistName;
             model.album_id          = obj.fileAlbumId;
             model.album_title       = obj.fileArtistName;
-            model.pic_huge          = obj.fileCover;
-            model.pic_radio         = obj.fileCover;
+            model.album_pic         = obj.fileCover;
+//            model.pic_huge          = obj.fileCover;
+//            model.pic_radio         = obj.fileCover;
             model.file_link         = obj.fileUrl;
             model.file_duration     = obj.fileDuration;
             model.file_size         = obj.fileSize;

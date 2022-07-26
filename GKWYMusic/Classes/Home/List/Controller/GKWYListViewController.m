@@ -11,10 +11,12 @@
 #import "GKRefreshHeader.h"
 #import "GKRefreshFooter.h"
 #import "GKActionSheet.h"
+#import "GKWYPlayListCell.h"
 
 #import "GKWYAlbumViewController.h"
 #import "GKWYArtistViewController.h"
 #import "GKWYVideoViewController.h"
+#import "GKWYPlayListViewController.h"
 
 @interface GKWYListViewController ()<GKDownloadManagerDelegate, GKWYListViewCellDelegate>
 
@@ -23,8 +25,7 @@
 // 下载使用
 @property (nonatomic, strong) GKWYMusicModel *currentModel;
 
-@property (nonatomic, assign) NSInteger page;
-@property (nonatomic, assign) NSInteger size;
+@property (nonatomic, copy) NSString *lasttime;
 
 @end
 
@@ -35,26 +36,24 @@
     
     self.gk_navigationBar.hidden = YES;
     
-    [self.tableView registerClass:[GKWYListViewCell class] forCellReuseIdentifier:kGKWYListViewCell];
-    self.tableView.rowHeight = kAdaptive(110.0f);
+    self.layout.sectionInset = UIEdgeInsetsMake(10, 16, 10, 16);
+    CGFloat itemWH = (kScreenW - 32 - 20) / 3;
+    self.layout.itemSize = CGSizeMake(itemWH, itemWH + kAdaptive(16.0) + [UIFont systemFontOfSize:15.0].lineHeight * 2);
+    self.layout.minimumLineSpacing = 10;
+    self.layout.minimumInteritemSpacing = 10;
+    [self.collectionView registerClass:[GKWYPlayListCell class] forCellWithReuseIdentifier:@"GKWYPlayListCell"];
     
-    // 初始化页码
-    self.page = 0;
-    // 初始化大小
-    self.size = 20;
-    
-    self.tableView.mj_header = [GKRefreshHeader headerWithRefreshingBlock:^{
-        self.page = 0;
+    self.collectionView.mj_header = [GKRefreshHeader headerWithRefreshingBlock:^{
+        self.lasttime = @"";
         [self loadData];
     }];
     
-    self.tableView.mj_footer = [GKRefreshFooter footerWithRefreshingBlock:^{
-        self.page += self.size;
+    self.collectionView.mj_footer = [GKRefreshFooter footerWithRefreshingBlock:^{
         [self loadData];
     }];
-    self.tableView.mj_footer.hidden = YES;
+//    self.collectionView.mj_footer.hidden = YES;
     
-    [self.tableView.mj_header beginRefreshing];
+    [self.collectionView.mj_header beginRefreshing];
     
     [kNotificationCenter addObserver:self selector:@selector(reloadMusic) name:GKWYMUSIC_LOVEMUSICNOTIFICATION object:nil];
     [kNotificationCenter addObserver:self selector:@selector(reloadMusic) name:GKWYMUSIC_PLAYMUSICCHANGENOTIFICATION object:nil];
@@ -79,37 +78,50 @@
 }
 
 - (void)loadData {
-    
     // 获取列表
-    NSString *api = [NSString stringWithFormat:@"baidu.ting.billboard.billList&type=%zd&size=%zd&offset=%zd", self.type, self.size, self.page];
+    NSString *api = [NSString stringWithFormat:@"top/playlist/highquality"];
+    NSDictionary *params = @{@"limit": @20, @"cat": self.tagModel.name, @"before": self.lasttime};
     
-    if (self.page == 0) {
-        [self.listArr removeAllObjects];
-    }
-    
-    [kHttpManager get:api params:nil successBlock:^(id responseObject) {
-        NSArray *data = [NSArray yy_modelArrayWithClass:[GKWYMusicModel class] json:responseObject[@"song_list"]];
-        
-        [self.listArr addObjectsFromArray:data];
-        
-        [self.tableView reloadData];
-        
-        [self.tableView.mj_header endRefreshing];
-        
-        NSDictionary *billboard = responseObject[@"billboard"];
-        
-        self.tableView.mj_footer.hidden = NO;
-        // 是否有更多数据
-        if ([billboard[@"havemore"] boolValue]) {
-            [self.tableView.mj_footer endRefreshing];
+    [kHttpManager get:api params:params successBlock:^(id responseObject) {
+        [self.collectionView.mj_header endRefreshing];
+        if ([responseObject[@"code"] integerValue] == 200) {
+            if ([self.lasttime isEqualToString:@""]) {
+                [self.dataSource removeAllObjects];
+            }
+            
+            BOOL more = [responseObject[@"more"] boolValue];
+            if (more) {
+                self.lasttime = [NSString stringWithFormat:@"%@", responseObject[@"lasttime"]];
+                [self.collectionView.mj_footer endRefreshing];
+            }else {
+                self.lasttime = @"";
+                [self.collectionView.mj_footer endRefreshingWithNoMoreData];
+            }
+            
+            NSArray *list = [NSArray yy_modelArrayWithClass:[GKWYListModel class] json:responseObject[@"playlists"]];
+            [self.dataSource addObjectsFromArray:list];
+            [self.collectionView reloadData];
         }else {
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            [self.tableView.mj_footer endRefreshing];
+            [GKMessageTool showError:@"请求失败"];
         }
-        
     } failureBlock:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
     }];
+}
+
+#pragma mark - UICollectionViewDataSource & UICollectionViewDelegate
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    GKWYPlayListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GKWYPlayListCell" forIndexPath:indexPath];
+    cell.model = self.dataSource[indexPath.item];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    GKWYPlayListViewController *listVC = [[GKWYPlayListViewController alloc] init];
+    listVC.list_id = [self.dataSource[indexPath.item] list_id];
+    [self.navigationController pushViewController:listVC animated:YES];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -165,21 +177,18 @@
 }
 
 - (void)cellDidClickArtistItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
-    NSArray *tinguids = [model.all_artist_ting_uid componentsSeparatedByString:@","];
-    NSArray *artists  = [model.all_artist_id componentsSeparatedByString:@","];
-    if (tinguids.count == artists.count && tinguids.count > 1) {
+    if (model.ar.count > 1) {
         NSMutableArray *items = [NSMutableArray new];
-        NSArray *titles = [model.artist_name componentsSeparatedByString:@","];
         
         __typeof(self) __weak weakSelf = self;
-        [tinguids enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [model.ar enumerateObjectsUsingBlock:^(GKWYMusicArModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             GKActionSheetItem *item = [GKActionSheetItem new];
-            item.title      = titles[idx];
+            item.title      = obj.name;
             item.enabled    = YES;
             item.clickBlock = ^{
                 GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
-                artistVC.tinguid  = obj;
-                artistVC.artistid = artists[idx];
+                artistVC.artistid = obj.ar_id;
                 [weakSelf.navigationController pushViewController:artistVC animated:YES];
             };
             [items addObject:item];
@@ -188,8 +197,7 @@
         [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手" itemInfos:items];
     }else {
         GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
-        artistVC.tinguid  = tinguids.firstObject;
-        artistVC.artistid = artists.firstObject;
+        artistVC.artistid = model.ar.firstObject.ar_id;
         [self.navigationController pushViewController:artistVC animated:YES];
     }
 }

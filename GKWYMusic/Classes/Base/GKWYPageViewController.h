@@ -7,16 +7,19 @@
 //
 
 #import "GKWYBaseViewController.h"
-#import "GKPageController.h"
+#import <JXCategoryViewExt/JXCategoryView.h>
 
-@interface GKWYPageViewController : GKWYBaseViewController
+@interface GKWYPageViewController : GKWYBaseViewController<JXCategoryListContainerViewDelegate>
 
-@property (nonatomic, strong) GKPageController  *pageVC;
+@property (nonatomic, strong) JXCategoryTitleView *categoryView;
 
-@property (nonatomic, strong) NSArray           *childVCs;
-@property (nonatomic, strong) NSArray           *titles;
+@property (nonatomic, strong) JXCategoryIndicatorComponentView *indicatorView;
+
+@property (nonatomic, strong) JXCategoryListContainerView *containerView;
 
 @property (nonatomic, assign) BOOL              hideNavBar;
+
+- (void)initializeViews;
 
 - (void)reloadData;
 

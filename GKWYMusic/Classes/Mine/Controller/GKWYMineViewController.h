@@ -6,8 +6,8 @@
 //  Copyright © 2018年 gaokun. All rights reserved.
 //
 
-#import <GKNavigationBarViewController/GKNavigationBarViewController.h>
+#import <UIKit/UIKit.h>
 
-@interface GKWYMineViewController : GKNavigationBarViewController
+@interface GKWYMineViewController : UIViewController
 
 @end

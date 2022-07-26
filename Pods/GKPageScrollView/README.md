@@ -1,64 +1,129 @@
-<div align=center><img src="/Pictures/GKPageScrollView.png" width="405" height="63" /></div>
+<div align=center><img src="https://upload-images.jianshu.io/upload_images/1598505-e2dbef3c2d9e3fd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width="405" height="63" /></div>
 
-![](https://img.shields.io/badge/platform-iOS-red.svg)&nbsp;&nbsp;
-[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/QuintGao/GKPageScrollView/master/LICENSE)&nbsp;&nbsp;
-![](https://img.shields.io/badge/language-Objective--C%2FSwift%205.x-orange.svg)&nbsp;&nbsp;
-[![objc cocoapods](http://img.shields.io/cocoapods/v/GKPageScrollView.svg?style=flat)](https://cocoapods.org/pods/GKPageScrollView) &nbsp;&nbsp;
-[![swift cocoapods](http://img.shields.io/cocoapods/v/GKPageScrollViewSwift.svg?style=flat)](https://cocoapods.org/pods/GKPageScrollViewSwift) &nbsp;&nbsp;
-[![support](https://img.shields.io/badge/support-ios%208%2B-orange.svg)](#) 
+<p align="center">
+<a href="https://travis-ci.org/QuintGao/GKPageScrollView"><img src="https://img.shields.io/travis/QuintGao/GKPageScrollView/master.svg?style=flat"></a>
+<a href="https://github.com/QuintGao/GKPageScrollView"><img src="https://img.shields.io/badge/platform-iOS-red.svg"></a>
+<a href="" ><img src="https://img.shields.io/badge/license-MIT-green.svg?style=flat"></a>
+<a href="https://github.com/QuintGao/GKPageScrollView"><img src="https://img.shields.io/badge/language-Objective--C%2FSwift%205.x-orange.svg"></a>
+<a href="https://cocoapods.org/pods/GKPageScrollView"><img src="http://img.shields.io/cocoapods/v/GKPageScrollView.svg?style=flat"></a>
+<a href=""><img src="https://img.shields.io/badge/support-ios%208%2B-orange.svg"></a>
+</p>
 
 iOS类似微博、抖音、网易云等个人详情页滑动嵌套效果
 ==========
 
-GKPageScrollView是一个UIScrollview嵌套滑动库，主要参考了[JXPagingView](https://github.com/pujiaxin33/JXPagingView)，在他的基础上做了修改，实现了自己想要的效果。
+GKPageScrollView是一个UIScrollview嵌套滑动库，主要参考了[JXPagingView](https://github.com/pujiaxin33/JXPagingView)，在他的基础上做了修改，实现了自己想要的效果。  
 
-## 主要功能
+GKPageSmoothView是一个可延续滑动的UIScrollView嵌套滑动库
+
+## 特性
+
+### GKPageScrollView
 
 - 支持上下滑动、左右滑动，手势返回等
 - 支持如UITableView的sectionView的悬停效果
 - 支持多种分页控件，如[JXCategoryView](https://github.com/pujiaxin33/JXCategoryView),[WMPageController](https://github.com/wangmchn/WMPageController),[VTMagic](https://github.com/tianzhuo112/VTMagic)等
 - 可实现导航栏颜色渐变、头图下拉放大等效果
-- 支持主页、列表页下拉刷新，上拉加载
-- 支持列表懒加载功能
-- 支持列表延续滑动（只支持懒加载形式）
+- 支持主页、列表页下拉刷新，列表页上拉加载
+- 支持列表懒加载创建
+
+### GKPageSmoothView
+
+- 支持上下滑动、左右滑动、手势返回等
+- 支持顶部悬停、底部悬停
+- 支持底部悬停拖拽，可实现豆瓣电影详情页效果
+- 支持如[JXCategoryView](https://github.com/pujiaxin33/JXCategoryView),[JXSegmentedView](https://github.com/pujiaxin33/JXSegmentedView)等的分段控件
+- 可实现导航栏颜色渐变、头图下拉放大等效果
+- 支持主页下拉刷新、列表页上拉加载
+
+## 1.5.0升级指南
+1.5.0版本以后，使用swift版本需  
+`pod 'GKPageScrollView/Swift'`  
+`pod 'GKPageSmoothView/Swift'`
 
 ## 使用方法
 ### 1、手动安装
 ##### 下载GKPageScrollView demo
-* Objective-C：拖入GKPageScrollView/objc文件夹中的.h和.m文件，#import "GKPageScrollView.h"，开始使用
-* Swift：拖入GKPageScrollView/swift文件夹中的.swift文件，开始使用
+* Objective-C：  
+拖入Source/GKPageScrollView文件夹中的.h和.m文件，#import "GKPageScrollView.h"，开始使用  
+拖入Source/GKPageSmoothView文件夹中的.h和.m文件，#import "GKPageSmoothView.h"，开始使用
+
+* Swift：    
+拖入Source/GKPageScrollViewSwift文件夹中的.swift文件，开始使用    
+拖入Source/GKPageSmoothViewSwift文件夹中的.swift文件，开始使用  
 
 ### 2、CocoaPods安装：
-* Objective-C：`pod 'GKPageScrollView'` then `#import <GKPageScrollView.h>`
-* Swift：`pod 'GKPageScrollViewSwift'` then `import GKPageScrollViewSwift`
+* Objective-C：   
+`pod 'GKPageScrollView'` then `#import <GKPageScrollView/GKPageScrollView.h>`    
+`pod 'GKPageSmoothView'` then `#import <GKPageSmoothView/GKPageSmoothView.h>`
+
+* Swift：    
+`pod 'GKPageScrollViewSwift'` then `import GKPageScrollViewSwift`    
+`pod 'GKPageSmoothViewSwift'` then `import GKPageSmoothViewSwift`
 
 如果发现pod search GKPageScrollView/GKPageScrollViewSwift 不是最新版本，在终端执行pod setup命令更新本地spec镜像缓存，重新搜索即可。
 
 ### 3、Swift Package Manager 安装
-依次点击 Xcode 的菜单 File > Swift Packages > Add Package Dependency，填入 `https://github.com/QuintGao/GKPageScrollView.git`
+依次点击 Xcode 的菜单 File > Swift Packages > Add Package Dependency，填入 `https://github.com/QuintGao/GKPageScrollView.git`  
+选择需要使用的库，GKPageScrollView/GKPageScrollViewSwift/GKPageSmoothView/GKPageSmoothViewSwift
+
+## 常见问题
+1、headerView出现多个，不要在headerView代理方法中做视图创建、添加等操作  
+2、[手势处理](https://github.com/QuintGao/GKPageScrollView/blob/master/Document/%E6%89%8B%E5%8A%BF%E5%A4%84%E7%90%86.md)
 
 ## 效果图
 
-| 说明 | 效果图 |
+|说明|效果图|
 |-------|-------|
-| **微博个人主页** | ![wb](https://github.com/QuintGao/GKExampleImages/blob/master/GKPageScrollView/wb.gif) |
-| **微博发现页** | ![wb](https://github.com/QuintGao/GKExampleImages/blob/master/GKPageScrollView/wb_find.gif) |
-| **网易云歌手页** | ![wy](https://github.com/QuintGao/GKExampleImages/blob/master/GKPageScrollView/wy.gif) |
-| **抖音个人主页** | ![dy](https://github.com/QuintGao/GKExampleImages/blob/master/GKPageScrollView/dy.gif) |
-| **主页下拉刷新** | ![dy](https://github.com/QuintGao/GKExampleImages/blob/master/GKPageScrollView/mainRefresh.gif) |
-| **列表下拉刷新** | ![dy](https://github.com/QuintGao/GKExampleImages/blob/master/GKPageScrollView/listRefresh.gif) |
-| **列表懒加载** | ![dy](https://github.com/QuintGao/GKExampleImages/blob/master/GKPageScrollView/lazyload.gif) |
-| **嵌套滑动1** | ![dy](https://github.com/QuintGao/GKExampleImages/blob/master/GKPageScrollView/nest1.gif) |
-| **嵌套滑动2** | ![dy](https://github.com/QuintGao/GKExampleImages/blob/master/GKPageScrollView/nest2.gif) |
+| **微博个人主页** | ![wb](https://upload-images.jianshu.io/upload_images/1598505-53da65a9a8f3229c.gif?imageMogr2/auto-orient/strip)|
+| **微博发现页** |![wb_find](https://upload-images.jianshu.io/upload_images/1598505-a5f087ed3b5e93d4.gif?imageMogr2/auto-orient/strip)|
+| **网易云歌手页** | ![wy](https://upload-images.jianshu.io/upload_images/1598505-5c55692e236b9f82.gif?imageMogr2/auto-orient/strip) |
+| **抖音个人主页** | ![dy](https://upload-images.jianshu.io/upload_images/1598505-8c0450b2032bc18c.gif?imageMogr2/auto-orient/strip) |
+| **主页下拉刷新** | ![mainRefresh](https://upload-images.jianshu.io/upload_images/1598505-5209661b7169f611.gif?imageMogr2/auto-orient/strip) |
+| **列表下拉刷新** | ![listRefresh](https://upload-images.jianshu.io/upload_images/1598505-4bd5353e7471cb52.gif?imageMogr2/auto-orient/strip) |
+| **列表懒加载** | ![lazyload](https://upload-images.jianshu.io/upload_images/1598505-7917c1f0f1749c7e.gif?imageMogr2/auto-orient/strip) |
+| **嵌套滑动1** | ![nest1](https://upload-images.jianshu.io/upload_images/1598505-40e73956ad04226e.gif?imageMogr2/auto-orient/strip)|
+| **嵌套滑动2** |![nest2](https://upload-images.jianshu.io/upload_images/1598505-8e2acebddb2f5366.gif?imageMogr2/auto-orient/strip) |
+| **豆瓣电影详情** |![db](https://upload-images.jianshu.io/upload_images/1598505-9958ad3c0c89451f.gif?imageMogr2/auto-orient/strip)|
 
 ## 说明
-简书：[iOS-多个UIScrollView滑动嵌套(仿微博、抖音、网易云个人详情页)](https://www.jianshu.com/p/5ce57fccdc03)
-
-## 注意
-1、尽量不要在代理方法里创建视图，如headerView，pageView等
+[iOS-多个UIScrollView滑动嵌套(仿微博、抖音、网易云个人详情页)](https://www.jianshu.com/p/5ce57fccdc03)   
+[iOS用GKPageScrollView实现微博发现页滑动效果](https://www.jianshu.com/p/f9846c46fca7)   
+[iOS用GKPageScrollView实现多层分类嵌套滑动](https://www.jianshu.com/p/5de1bcd3ecad)  
+[【iOS】仿豆瓣电影详情页嵌套滑动效果](https://www.jianshu.com/p/75b979177ebe)  
 
 ## 版本更新
 
+* 2022.07.14   1.7.4 - 修复refreshHeaderView后可能出现异常的问题 #109
+* 2022.06.23   1.7.3 - 1、当showInFooter为YES时刷新优化
+                       2、修复可能出现的列表抖动问题 #98 #108
+* 2022.04.14   1.7.2 - 1、GKPageScrollView支持动态设置frame和ceilPointHeight #104
+                       2、GKPageSmoothView新增refreshSegmentedView方法，bug修复 #103
+* 2022.03.15   1.7.1 - 修复headerView设置高度较低的问题 #100
+* 2021.12.07   1.7.0 - 1、GKPageScrollView增加showInFooter属性，解决header超过一屏时的卡顿问题 #94
+                       2、GKPageSmoothView放开currentIndex属性
+* 2021.11.08   1.6.9 - 1、修复低版本xcode报错问题 #87
+                       2、修复内存泄漏问题 #88
+                       3、修复cell高度无法自适应问题 #89
+* 2021.10.29   1.6.8 - GKSmoothView优化，修复吸顶后点击切换显示异常问题 #87
+* 2021.10.20   1.6.7 - GKSmoothView frame变化优化
+* 2021.10.15   1.6.6 - 优化更新，增加设置cell属性代理 #81
+* 2021.09.08   1.6.5 - 修复可能出现的黑屏问题 #77
+* 2021.09.06   1.6.3 - 修复改变外部尺寸，子列表尺寸无变化问题
+* 2021.07.30   1.6.2 - GKSmoothView增加代理方法，是否允许重置listScrollView的位置
+* 2021.07.28   1.6.1 - GKSmoothView内部优化，修改内容不足一屏时的逻辑
+* 2021.07.19   1.6.0 - 新增禁止主页滑动属性，设置后只有列表可以滑动
+* 2021.06.16   1.5.8 - GKPageScrollView内部优化，修复某些情况下快速滑动导致CPU升高的问题
+* 2021.04.19   1.5.6 - 修复GKPageSmoothView加载UICollectionView时的bug，去掉打印
+* 2021.04.16   1.5.5 - GKPageSmoothView增加返回header容器高度，demo增加下拉刷新和上拉加载
+* 2021.03.19   1.5.4 - 代码优化，GKPageSmoothView新增快速滑动到原点、临界点的方法
+* 2021.01.25   1.5.3 - 1、修复GKPageSmoothView swift版本可能出现的错乱问题 #65，
+                       2、GKPageScrollView增加刷新segmentedView方法
+* 2021.01.07   1.5.2 - 修复某些情况下出现页面错乱问题#64
+* 2021.01.02   1.5.0 - pod and spm update
+* 2020.12.10   1.4.2 - 拆分GKPageScrollView和GKPageSmoothView，GKPageSmoothView支持底部悬浮、底部拖拽
+* 2020.12.09   1.4.1 - 增加属性可传入横向滑动的scrollView，更加方便处理手势冲突
+* 2020.12.01   1.4.0 - 修复延续滑动可能出现header不能滑动的bug #57
 * 2020.08.07   1.3.8 - 修复列表刷新快速滑动时的bug
 * 2020.07.22   1.3.7 - 滑动延续代码优化
 * 2020.05.19   1.3.6 - 增加列表延续滑动功能，需使用GKPageSmoothView类

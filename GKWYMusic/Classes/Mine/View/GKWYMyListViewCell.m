@@ -63,7 +63,7 @@
     _model = model;
     
     self.nameLabel.text = model.song_name;
-    self.descLabel.text = [NSString stringWithFormat:@"%@ - %@", model.artist_name, model.album_title];
+    self.descLabel.text = [NSString stringWithFormat:@"%@ - %@", model.artists_name, model.album_title];
     
     if (model.isDownload) {
         self.tagImgView.hidden = NO;

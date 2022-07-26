@@ -60,7 +60,7 @@
  @return 包含歌词模型的数组
  */
 + (NSArray *)lyricParserWithStr:(NSString *)str {
-    return [self lyricParaseWithLyricString:str isDelBlank:NO];
+    return [self lyricParaseWithLyricString:str isDelBlank:YES];
 }
 
 

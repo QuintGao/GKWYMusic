@@ -13,9 +13,22 @@
 #import "SDAnimatedImage.h"
 #import "UIImage+Metadata.h"
 #import "SDInternalMacros.h"
+#import "SDImageCacheDefine.h"
 #import "objc/runtime.h"
 
+SDWebImageContextOption const SDWebImageContextLoaderCachedImage = @"loaderCachedImage";
+
 static void * SDImageLoaderProgressiveCoderKey = &SDImageLoaderProgressiveCoderKey;
+
+id<SDProgressiveImageCoder> SDImageLoaderGetProgressiveCoder(id<SDWebImageOperation> operation) {
+    NSCParameterAssert(operation);
+    return objc_getAssociatedObject(operation, SDImageLoaderProgressiveCoderKey);
+}
+
+void SDImageLoaderSetProgressiveCoder(id<SDWebImageOperation> operation, id<SDProgressiveImageCoder> progressiveCoder) {
+    NSCParameterAssert(operation);
+    objc_setAssociatedObject(operation, SDImageLoaderProgressiveCoderKey, progressiveCoder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 UIImage * _Nullable SDImageLoaderDecodeImageData(NSData * _Nonnull imageData, NSURL * _Nonnull imageURL, SDWebImageOptions options, SDWebImageContext * _Nullable context) {
     NSCParameterAssert(imageData);
@@ -29,28 +42,9 @@ UIImage * _Nullable SDImageLoaderDecodeImageData(NSData * _Nonnull imageData, NS
     } else {
         cacheKey = imageURL.absoluteString;
     }
+    SDImageCoderOptions *coderOptions = SDGetDecodeOptionsFromContext(context, options, cacheKey);
     BOOL decodeFirstFrame = SD_OPTIONS_CONTAINS(options, SDWebImageDecodeFirstFrameOnly);
-    NSNumber *scaleValue = context[SDWebImageContextImageScaleFactor];
-    CGFloat scale = scaleValue.doubleValue >= 1 ? scaleValue.doubleValue : SDImageScaleFactorForKey(cacheKey);
-    NSNumber *preserveAspectRatioValue = context[SDWebImageContextImagePreserveAspectRatio];
-    NSValue *thumbnailSizeValue;
-    BOOL shouldScaleDown = SD_OPTIONS_CONTAINS(options, SDWebImageScaleDownLargeImages);
-    if (shouldScaleDown) {
-        CGFloat thumbnailPixels = SDImageCoderHelper.defaultScaleDownLimitBytes / 4;
-        CGFloat dimension = ceil(sqrt(thumbnailPixels));
-        thumbnailSizeValue = @(CGSizeMake(dimension, dimension));
-    }
-    if (context[SDWebImageContextImageThumbnailPixelSize]) {
-        thumbnailSizeValue = context[SDWebImageContextImageThumbnailPixelSize];
-    }
-    
-    SDImageCoderMutableOptions *mutableCoderOptions = [NSMutableDictionary dictionaryWithCapacity:2];
-    mutableCoderOptions[SDImageCoderDecodeFirstFrameOnly] = @(decodeFirstFrame);
-    mutableCoderOptions[SDImageCoderDecodeScaleFactor] = @(scale);
-    mutableCoderOptions[SDImageCoderDecodePreserveAspectRatio] = preserveAspectRatioValue;
-    mutableCoderOptions[SDImageCoderDecodeThumbnailPixelSize] = thumbnailSizeValue;
-    mutableCoderOptions[SDImageCoderWebImageContext] = context;
-    SDImageCoderOptions *coderOptions = [mutableCoderOptions copy];
+    CGFloat scale = [coderOptions[SDImageCoderDecodeScaleFactor] doubleValue];
     
     // Grab the image coder
     id<SDImageCoder> imageCoder;
@@ -94,6 +88,8 @@ UIImage * _Nullable SDImageLoaderDecodeImageData(NSData * _Nonnull imageData, NS
         if (shouldDecode) {
             image = [SDImageCoderHelper decodedImageWithImage:image];
         }
+        // assign the decode options, to let manager check whether to re-decode if needed
+        image.sd_decodeOptions = coderOptions;
     }
     
     return image;
@@ -136,7 +132,7 @@ UIImage * _Nullable SDImageLoaderDecodeProgressiveImageData(NSData * _Nonnull im
     SDImageCoderOptions *coderOptions = [mutableCoderOptions copy];
     
     // Grab the progressive image coder
-    id<SDProgressiveImageCoder> progressiveCoder = objc_getAssociatedObject(operation, SDImageLoaderProgressiveCoderKey);
+    id<SDProgressiveImageCoder> progressiveCoder = SDImageLoaderGetProgressiveCoder(operation);
     if (!progressiveCoder) {
         id<SDProgressiveImageCoder> imageCoder = context[SDWebImageContextImageCoder];
         // Check the progressive coder if provided
@@ -152,7 +148,7 @@ UIImage * _Nullable SDImageLoaderDecodeProgressiveImageData(NSData * _Nonnull im
                 }
             }
         }
-        objc_setAssociatedObject(operation, SDImageLoaderProgressiveCoderKey, progressiveCoder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        SDImageLoaderSetProgressiveCoder(operation, progressiveCoder);
     }
     // If we can't find any progressive coder, disable progressive download
     if (!progressiveCoder) {
@@ -190,11 +186,11 @@ UIImage * _Nullable SDImageLoaderDecodeProgressiveImageData(NSData * _Nonnull im
         if (shouldDecode) {
             image = [SDImageCoderHelper decodedImageWithImage:image];
         }
-        // mark the image as progressive (completionBlock one are not mark as progressive)
-        image.sd_isIncremental = YES;
+        // mark the image as progressive (completed one are not mark as progressive)
+        image.sd_isIncremental = !finished;
+        // assign the decode options, to let manager check whether to re-decode if needed
+        image.sd_decodeOptions = coderOptions;
     }
     
     return image;
 }
-
-SDWebImageContextOption const SDWebImageContextLoaderCachedImage = @"loaderCachedImage";

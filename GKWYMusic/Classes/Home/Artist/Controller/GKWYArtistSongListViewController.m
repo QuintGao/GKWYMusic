@@ -123,21 +123,17 @@
 }
 
 - (void)cellDidClickArtistItem:(GKWYListViewCell *)cell model:(GKWYMusicModel *)model {
-    NSArray *tinguids = [model.all_artist_ting_uid componentsSeparatedByString:@","];
-    NSArray *artists  = [model.all_artist_id componentsSeparatedByString:@","];
-    if (tinguids.count == artists.count && tinguids.count > 1) {
+    if (model.ar.count > 1) {
         NSMutableArray *items = [NSMutableArray new];
-        NSArray *titles = [model.artist_name componentsSeparatedByString:@","];
         
         __typeof(self) __weak weakSelf = self;
-        [tinguids enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [model.ar enumerateObjectsUsingBlock:^(GKWYMusicArModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             GKActionSheetItem *item = [GKActionSheetItem new];
-            item.title = titles[idx];
+            item.title = obj.name;
             item.enabled = YES;
             item.clickBlock = ^{
                 GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
-                artistVC.tinguid  = obj;
-                artistVC.artistid = artists[idx];
+                artistVC.artistid = obj.ar_id;
                 [weakSelf.navigationController pushViewController:artistVC animated:YES];
             };
             [items addObject:item];
@@ -146,8 +142,7 @@
         [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手" itemInfos:items];
     }else {
         GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
-        artistVC.tinguid  = tinguids.firstObject;
-        artistVC.artistid = artists.firstObject;
+        artistVC.artistid = model.ar.firstObject.ar_id;
         [self.navigationController pushViewController:artistVC animated:YES];
     }
 }

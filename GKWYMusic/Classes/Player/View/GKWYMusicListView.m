@@ -282,7 +282,7 @@
     _model = model;
     
     self.nameLabel.text     = model.song_name;
-    self.artistLabel.text   = [NSString stringWithFormat:@"- %@", model.artist_name];
+    self.artistLabel.text   = [NSString stringWithFormat:@"- %@", model.artists_name];
     
     if (model.isPlaying) {
         self.playImgView.hidden     = NO;
