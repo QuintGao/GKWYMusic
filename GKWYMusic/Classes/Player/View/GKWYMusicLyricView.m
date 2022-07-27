@@ -79,6 +79,10 @@
             self.tipsLabel.text   = @"纯音乐，无歌词";
             
             [self.lyricTable reloadData];
+            
+            if (self.lyricUpdate) {
+                self.lyricUpdate(@"纯音乐，无歌词");
+            }
         }else {
             self.tipsLabel.hidden = YES;
             
@@ -139,6 +143,14 @@
     [self.volumeView showSystemVolumeView];
 }
 
+- (NSString *)currentLyric {
+    NSInteger index = self.lyricIndex;
+    if (index >= 0 && index < self.lyrics.count) {
+        return [self.lyrics[index] content];
+    }
+    return @"";
+}
+
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // 多加10行，是为了上下留白
@@ -159,6 +171,9 @@
         
         if (indexPath.row == self.lyricIndex + 5) {
             cell.lyricLabel.textColor = [UIColor whiteColor];
+            if (self.lyricUpdate) {
+                self.lyricUpdate(cell.lyricLabel.text);
+            }
         }else {
             cell.lyricLabel.textColor = [UIColor grayColor];
         }

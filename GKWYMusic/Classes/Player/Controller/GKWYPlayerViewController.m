@@ -19,8 +19,11 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import <AVKit/AVKit.h>
+#import "GKPipManager.h"
+#import "GKWYDesktopView.h"
 
-@interface GKWYPlayerViewController ()<GKWYMusicCoverViewDelegate, GKWYMusicControlViewDelegate, GKWYMusicListViewDelegate, GKAudioPlayerDelegate, GKDownloadManagerDelegate>
+@interface GKWYPlayerViewController ()<GKWYMusicCoverViewDelegate, GKWYMusicControlViewDelegate, GKWYMusicListViewDelegate, GKAudioPlayerDelegate, GKDownloadManagerDelegate, AVPictureInPictureControllerDelegate>
 
 /*****************UI**********************/
 @property (nonatomic, strong) UIView                *titleView;
@@ -60,6 +63,7 @@
 
 @property (nonatomic, assign) NSTimeInterval        duration;       // 总时间
 @property (nonatomic, assign) NSTimeInterval        currentTime;    // 当前时间
+@property (nonatomic, assign) NSTimeInterval        currentPlayTime;// 当前播放时间（秒）
 @property (nonatomic, assign) NSTimeInterval        positionTime;   // 锁屏时的滑杆时间
 
 @property (nonatomic, strong) NSTimer               *seekTimer;     // 快进、快退定时器
@@ -67,6 +71,10 @@
 @property (nonatomic, assign) BOOL                  ifNowPlay;      // 是否立即播放
 
 @property (nonatomic, assign) float                 toSeekProgress; // seek进度
+
+@property (nonatomic, assign) CMTime                audioDuration;
+
+@property (nonatomic, strong) GKWYDesktopView       *desktopView;
 
 @end
 
@@ -353,10 +361,14 @@
             }
         }
     }
+    [self.desktopView startPlay];
+    [[GKPipManager sharedManager] startPlay];
 }
 
 - (void)pauseMusic {
     [kPlayer pause];
+    [self.desktopView stopPlay];
+    [[GKPipManager sharedManager] stopPlay];
 }
 
 - (void)stopMusic {
@@ -681,6 +693,9 @@
                 // 设置播放地址
                 kPlayer.playUrlStr = self.model.file_link;
                 
+                // 根据时长合成视频
+                [self tailorVideo];
+                
                 // 获取歌词
                 [self getSongLyric];
                 
@@ -707,8 +722,56 @@
         audioAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:url] options:dic];
     }
     CMTime audioDuration = audioAsset.duration;
+    self.audioDuration = audioDuration;
     float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
     return [NSString stringWithFormat:@"%.f", audioDurationSeconds];
+}
+
+- (void)tailorVideo {
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"pip" withExtension:@"mp4"];
+    AVURLAsset *asset = [AVURLAsset assetWithURL:url];
+    
+    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:asset presetName:AVAssetExportPresetLowQuality];
+    
+    NSString *output = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"pip.mp4"];
+    NSURL *outputUrl = [NSURL fileURLWithPath:output];
+    
+    // 判断文件是否存在，存在则删除
+    if ([[NSFileManager defaultManager] fileExistsAtPath:output]) {
+        [[NSFileManager defaultManager] removeItemAtPath:output error:nil];
+    }
+    
+    exportSession.outputURL = outputUrl;
+    exportSession.outputFileType = AVFileTypeMPEG4;
+    exportSession.shouldOptimizeForNetworkUse = YES;
+    CMTimeRange range = CMTimeRangeMake(kCMTimeZero, self.audioDuration);
+    exportSession.timeRange = range;
+    
+    [exportSession exportAsynchronouslyWithCompletionHandler:^{
+        switch (exportSession.status) {
+            case AVAssetExportSessionStatusUnknown:
+                NSLog(@"未知错误--%@", exportSession.error);
+                break;
+            case AVAssetExportSessionStatusWaiting:
+                NSLog(@"等待中");
+                break;
+            case AVAssetExportSessionStatusExporting:
+                NSLog(@"导出中");
+                break;
+            case AVAssetExportSessionStatusCompleted:
+                NSLog(@"导出完成");
+                break;
+            case AVAssetExportSessionStatusFailed:
+                NSLog(@"导出失败---%@", exportSession.error);
+                break;
+            case AVAssetExportSessionStatusCancelled:
+                NSLog(@"取消导出");
+                break;
+                
+            default:
+                break;
+        }
+    }];
 }
 
 - (void)getSongLyric {
@@ -1233,7 +1296,7 @@
     if (self.toSeekProgress > 0) {
         progress = self.toSeekProgress;
     }
-    
+    self.currentPlayTime = currentTime / 1000;
     self.controlView.currentTime = [GKWYMusicTool timeStrWithMsTime:currentTime];
     self.controlView.progress    = progress;
     
@@ -1323,6 +1386,15 @@
     };
     [items addObject:albumItem];
     
+    GKActionSheetItem *lyricItem = [GKActionSheetItem new];
+    lyricItem.title = @"桌面歌词";
+    lyricItem.imgName = @"cm2_lay_icn_type";
+    lyricItem.enabled       = YES;
+    lyricItem.clickBlock = ^{
+        [self showDesktopLyric];
+    };
+    [items addObject:lyricItem];
+    
     if (self.model.has_mv) {
         GKActionSheetItem *mvItem = [GKActionSheetItem new];
         mvItem.title = @"查看MV";
@@ -1364,20 +1436,6 @@
     self.controlView.style = self.playStyle;
     
     [kUserDefaults setInteger:self.playStyle forKey:GKWYMUSIC_USERDEFAULTSKEY_PLAYSTYLE];
-}
-
-- (void)setCoverList {
-    __block NSUInteger currentIndex = 0;
-    
-    [self.playList enumerateObjectsUsingBlock:^(GKWYMusicModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.song_id isEqualToString:self.model.song_id]) {
-            currentIndex = idx;
-            *stop = YES;
-        }
-    }];
-    
-    // 重置列表
-    [self.coverView resetMusicList:self.playList idx:currentIndex];
 }
 
 - (void)controlView:(GKWYMusicControlView *)controlView didClickPrev:(UIButton *)prevBtn {
@@ -1553,6 +1611,21 @@
     }
 }
 
+#pragma mark - Private
+- (void)setCoverList {
+    __block NSUInteger currentIndex = 0;
+    
+    [self.playList enumerateObjectsUsingBlock:^(GKWYMusicModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.song_id isEqualToString:self.model.song_id]) {
+            currentIndex = idx;
+            *stop = YES;
+        }
+    }];
+    
+    // 重置列表
+    [self.coverView resetMusicList:self.playList idx:currentIndex];
+}
+
 - (void)pushToArtistVC {
     if (self.model.ar.count > 1) {
         NSMutableArray *items = [NSMutableArray new];
@@ -1584,6 +1657,24 @@
     [self.navigationController pushViewController:albumVC animated:YES];
 }
 
+- (void)showDesktopLyric {
+    self.desktopView = [[GKWYDesktopView alloc] init];
+    self.desktopView.diskImageUrl = self.model.album_pic;
+    self.desktopView.lyric = [self.lyricView currentLyric];
+    if (self.isPlaying) {
+        [self.desktopView startPlay];
+    }
+    
+    NSString *output = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"pip.mp4"];
+    NSURL *url = [NSURL fileURLWithPath:output];
+    
+    [[GKPipManager sharedManager] startPipWithUrl:url time:self.currentPlayTime customView:self.desktopView success:^{
+        NSLog(@"画中画开启成功");
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"画中画开启失败---%@", error);
+    }];
+}
+
 #pragma mark - 懒加载
 - (UIImageView *)bgImageView {
     if (!_bgImageView) {
@@ -1613,6 +1704,13 @@
         _lyricView = [GKWYMusicLyricView new];
         _lyricView.backgroundColor = [UIColor clearColor];
         _lyricView.hidden = YES;
+        
+        __weak __typeof(self) weakSelf = self;
+        _lyricView.lyricUpdate = ^(NSString *text) {
+            if (weakSelf.desktopView) {
+                weakSelf.desktopView.lyric = text;
+            }
+        };
     }
     return _lyricView;
 }

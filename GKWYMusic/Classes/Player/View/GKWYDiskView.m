@@ -41,6 +41,28 @@
     return self;
 }
 
+- (instancetype)initDesktopView {
+    if (self = [super init]) {
+        self.backgroundColor = [UIColor clearColor];
+        
+        [self addSubview:self.diskImgView];
+        [self.diskImgView addSubview:self.imgView];
+        
+        [self.diskImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+        
+        [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.diskImgView);
+            make.width.height.mas_equalTo(kAdaptive(60.0f));
+        }];
+        
+        self.imgView.layer.cornerRadius  = kAdaptive(60.0f) * 0.5;
+        self.imgView.layer.masksToBounds = YES;
+    }
+    return self;
+}
+
 #pragma mark - Setter
 - (void)setImgUrl:(NSString *)imgUrl {
     _imgUrl = imgUrl;

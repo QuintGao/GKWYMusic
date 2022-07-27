@@ -10,6 +10,8 @@
 
 @interface GKWYDiskView : UIView
 
+- (instancetype)initDesktopView;
+
 @property (nonatomic, strong)   UIImageView *diskImgView;
 
 @property (nonatomic, copy)     NSString *imgUrl;

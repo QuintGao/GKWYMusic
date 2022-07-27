@@ -24,6 +24,8 @@
 /** 声音视图滑动开始或结束block */
 @property (nonatomic, copy) void(^volumeViewSliderBlock)(BOOL isBegan);
 
+@property (nonatomic, copy) void(^lyricUpdate)(NSString *text);
+
 /**
  滑动歌词的方法
  
@@ -41,5 +43,7 @@
  显示系统音量试图
  */
 - (void)showSystemVolumeView;
+
+- (NSString *)currentLyric;
 
 @end
