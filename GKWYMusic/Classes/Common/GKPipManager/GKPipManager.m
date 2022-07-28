@@ -80,7 +80,7 @@
     }
 }
 
-- (void)startPipWithUrl:(NSURL *)url time:(float)time customView:(nonnull UIView *)customView success:(nonnull void (^)(void))success failure:(nonnull void (^)(NSError * _Nonnull))failure {
+- (void)startPipWithUrl:(NSURL *)url customView:(nonnull UIView *)customView success:(nonnull void (^)(void))success failure:(nonnull void (^)(NSError * _Nonnull))failure {
     self.success = success;
     self.failure = failure;
     self.customView = customView;
@@ -104,7 +104,6 @@
         [playView.layer addSublayer:self.playerLayer];
         
         // 播放
-        [self.player seekToTime:CMTimeMake(time, 1) toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
         [self.player play];
         
         // 监听播放结束
@@ -159,13 +158,15 @@
     
     self.pipVC = [[AVPictureInPictureController alloc] initWithPlayerLayer:self.playerLayer];
     self.pipVC.delegate = self;
-    [self.pipVC setValue:@1 forKey:@"controlsStyle"];
     
-//    [AVPictureInPictureController pictureInPictureButtonStopImageCompatibleWithTraitCollection:nil];
+    // 隐藏播放按钮、快进快退按钮
+    [self.pipVC setValue:@1 forKey:@"controlsStyle"];
     
     // 延迟一下，否则可能开启失败
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.pipVC startPictureInPicture];
+        if (!self.pipVC.isPictureInPictureActive) {
+            [self.pipVC startPictureInPicture];
+        }
     });
 }
 
@@ -179,6 +180,10 @@
     self.pipVC.delegate = nil;
     self.pipVC = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    if (self.customView) {
+        [self.customView removeFromSuperview];
+        self.customView = nil;
+    }
 }
 
 #pragma mark - KVO

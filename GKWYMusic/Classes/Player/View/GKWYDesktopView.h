@@ -16,8 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *lyric;
 
+@property (nonatomic, copy) void(^playBtnClickBlock)(void);
+@property (nonatomic, copy) void(^prevBtnClickBlock)(void);
+@property (nonatomic, copy) void(^nextBtnClickBlock)(void);
+
 - (void)startPlay;
 - (void)stopPlay;
+- (void)updateProgress:(CGFloat)progress;
 
 @end
 

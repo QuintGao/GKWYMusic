@@ -72,8 +72,6 @@
 
 @property (nonatomic, assign) float                 toSeekProgress; // seek进度
 
-@property (nonatomic, assign) CMTime                audioDuration;
-
 @property (nonatomic, strong) GKWYDesktopView       *desktopView;
 
 @end
@@ -361,14 +359,10 @@
             }
         }
     }
-    [self.desktopView startPlay];
-    [[GKPipManager sharedManager] startPlay];
 }
 
 - (void)pauseMusic {
     [kPlayer pause];
-    [self.desktopView stopPlay];
-    [[GKPipManager sharedManager] stopPlay];
 }
 
 - (void)stopMusic {
@@ -641,6 +635,7 @@
             self.controlView.currentTime = [GKWYMusicTool timeStrWithSecTime:duration * self.toSeekProgress];
             
             self.controlView.progress = self.toSeekProgress;
+            [self.desktopView updateProgress:self.toSeekProgress];
         }
         
         // 设置播放地址
@@ -676,6 +671,7 @@
                 
                 // 背景图片
                 [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:self.model.album_pic] placeholderImage:[UIImage imageNamed:@"cm2_fm_bg-ip6"]];
+                self.desktopView.diskImageUrl = self.model.album_pic;
                 
                 [self resetCoverViewWithModel:self.model];
                 
@@ -688,13 +684,11 @@
                 if (self.toSeekProgress) {
                     self.controlView.currentTime = [GKWYMusicTool timeStrWithSecTime:duration * self.toSeekProgress];
                     self.controlView.progress = self.toSeekProgress;
+                    [self.desktopView updateProgress:self.toSeekProgress];
                 }
                 
                 // 设置播放地址
                 kPlayer.playUrlStr = self.model.file_link;
-                
-                // 根据时长合成视频
-                [self tailorVideo];
                 
                 // 获取歌词
                 [self getSongLyric];
@@ -722,56 +716,8 @@
         audioAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:url] options:dic];
     }
     CMTime audioDuration = audioAsset.duration;
-    self.audioDuration = audioDuration;
     float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
     return [NSString stringWithFormat:@"%.f", audioDurationSeconds];
-}
-
-- (void)tailorVideo {
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"pip" withExtension:@"mp4"];
-    AVURLAsset *asset = [AVURLAsset assetWithURL:url];
-    
-    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:asset presetName:AVAssetExportPresetLowQuality];
-    
-    NSString *output = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"pip.mp4"];
-    NSURL *outputUrl = [NSURL fileURLWithPath:output];
-    
-    // 判断文件是否存在，存在则删除
-    if ([[NSFileManager defaultManager] fileExistsAtPath:output]) {
-        [[NSFileManager defaultManager] removeItemAtPath:output error:nil];
-    }
-    
-    exportSession.outputURL = outputUrl;
-    exportSession.outputFileType = AVFileTypeMPEG4;
-    exportSession.shouldOptimizeForNetworkUse = YES;
-    CMTimeRange range = CMTimeRangeMake(kCMTimeZero, self.audioDuration);
-    exportSession.timeRange = range;
-    
-    [exportSession exportAsynchronouslyWithCompletionHandler:^{
-        switch (exportSession.status) {
-            case AVAssetExportSessionStatusUnknown:
-                NSLog(@"未知错误--%@", exportSession.error);
-                break;
-            case AVAssetExportSessionStatusWaiting:
-                NSLog(@"等待中");
-                break;
-            case AVAssetExportSessionStatusExporting:
-                NSLog(@"导出中");
-                break;
-            case AVAssetExportSessionStatusCompleted:
-                NSLog(@"导出完成");
-                break;
-            case AVAssetExportSessionStatusFailed:
-                NSLog(@"导出失败---%@", exportSession.error);
-                break;
-            case AVAssetExportSessionStatusCancelled:
-                NSLog(@"取消导出");
-                break;
-                
-            default:
-                break;
-        }
-    }];
 }
 
 - (void)getSongLyric {
@@ -1280,6 +1226,14 @@
             break;
     }
     
+    if (self.isPlaying) {
+        [self.desktopView startPlay];
+        [[GKPipManager sharedManager] startPlay];
+    }else {
+        [self.desktopView stopPlay];
+        [[GKPipManager sharedManager] stopPlay];
+    }
+    
     [kNotificationCenter postNotificationName:GKWYMUSIC_PLAYSTATECHANGENOTIFICATION object:nil];
 }
 
@@ -1299,6 +1253,7 @@
     self.currentPlayTime = currentTime / 1000;
     self.controlView.currentTime = [GKWYMusicTool timeStrWithMsTime:currentTime];
     self.controlView.progress    = progress;
+    [self.desktopView updateProgress:progress];
     
     // 更新锁屏信息
     [self setupLockScreenMediaInfo];
@@ -1439,41 +1394,15 @@
 }
 
 - (void)controlView:(GKWYMusicControlView *)controlView didClickPrev:(UIButton *)prevBtn {
-    if (self.isCoverScroll) return;
-    self.isChanged = YES;
-    
-    if (self.isPlaying) {
-        [self stopMusic];
-    }
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self playPrevMusic];
-    });
+    [self playPrev];
 }
 
 - (void)controlView:(GKWYMusicControlView *)controlView didClickPlay:(UIButton *)playBtn {
-    if (self.isPlaying) {
-        [self pauseMusic];
-    }else {
-        [self playMusic];
-    }
+    [self playPause];
 }
 
 - (void)controlView:(GKWYMusicControlView *)controlView didClickNext:(UIButton *)nextBtn {
-    if (self.isCoverScroll) return;
-    
-    self.isAutoPlay = NO;
-    
-    if (self.isPlaying) {
-        [self stopMusic];
-    }
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        self.isChanged  = YES;
-        
-        [self playNextMusic];
-    });
+    [self playNext];
 }
 
 - (void)controlView:(GKWYMusicControlView *)controlView didClickList:(UIButton *)listBtn {
@@ -1612,6 +1541,44 @@
 }
 
 #pragma mark - Private
+- (void)playPause {
+    if (self.isPlaying) {
+        [self pauseMusic];
+    }else {
+        [self playMusic];
+    }
+}
+
+- (void)playPrev {
+    if (self.isCoverScroll) return;
+    self.isChanged = YES;
+    
+    if (self.isPlaying) {
+        [self stopMusic];
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self playPrevMusic];
+    });
+}
+
+- (void)playNext {
+    if (self.isCoverScroll) return;
+    
+    self.isAutoPlay = NO;
+    
+    if (self.isPlaying) {
+        [self stopMusic];
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        self.isChanged  = YES;
+        
+        [self playNextMusic];
+    });
+}
+
 - (void)setCoverList {
     __block NSUInteger currentIndex = 0;
     
@@ -1664,11 +1631,23 @@
     if (self.isPlaying) {
         [self.desktopView startPlay];
     }
+    __weak __typeof(self) weakSelf = self;
+    self.desktopView.playBtnClickBlock = ^{
+        [weakSelf playPause];
+    };
+    
+    self.desktopView.prevBtnClickBlock = ^{
+        [weakSelf playPrev];
+    };
+    
+    self.desktopView.nextBtnClickBlock = ^{
+        [weakSelf playNext];
+    };
     
     NSString *output = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"pip.mp4"];
     NSURL *url = [NSURL fileURLWithPath:output];
     
-    [[GKPipManager sharedManager] startPipWithUrl:url time:self.currentPlayTime customView:self.desktopView success:^{
+    [[GKPipManager sharedManager] startPipWithUrl:url customView:self.desktopView success:^{
         NSLog(@"画中画开启成功");
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"画中画开启失败---%@", error);

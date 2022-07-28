@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startPipWithUrl:(NSURL *)url time:(float)time stoppedWhenPlayEnd:(BOOL)stoppedWhenPlayEnd success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
 
-- (void)startPipWithUrl:(NSURL *)url time:(float)time customView:(UIView *)customView success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
+- (void)startPipWithUrl:(NSURL *)url customView:(UIView *)customView success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
 
 - (void)seekToTime:(float)time;
 
