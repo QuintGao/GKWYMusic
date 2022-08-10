@@ -53,7 +53,7 @@
         
         [self.topLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.topView);
-            make.height.mas_equalTo(0.5f);
+            make.height.mas_equalTo(LINE_HEIGHT);
         }];
         
         [self.topBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -68,7 +68,7 @@
         
         [self.closeLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.right.equalTo(self.closeBtn);
-            make.height.mas_equalTo(0.5);
+            make.height.mas_equalTo(LINE_HEIGHT);
         }];
         
         [kNotificationCenter addObserver:self selector:@selector(statusChanged:) name:GKWYMUSIC_PLAYSTATECHANGENOTIFICATION object:nil];
@@ -272,7 +272,7 @@
         [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.bottom.equalTo(self.contentView);
             make.left.equalTo(self.contentView).offset(10.0f);
-            make.height.mas_equalTo(0.5f);
+            make.height.mas_equalTo(LINE_HEIGHT);
         }];
     }
     return self;

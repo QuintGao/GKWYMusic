@@ -10,13 +10,15 @@
 
 @interface GKWYBaseListViewController ()
 
+@property (nonatomic, copy) void(^scrollCallback)(UIScrollView *scrollView);
+
 @end
 
 @implementation GKWYBaseListViewController
 
 - (instancetype)initWithType:(GKWYListType)type {
     if (self = [super init]) {
-        self.type = type;
+        self.listType = type;
     }
     return self;
 }
@@ -24,9 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (self.type == GKWYListType_TableView) {
+    if (self.listType == GKWYListType_TableView) {
         self.scrollView = self.tableView;
-    }else if (self.type == GKWYListType_CollectionView) {
+    }else if (self.listType == GKWYListType_CollectionView) {
         self.scrollView = self.collectionView;
     }
     
@@ -37,6 +39,14 @@
     [self.view addSubview:self.scrollView];
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
+    }];
+    
+    [self.scrollView addSubview:self.loadingView];
+    [self.loadingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.scrollView);
+        make.centerX.equalTo(self.scrollView);
+        make.width.mas_equalTo(kScreenW);
+        make.height.mas_equalTo(80);
     }];
 }
 
@@ -49,6 +59,7 @@
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;
         }
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }
@@ -76,11 +87,26 @@
     return _scrollView;
 }
 
+- (GKLoadingView *)loadingView {
+    if (!_loadingView) {
+        _loadingView = [[GKLoadingView alloc] init];
+    }
+    return _loadingView;
+}
+
 - (NSMutableArray *)dataSource {
     if (!_dataSource) {
         _dataSource = [NSMutableArray array];
     }
     return _dataSource;
+}
+
+@end
+
+@implementation GKWYBaseListViewController (UIScrollView)
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    !self.scrollCallback ?: self.scrollCallback(scrollView);
 }
 
 @end
@@ -113,6 +139,14 @@
 
 - (UIView *)listView {
     return self.view;
+}
+
+- (UIScrollView *)listScrollView {
+    return self.scrollView;
+}
+
+- (void)listViewDidScrollCallback:(void (^)(UIScrollView *))callback {
+    self.scrollCallback = callback;
 }
 
 @end

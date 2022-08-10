@@ -28,6 +28,8 @@ typedef NS_ENUM(NSUInteger, GKWYPlayerPlayStyle) {
 
 + (instancetype)sharedInstance;
 
+- (void)show;
+
 /**
  初始化播放器数据
  */

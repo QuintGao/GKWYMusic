@@ -19,26 +19,30 @@ PODS:
   - GKCover (3.0.1)
   - GKMessageTool (1.0.5):
     - MBProgressHUD
-  - GKNavigationBar (1.7.6):
-    - GKNavigationBar/GestureHandle (= 1.7.6)
-    - GKNavigationBar/NavigationBar (= 1.7.6)
-  - GKNavigationBar/GestureHandle (1.7.6)
-  - GKNavigationBar/NavigationBar (1.7.6)
+  - GKNavigationBar (1.7.7):
+    - GKNavigationBar/GestureHandle (= 1.7.7)
+    - GKNavigationBar/NavigationBar (= 1.7.7)
+  - GKNavigationBar/GestureHandle (1.7.7)
+  - GKNavigationBar/NavigationBar (1.7.7)
   - GKPageScrollView (1.7.4):
     - GKPageScrollView/Objc (= 1.7.4)
   - GKPageScrollView/Objc (1.7.4)
+  - JLRoutes (2.1)
   - JXCategoryViewExt/Core (1.1.7)
   - JXCategoryViewExt/Indicator/Line (1.1.7):
     - JXCategoryViewExt/Core
+  - JXCategoryViewExt/Number (1.1.7):
+    - JXCategoryViewExt/Title
   - JXCategoryViewExt/Title (1.1.7):
     - JXCategoryViewExt/Core
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - MJRefresh (3.7.5)
   - Reachability (3.2)
-  - SDWebImage (5.13.1):
-    - SDWebImage/Core (= 5.13.1)
-  - SDWebImage/Core (5.13.1)
+  - ReactiveObjC (3.1.1)
+  - SDWebImage (5.13.2):
+    - SDWebImage/Core (= 5.13.2)
+  - SDWebImage/Core (5.13.2)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -48,10 +52,13 @@ DEPENDENCIES:
   - GKMessageTool
   - GKNavigationBar
   - GKPageScrollView
+  - JLRoutes
   - JXCategoryViewExt/Indicator/Line
+  - JXCategoryViewExt/Number
   - JXCategoryViewExt/Title
   - Masonry
   - MJRefresh
+  - ReactiveObjC
   - SDWebImage
   - YYModel
 
@@ -63,11 +70,13 @@ SPEC REPOS:
     - GKMessageTool
     - GKNavigationBar
     - GKPageScrollView
+    - JLRoutes
     - JXCategoryViewExt
     - Masonry
     - MBProgressHUD
     - MJRefresh
     - Reachability
+    - ReactiveObjC
     - SDWebImage
     - YYModel
 
@@ -76,16 +85,18 @@ SPEC CHECKSUMS:
   FreeStreamer: 7e9c976045701ac2f7e9c14c17245203c37bf2ea
   GKCover: 6486cf87c0a5cae4bb5c3a09e17925ad8b466412
   GKMessageTool: fcf46cca30f62eaebb8fea288c9452f3682645f2
-  GKNavigationBar: 169c7491c1739cffe569c07ffdeb8bf4c327f699
+  GKNavigationBar: 56ae760986a77f8c9915ee5229fac79e5ced3b35
   GKPageScrollView: 845a915a4e8be4cf99510b3a2534d5dacf6dbe45
+  JLRoutes: d755245322b94227662ea3e43492fdca94e05c5b
   JXCategoryViewExt: b4a05d3fb001ea6cbc72e3092ab5bcaff62b7dde
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SDWebImage: fb26a455eeda4c7a55e4dcb6172dbb258af7a4ca
+  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+  SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: dbd97b409481c86fca3d51c4c07112ac2cf6dae6
+PODFILE CHECKSUM: 6b1738074d2b48ea01f14d3baada7bc5c2109ee8
 
 COCOAPODS: 1.11.3

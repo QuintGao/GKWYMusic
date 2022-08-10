@@ -9,17 +9,19 @@ target 'GKWYMusic' do
 
   use_frameworks!
   
+  pod 'ReactiveObjC'                    # 函数响应式框架
   pod 'AFNetworking'                    # 网络请求框架
   pod 'SDWebImage'                      # 图片缓存框架
   pod 'YYModel'                         # 数据解析框架
   pod 'FreeStreamer'                    # 音频播放
   pod 'GKNavigationBar'                 # 自定义导航栏
   pod 'Masonry'                         # 布局框架
-  pod 'JXCategoryViewExt', :subspecs => ['Title', 'Indicator/Line'] 
+  pod 'JXCategoryViewExt', :subspecs => ['Title', 'Number', 'Indicator/Line'] 
   pod 'GKCover'                         # 遮罩
   pod 'GKMessageTool'                   # 提示框
   pod 'MJRefresh'                       # 下拉刷新
   pod 'GKPageScrollView'                # UIScrollView嵌套
+  pod 'JLRoutes'                        # 路由
 
 end
 

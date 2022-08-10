@@ -11,7 +11,7 @@
 //#define kBaseUrl @"http://music.baidu.com/"
 //#define kBaseUrl @"http://tingapi.ting.baidu.com/v1/restserver/ting?format=json&calback=&from=ios&method="
 //#define kBaseUrl @"https://musicapi.qianqian.com/v1/restserver/ting?format=json&from=ios&channel=appstore&method="
-#define kBaseUrl @"http://192.168.31.138:3000/"
+#define kBaseUrl @"http://192.168.31.142:3000/"
 
 @interface GKHttpManager()
 
@@ -35,6 +35,9 @@
     manager.responseSerializer      = [AFJSONResponseSerializer serializer];
     
     NSString *url = [kBaseUrl stringByAppendingString:api];
+    
+    // 解决链接中有中文出现报错
+    url = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
     [manager GET:url parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         successBlock(responseObject);

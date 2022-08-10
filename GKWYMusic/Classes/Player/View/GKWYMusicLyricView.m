@@ -58,7 +58,7 @@
             make.left.equalTo(self).offset(50);
             make.right.equalTo(self).offset(-50);
             make.center.equalTo(self.lyricTable);
-            make.height.mas_equalTo(0.5);
+            make.height.mas_equalTo(LINE_HEIGHT);
         }];
         
         [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {

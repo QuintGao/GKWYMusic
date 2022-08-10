@@ -42,7 +42,6 @@
 - (void)reloadData {
     self.categoryView.indicators = @[self.indicatorView];
     self.categoryView.listContainer = self.containerView;
-    
     [self.categoryView reloadData];
 }
 

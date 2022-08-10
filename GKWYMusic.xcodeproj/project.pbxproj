@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4770C39B21130770DC0280B1 /* Pods_GKWYMusic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 316EC85788B8A4208D922C6A /* Pods_GKWYMusic.framework */; };
-		60125564217F169900547CE5 /* GKWYPlayListResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60125563217F169900547CE5 /* GKWYPlayListResultViewController.m */; };
-		60125567217F16AB00547CE5 /* GKWYUserResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60125566217F16AB00547CE5 /* GKWYUserResultViewController.m */; };
 		60264F43216F5793006E6837 /* GKWYArtistHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60264F42216F5793006E6837 /* GKWYArtistHeaderView.m */; };
 		603A1272208881A3002A5BD3 /* GKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A126B208881A2002A5BD3 /* GKActionSheet.m */; };
 		603A1273208881A3002A5BD3 /* GKActionSheetViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 603A126C208881A2002A5BD3 /* GKActionSheetViewCell.m */; };
@@ -52,9 +50,6 @@
 		6061767A209AACD60054C8E1 /* GKRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60617679209AACD60054C8E1 /* GKRefreshFooter.m */; };
 		6061767D209AB5920054C8E1 /* GKWYSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6061767C209AB5920054C8E1 /* GKWYSearchViewController.m */; };
 		60617689209B158B0054C8E1 /* GKWYResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60617688209B158B0054C8E1 /* GKWYResultModel.m */; };
-		6061768F209B195A0054C8E1 /* GKWYSongResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6061768E209B195A0054C8E1 /* GKWYSongResultViewController.m */; };
-		60617692209B19680054C8E1 /* GKWYArtistResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60617691209B19680054C8E1 /* GKWYArtistResultViewController.m */; };
-		60617695209B19710054C8E1 /* GKWYAlbumResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60617694209B19710054C8E1 /* GKWYAlbumResultViewController.m */; };
 		60617699209BF5B30054C8E1 /* GKSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 60617698209BF5B30054C8E1 /* GKSearchBar.m */; };
 		6061769C209C0EB60054C8E1 /* GKWYSongViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6061769B209C0EB60054C8E1 /* GKWYSongViewCell.m */; };
 		6061769F209C0EC10054C8E1 /* GKWYArtistViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6061769E209C0EC10054C8E1 /* GKWYArtistViewCell.m */; };
@@ -70,18 +65,11 @@
 		60938EEC20AAF1B800CD8115 /* GKWYAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938EEB20AAF1B800CD8115 /* GKWYAlbumModel.m */; };
 		60938EEF20AAF1C300CD8115 /* GKWYAlbumHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938EEE20AAF1C300CD8115 /* GKWYAlbumHeader.m */; };
 		60938EF220AAF1D900CD8115 /* GKVerticalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938EF120AAF1D900CD8115 /* GKVerticalButton.m */; };
-		60938EF820AB01D900CD8115 /* GKWYArtistSongListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938EF720AB01D900CD8115 /* GKWYArtistSongListViewController.m */; };
-		60938EFB20ABB6AB00CD8115 /* GKWYArtistAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938EFA20ABB6AB00CD8115 /* GKWYArtistAlbumListViewController.m */; };
-		60938EFE20ABBA3B00CD8115 /* GKWYArtistVideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938EFD20ABBA3B00CD8115 /* GKWYArtistVideoListViewController.m */; };
-		60938F0220ABBBC600CD8115 /* GKWYArtistIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938F0120ABBBC600CD8115 /* GKWYArtistIntroViewController.m */; };
 		60938F7D20ADA2FB00CD8115 /* GKWYVideoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938F7C20ADA2FB00CD8115 /* GKWYVideoViewCell.m */; };
 		60938F8020ADA5AB00CD8115 /* GKWYVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938F7F20ADA5AB00CD8115 /* GKWYVideoModel.m */; };
 		60938F8320AE5AEA00CD8115 /* GKWYIntroViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938F8220AE5AEA00CD8115 /* GKWYIntroViewCell.m */; };
 		60938F8620AE603F00CD8115 /* GKWYArtistRecModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938F8520AE603F00CD8115 /* GKWYArtistRecModel.m */; };
-		60938F8C20AEDA4A00CD8115 /* GKWYBaseSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938F8B20AEDA4A00CD8115 /* GKWYBaseSubViewController.m */; };
-		60938FBC20B1740400CD8115 /* GKWYIntroDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938FBB20B1740400CD8115 /* GKWYIntroDetailViewController.m */; };
 		60938FBE20B29DD300CD8115 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 60938FBD20B29DD300CD8115 /* README.md */; };
-		60938FC120B4198C00CD8115 /* GKWYVideoResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60938FC020B4198C00CD8115 /* GKWYVideoResultViewController.m */; };
 		6093900620B63F5D00CD8115 /* GKWYSearchHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6093900520B63F5D00CD8115 /* GKWYSearchHeaderView.m */; };
 		6093900920B6435100CD8115 /* GKWYTagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6093900820B6435100CD8115 /* GKWYTagModel.m */; };
 		6093900C20B66A7800CD8115 /* GKWYSearchViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6093900B20B66A7800CD8115 /* GKWYSearchViewCell.m */; };
@@ -100,12 +88,22 @@
 		60E53CC2255D114E00AAA97E /* GKWYIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 60E53CBB255D114E00AAA97E /* GKWYIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		60E53CCB255D118900AAA97E /* GKWYWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 6096DC5D255BD3520060D6FA /* GKWYWidget.intentdefinition */; };
 		60E53CD1255D131500AAA97E /* GKWYDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AD288F255BE5AB00A7D27A /* GKWYDataLoader.swift */; };
+		7900F98828A353340019BF35 /* GKWYVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7900F98728A353340019BF35 /* GKWYVideoView.m */; };
+		7900F98B28A3534D0019BF35 /* GKWYVideoCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7900F98A28A3534D0019BF35 /* GKWYVideoCoverView.m */; };
 		790DB75A288A3A17000260BC /* GKWYPlayListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790DB759288A3A17000260BC /* GKWYPlayListHeaderView.m */; };
 		79136871256AA1CE008AB9F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79136870256AA1CE008AB9F5 /* LaunchScreen.storyboard */; };
+		79254C912897CD31003E44D5 /* GKWYSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79254C902897CD31003E44D5 /* GKWYSearchResultViewController.m */; };
+		79441C0D2898C61D00668FAA /* GKWYResultListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79441C0C2898C61D00668FAA /* GKWYResultListViewController.m */; };
+		79441C102899045800668FAA /* GKWYResultAllViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79441C0F2899045800668FAA /* GKWYResultAllViewController.m */; };
+		79441C132899154800668FAA /* GKWYResultTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79441C122899154800668FAA /* GKWYResultTitleView.m */; };
+		79441C16289A38C800668FAA /* GKWYPlayListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79441C15289A38C800668FAA /* GKWYPlayListViewCell.m */; };
+		79441C1C289B71B900668FAA /* GKWYArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79441C1B289B71B900668FAA /* GKWYArrowView.m */; };
+		79441C26289CE67F00668FAA /* GKWYArtistListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79441C25289CE67F00668FAA /* GKWYArtistListViewController.m */; };
+		79441C2A289D128600668FAA /* GKWYRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = 79441C29289D128600668FAA /* GKWYRoutes.m */; };
 		79E451792887D794004282A3 /* GKWYListTagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E451782887D794004282A3 /* GKWYListTagModel.m */; };
 		79E4517C2887F347004282A3 /* GKWYBaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4517B2887F347004282A3 /* GKWYBaseListViewController.m */; };
 		79E4517F28880223004282A3 /* GKWYPlayListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4517E28880223004282A3 /* GKWYPlayListCell.m */; };
-		79E4518228891080004282A3 /* GKWYListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4518128891080004282A3 /* GKWYListModel.m */; };
+		79E4518228891080004282A3 /* GKWYPlayListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4518128891080004282A3 /* GKWYPlayListModel.m */; };
 		79E4518528891312004282A3 /* GKWYCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4518428891312004282A3 /* GKWYCoverView.m */; };
 		79E4518B28892111004282A3 /* UITabBarAppearance+GKCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4518A28892111004282A3 /* UITabBarAppearance+GKCategory.m */; };
 		79E4518E288937C6004282A3 /* GKWYPlayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E4518D288937C6004282A3 /* GKWYPlayListViewController.m */; };
@@ -167,10 +165,6 @@
 /* Begin PBXFileReference section */
 		205E02C3FE102D1B4512A3B0 /* Pods-GKWYMusic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GKWYMusic.release.xcconfig"; path = "Pods/Target Support Files/Pods-GKWYMusic/Pods-GKWYMusic.release.xcconfig"; sourceTree = "<group>"; };
 		316EC85788B8A4208D922C6A /* Pods_GKWYMusic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GKWYMusic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		60125562217F169900547CE5 /* GKWYPlayListResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYPlayListResultViewController.h; sourceTree = "<group>"; };
-		60125563217F169900547CE5 /* GKWYPlayListResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYPlayListResultViewController.m; sourceTree = "<group>"; };
-		60125565217F16AB00547CE5 /* GKWYUserResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYUserResultViewController.h; sourceTree = "<group>"; };
-		60125566217F16AB00547CE5 /* GKWYUserResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYUserResultViewController.m; sourceTree = "<group>"; };
 		60264F41216F5793006E6837 /* GKWYArtistHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYArtistHeaderView.h; sourceTree = "<group>"; };
 		60264F42216F5793006E6837 /* GKWYArtistHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArtistHeaderView.m; sourceTree = "<group>"; };
 		603A126320887E68002A5BD3 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -258,12 +252,6 @@
 		6061767C209AB5920054C8E1 /* GKWYSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYSearchViewController.m; sourceTree = "<group>"; };
 		60617687209B158B0054C8E1 /* GKWYResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYResultModel.h; sourceTree = "<group>"; };
 		60617688209B158B0054C8E1 /* GKWYResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYResultModel.m; sourceTree = "<group>"; };
-		6061768D209B195A0054C8E1 /* GKWYSongResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYSongResultViewController.h; sourceTree = "<group>"; };
-		6061768E209B195A0054C8E1 /* GKWYSongResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYSongResultViewController.m; sourceTree = "<group>"; };
-		60617690209B19680054C8E1 /* GKWYArtistResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYArtistResultViewController.h; sourceTree = "<group>"; };
-		60617691209B19680054C8E1 /* GKWYArtistResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArtistResultViewController.m; sourceTree = "<group>"; };
-		60617693209B19710054C8E1 /* GKWYAlbumResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYAlbumResultViewController.h; sourceTree = "<group>"; };
-		60617694209B19710054C8E1 /* GKWYAlbumResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYAlbumResultViewController.m; sourceTree = "<group>"; };
 		60617697209BF5B30054C8E1 /* GKSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSearchBar.h; sourceTree = "<group>"; };
 		60617698209BF5B30054C8E1 /* GKSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSearchBar.m; sourceTree = "<group>"; };
 		6061769A209C0EB60054C8E1 /* GKWYSongViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYSongViewCell.h; sourceTree = "<group>"; };
@@ -294,14 +282,6 @@
 		60938EEE20AAF1C300CD8115 /* GKWYAlbumHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKWYAlbumHeader.m; sourceTree = "<group>"; };
 		60938EF020AAF1D900CD8115 /* GKVerticalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKVerticalButton.h; sourceTree = "<group>"; };
 		60938EF120AAF1D900CD8115 /* GKVerticalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKVerticalButton.m; sourceTree = "<group>"; };
-		60938EF720AB01D900CD8115 /* GKWYArtistSongListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArtistSongListViewController.m; sourceTree = "<group>"; };
-		60938EF920ABB6AB00CD8115 /* GKWYArtistAlbumListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYArtistAlbumListViewController.h; sourceTree = "<group>"; };
-		60938EFA20ABB6AB00CD8115 /* GKWYArtistAlbumListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArtistAlbumListViewController.m; sourceTree = "<group>"; };
-		60938EFC20ABBA3B00CD8115 /* GKWYArtistVideoListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYArtistVideoListViewController.h; sourceTree = "<group>"; };
-		60938EFD20ABBA3B00CD8115 /* GKWYArtistVideoListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArtistVideoListViewController.m; sourceTree = "<group>"; };
-		60938EFF20ABBA8200CD8115 /* GKWYArtistSongListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKWYArtistSongListViewController.h; sourceTree = "<group>"; };
-		60938F0020ABBBC600CD8115 /* GKWYArtistIntroViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYArtistIntroViewController.h; sourceTree = "<group>"; };
-		60938F0120ABBBC600CD8115 /* GKWYArtistIntroViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArtistIntroViewController.m; sourceTree = "<group>"; };
 		60938F7B20ADA2FB00CD8115 /* GKWYVideoViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYVideoViewCell.h; sourceTree = "<group>"; };
 		60938F7C20ADA2FB00CD8115 /* GKWYVideoViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYVideoViewCell.m; sourceTree = "<group>"; };
 		60938F7E20ADA5AB00CD8115 /* GKWYVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYVideoModel.h; sourceTree = "<group>"; };
@@ -310,13 +290,7 @@
 		60938F8220AE5AEA00CD8115 /* GKWYIntroViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYIntroViewCell.m; sourceTree = "<group>"; };
 		60938F8420AE603F00CD8115 /* GKWYArtistRecModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYArtistRecModel.h; sourceTree = "<group>"; };
 		60938F8520AE603F00CD8115 /* GKWYArtistRecModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArtistRecModel.m; sourceTree = "<group>"; };
-		60938F8A20AEDA4A00CD8115 /* GKWYBaseSubViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYBaseSubViewController.h; sourceTree = "<group>"; };
-		60938F8B20AEDA4A00CD8115 /* GKWYBaseSubViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYBaseSubViewController.m; sourceTree = "<group>"; };
-		60938FBA20B1740400CD8115 /* GKWYIntroDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYIntroDetailViewController.h; sourceTree = "<group>"; };
-		60938FBB20B1740400CD8115 /* GKWYIntroDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYIntroDetailViewController.m; sourceTree = "<group>"; };
 		60938FBD20B29DD300CD8115 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		60938FBF20B4198C00CD8115 /* GKWYVideoResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYVideoResultViewController.h; sourceTree = "<group>"; };
-		60938FC020B4198C00CD8115 /* GKWYVideoResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYVideoResultViewController.m; sourceTree = "<group>"; };
 		6093900420B63F5D00CD8115 /* GKWYSearchHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYSearchHeaderView.h; sourceTree = "<group>"; };
 		6093900520B63F5D00CD8115 /* GKWYSearchHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYSearchHeaderView.m; sourceTree = "<group>"; };
 		6093900720B6435100CD8115 /* GKWYTagModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYTagModel.h; sourceTree = "<group>"; };
@@ -339,17 +313,37 @@
 		60E53CBB255D114E00AAA97E /* GKWYIntent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GKWYIntent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		60E53CBD255D114E00AAA97E /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		60E53CBF255D114E00AAA97E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7900F98628A353340019BF35 /* GKWYVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYVideoView.h; sourceTree = "<group>"; };
+		7900F98728A353340019BF35 /* GKWYVideoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYVideoView.m; sourceTree = "<group>"; };
+		7900F98928A3534D0019BF35 /* GKWYVideoCoverView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYVideoCoverView.h; sourceTree = "<group>"; };
+		7900F98A28A3534D0019BF35 /* GKWYVideoCoverView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYVideoCoverView.m; sourceTree = "<group>"; };
 		790DB758288A3A17000260BC /* GKWYPlayListHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYPlayListHeaderView.h; sourceTree = "<group>"; };
 		790DB759288A3A17000260BC /* GKWYPlayListHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYPlayListHeaderView.m; sourceTree = "<group>"; };
 		79136870256AA1CE008AB9F5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		79254C8F2897CD31003E44D5 /* GKWYSearchResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYSearchResultViewController.h; sourceTree = "<group>"; };
+		79254C902897CD31003E44D5 /* GKWYSearchResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYSearchResultViewController.m; sourceTree = "<group>"; };
+		79441C0B2898C61D00668FAA /* GKWYResultListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYResultListViewController.h; sourceTree = "<group>"; };
+		79441C0C2898C61D00668FAA /* GKWYResultListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYResultListViewController.m; sourceTree = "<group>"; };
+		79441C0E2899045800668FAA /* GKWYResultAllViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYResultAllViewController.h; sourceTree = "<group>"; };
+		79441C0F2899045800668FAA /* GKWYResultAllViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYResultAllViewController.m; sourceTree = "<group>"; };
+		79441C112899154800668FAA /* GKWYResultTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYResultTitleView.h; sourceTree = "<group>"; };
+		79441C122899154800668FAA /* GKWYResultTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYResultTitleView.m; sourceTree = "<group>"; };
+		79441C14289A38C800668FAA /* GKWYPlayListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYPlayListViewCell.h; sourceTree = "<group>"; };
+		79441C15289A38C800668FAA /* GKWYPlayListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYPlayListViewCell.m; sourceTree = "<group>"; };
+		79441C1A289B71B900668FAA /* GKWYArrowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYArrowView.h; sourceTree = "<group>"; };
+		79441C1B289B71B900668FAA /* GKWYArrowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArrowView.m; sourceTree = "<group>"; };
+		79441C24289CE67F00668FAA /* GKWYArtistListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYArtistListViewController.h; sourceTree = "<group>"; };
+		79441C25289CE67F00668FAA /* GKWYArtistListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYArtistListViewController.m; sourceTree = "<group>"; };
+		79441C28289D128600668FAA /* GKWYRoutes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYRoutes.h; sourceTree = "<group>"; };
+		79441C29289D128600668FAA /* GKWYRoutes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYRoutes.m; sourceTree = "<group>"; };
 		79E451772887D794004282A3 /* GKWYListTagModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYListTagModel.h; sourceTree = "<group>"; };
 		79E451782887D794004282A3 /* GKWYListTagModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYListTagModel.m; sourceTree = "<group>"; };
 		79E4517A2887F347004282A3 /* GKWYBaseListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYBaseListViewController.h; sourceTree = "<group>"; };
 		79E4517B2887F347004282A3 /* GKWYBaseListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYBaseListViewController.m; sourceTree = "<group>"; };
 		79E4517D28880223004282A3 /* GKWYPlayListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYPlayListCell.h; sourceTree = "<group>"; };
 		79E4517E28880223004282A3 /* GKWYPlayListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYPlayListCell.m; sourceTree = "<group>"; };
-		79E4518028891080004282A3 /* GKWYListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYListModel.h; sourceTree = "<group>"; };
-		79E4518128891080004282A3 /* GKWYListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYListModel.m; sourceTree = "<group>"; };
+		79E4518028891080004282A3 /* GKWYPlayListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYPlayListModel.h; sourceTree = "<group>"; };
+		79E4518128891080004282A3 /* GKWYPlayListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYPlayListModel.m; sourceTree = "<group>"; };
 		79E4518328891312004282A3 /* GKWYCoverView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKWYCoverView.h; sourceTree = "<group>"; };
 		79E4518428891312004282A3 /* GKWYCoverView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKWYCoverView.m; sourceTree = "<group>"; };
 		79E4518928892111004282A3 /* UITabBarAppearance+GKCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarAppearance+GKCategory.h"; sourceTree = "<group>"; };
@@ -427,7 +421,7 @@
 			children = (
 				603A12D7208DB711002A5BD3 /* Base */,
 				603A126020887B5C002A5BD3 /* Main */,
-				603A1264208880C7002A5BD3 /* Home */,
+				603A1264208880C7002A5BD3 /* Module */,
 				603A126520888113002A5BD3 /* Mine */,
 				603A126720888187002A5BD3 /* Player */,
 				603A12662088811E002A5BD3 /* Common */,
@@ -444,7 +438,7 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		603A1264208880C7002A5BD3 /* Home */ = {
+		603A1264208880C7002A5BD3 /* Module */ = {
 			isa = PBXGroup;
 			children = (
 				60938ED920AAEA0E00CD8115 /* List */,
@@ -453,7 +447,7 @@
 				60938EDA20AAEA1B00CD8115 /* Artist */,
 				609391A920BCD5D600CD8115 /* Video */,
 			);
-			path = Home;
+			path = Module;
 			sourceTree = "<group>";
 		};
 		603A126520888113002A5BD3 /* Mine */ = {
@@ -469,6 +463,7 @@
 		603A12662088811E002A5BD3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				79441C27289D121000668FAA /* GKWYRoutes */,
 				79E572122890E27E005EB065 /* GKPipManager */,
 				79E571F8288E64F5005EB065 /* GKLoadingView */,
 				60938FB620B11F2400CD8115 /* GKWYMusicTool */,
@@ -565,8 +560,8 @@
 			children = (
 				79E451772887D794004282A3 /* GKWYListTagModel.h */,
 				79E451782887D794004282A3 /* GKWYListTagModel.m */,
-				79E4518028891080004282A3 /* GKWYListModel.h */,
-				79E4518128891080004282A3 /* GKWYListModel.m */,
+				79E4518028891080004282A3 /* GKWYPlayListModel.h */,
+				79E4518128891080004282A3 /* GKWYPlayListModel.m */,
 				603A12A220898CCF002A5BD3 /* GKWYMusicModel.h */,
 				603A12A320898CCF002A5BD3 /* GKWYMusicModel.m */,
 			);
@@ -843,6 +838,8 @@
 			children = (
 				60938EED20AAF1C200CD8115 /* GKWYAlbumHeader.h */,
 				60938EEE20AAF1C300CD8115 /* GKWYAlbumHeader.m */,
+				79441C1A289B71B900668FAA /* GKWYArrowView.h */,
+				79441C1B289B71B900668FAA /* GKWYArrowView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -916,18 +913,8 @@
 			children = (
 				60938EE420AAEBB800CD8115 /* GKWYArtistViewController.h */,
 				60938EE520AAEBB800CD8115 /* GKWYArtistViewController.m */,
-				60938EFF20ABBA8200CD8115 /* GKWYArtistSongListViewController.h */,
-				60938EF720AB01D900CD8115 /* GKWYArtistSongListViewController.m */,
-				60938EF920ABB6AB00CD8115 /* GKWYArtistAlbumListViewController.h */,
-				60938EFA20ABB6AB00CD8115 /* GKWYArtistAlbumListViewController.m */,
-				60938EFC20ABBA3B00CD8115 /* GKWYArtistVideoListViewController.h */,
-				60938EFD20ABBA3B00CD8115 /* GKWYArtistVideoListViewController.m */,
-				60938F0020ABBBC600CD8115 /* GKWYArtistIntroViewController.h */,
-				60938F0120ABBBC600CD8115 /* GKWYArtistIntroViewController.m */,
-				60938FBA20B1740400CD8115 /* GKWYIntroDetailViewController.h */,
-				60938FBB20B1740400CD8115 /* GKWYIntroDetailViewController.m */,
-				60938F8A20AEDA4A00CD8115 /* GKWYBaseSubViewController.h */,
-				60938F8B20AEDA4A00CD8115 /* GKWYBaseSubViewController.m */,
+				79441C24289CE67F00668FAA /* GKWYArtistListViewController.h */,
+				79441C25289CE67F00668FAA /* GKWYArtistListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -975,18 +962,12 @@
 			children = (
 				6061767B209AB5920054C8E1 /* GKWYSearchViewController.h */,
 				6061767C209AB5920054C8E1 /* GKWYSearchViewController.m */,
-				6061768D209B195A0054C8E1 /* GKWYSongResultViewController.h */,
-				6061768E209B195A0054C8E1 /* GKWYSongResultViewController.m */,
-				60938FBF20B4198C00CD8115 /* GKWYVideoResultViewController.h */,
-				60938FC020B4198C00CD8115 /* GKWYVideoResultViewController.m */,
-				60617690209B19680054C8E1 /* GKWYArtistResultViewController.h */,
-				60617691209B19680054C8E1 /* GKWYArtistResultViewController.m */,
-				60617693209B19710054C8E1 /* GKWYAlbumResultViewController.h */,
-				60617694209B19710054C8E1 /* GKWYAlbumResultViewController.m */,
-				60125562217F169900547CE5 /* GKWYPlayListResultViewController.h */,
-				60125563217F169900547CE5 /* GKWYPlayListResultViewController.m */,
-				60125565217F16AB00547CE5 /* GKWYUserResultViewController.h */,
-				60125566217F16AB00547CE5 /* GKWYUserResultViewController.m */,
+				79254C8F2897CD31003E44D5 /* GKWYSearchResultViewController.h */,
+				79254C902897CD31003E44D5 /* GKWYSearchResultViewController.m */,
+				79441C0E2899045800668FAA /* GKWYResultAllViewController.h */,
+				79441C0F2899045800668FAA /* GKWYResultAllViewController.m */,
+				79441C0B2898C61D00668FAA /* GKWYResultListViewController.h */,
+				79441C0C2898C61D00668FAA /* GKWYResultListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1000,8 +981,12 @@
 				6093900B20B66A7800CD8115 /* GKWYSearchViewCell.m */,
 				6061769A209C0EB60054C8E1 /* GKWYSongViewCell.h */,
 				6061769B209C0EB60054C8E1 /* GKWYSongViewCell.m */,
+				79441C14289A38C800668FAA /* GKWYPlayListViewCell.h */,
+				79441C15289A38C800668FAA /* GKWYPlayListViewCell.m */,
 				6061769D209C0EC10054C8E1 /* GKWYArtistViewCell.h */,
 				6061769E209C0EC10054C8E1 /* GKWYArtistViewCell.m */,
+				79441C112899154800668FAA /* GKWYResultTitleView.h */,
+				79441C122899154800668FAA /* GKWYResultTitleView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1048,6 +1033,10 @@
 		609391AB20BCD5FC00CD8115 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7900F98628A353340019BF35 /* GKWYVideoView.h */,
+				7900F98728A353340019BF35 /* GKWYVideoView.m */,
+				7900F98928A3534D0019BF35 /* GKWYVideoCoverView.h */,
+				7900F98A28A3534D0019BF35 /* GKWYVideoCoverView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1081,6 +1070,15 @@
 				60E53CBF255D114E00AAA97E /* Info.plist */,
 			);
 			path = GKWYIntent;
+			sourceTree = "<group>";
+		};
+		79441C27289D121000668FAA /* GKWYRoutes */ = {
+			isa = PBXGroup;
+			children = (
+				79441C28289D128600668FAA /* GKWYRoutes.h */,
+				79441C29289D128600668FAA /* GKWYRoutes.m */,
+			);
+			path = GKWYRoutes;
 			sourceTree = "<group>";
 		};
 		79E571F8288E64F5005EB065 /* GKLoadingView */ = {
@@ -1214,7 +1212,7 @@
 			attributes = {
 				CLASSPREFIX = GKWY;
 				LastSwiftUpdateCheck = 1210;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = gaokun;
 				TargetAttributes = {
 					603F822020887A20004A8F29 = {
@@ -1353,6 +1351,7 @@
 			files = (
 				603A12902088A8BA002A5BD3 /* GKLyricModel.m in Sources */,
 				6061767A209AACD60054C8E1 /* GKRefreshFooter.m in Sources */,
+				79441C102899045800668FAA /* GKWYResultAllViewController.m in Sources */,
 				603A12862088A86A002A5BD3 /* GKWYHomeViewController.m in Sources */,
 				79E4518B28892111004282A3 /* UITabBarAppearance+GKCategory.m in Sources */,
 				6061767D209AB5920054C8E1 /* GKWYSearchViewController.m in Sources */,
@@ -1361,7 +1360,8 @@
 				609391B220BD062800CD8115 /* GKWYVideoDetailModel.m in Sources */,
 				6061769F209C0EC10054C8E1 /* GKWYArtistViewCell.m in Sources */,
 				60938F8320AE5AEA00CD8115 /* GKWYIntroViewCell.m in Sources */,
-				79E4518228891080004282A3 /* GKWYListModel.m in Sources */,
+				79E4518228891080004282A3 /* GKWYPlayListModel.m in Sources */,
+				79441C16289A38C800668FAA /* GKWYPlayListViewCell.m in Sources */,
 				603F823420887A21004A8F29 /* main.m in Sources */,
 				603A1275208881A3002A5BD3 /* GKDownloadManager.m in Sources */,
 				60938F8620AE603F00CD8115 /* GKWYArtistRecModel.m in Sources */,
@@ -1370,39 +1370,38 @@
 				79E572152890E289005EB065 /* GKPipManager.m in Sources */,
 				603A12C42089C8F1002A5BD3 /* GKVolumeView.m in Sources */,
 				60938F8020ADA5AB00CD8115 /* GKWYVideoModel.m in Sources */,
-				60938F0220ABBBC600CD8115 /* GKWYArtistIntroViewController.m in Sources */,
-				6061768F209B195A0054C8E1 /* GKWYSongResultViewController.m in Sources */,
 				603A12912088A8BA002A5BD3 /* GKLyricParser.m in Sources */,
 				603A12BE2089C8BB002A5BD3 /* GKWYMusicVolumeView.m in Sources */,
 				6093900920B6435100CD8115 /* GKWYTagModel.m in Sources */,
-				60938FC120B4198C00CD8115 /* GKWYVideoResultViewController.m in Sources */,
-				60938F8C20AEDA4A00CD8115 /* GKWYBaseSubViewController.m in Sources */,
-				60938EFE20ABBA3B00CD8115 /* GKWYArtistVideoListViewController.m in Sources */,
+				79441C0D2898C61D00668FAA /* GKWYResultListViewController.m in Sources */,
+				79441C1C289B71B900668FAA /* GKWYArrowView.m in Sources */,
+				79441C2A289D128600668FAA /* GKWYRoutes.m in Sources */,
+				79441C26289CE67F00668FAA /* GKWYArtistListViewController.m in Sources */,
 				79E5721A289119D5005EB065 /* GKWYDesktopView.m in Sources */,
 				603A13582091C691002A5BD3 /* GKRefreshHeader.m in Sources */,
 				603F822620887A20004A8F29 /* AppDelegate.m in Sources */,
 				603A12BB2089C70A002A5BD3 /* GKWYMusicLyricView.m in Sources */,
+				7900F98828A353340019BF35 /* GKWYVideoView.m in Sources */,
 				603A1273208881A3002A5BD3 /* GKActionSheetViewCell.m in Sources */,
 				60938EEF20AAF1C300CD8115 /* GKWYAlbumHeader.m in Sources */,
 				606C158C20CA2782005ECEF8 /* GKVideoPlayer.m in Sources */,
 				79E4518E288937C6004282A3 /* GKWYPlayListViewController.m in Sources */,
 				60264F43216F5793006E6837 /* GKWYArtistHeaderView.m in Sources */,
 				606176A8209C6CB20054C8E1 /* GKWYMyListViewController.m in Sources */,
-				60617692209B19680054C8E1 /* GKWYArtistResultViewController.m in Sources */,
 				603A12AC2089901B002A5BD3 /* UIViewController+GKWYCategory.m in Sources */,
 				79E4517C2887F347004282A3 /* GKWYBaseListViewController.m in Sources */,
 				60938EF220AAF1D900CD8115 /* GKVerticalButton.m in Sources */,
-				60125564217F169900547CE5 /* GKWYPlayListResultViewController.m in Sources */,
 				79E4518528891312004282A3 /* GKWYCoverView.m in Sources */,
 				603A12CF208D60A9002A5BD3 /* GKWYMusicListView.m in Sources */,
 				603A12C72089D11C002A5BD3 /* GKWYMusicControlView.m in Sources */,
 				603A12952089858B002A5BD3 /* GKHttpManager.m in Sources */,
-				60125567217F16AB00547CE5 /* GKWYUserResultViewController.m in Sources */,
+				79254C912897CD31003E44D5 /* GKWYSearchResultViewController.m in Sources */,
 				79E451792887D794004282A3 /* GKWYListTagModel.m in Sources */,
 				603A127C20888228002A5BD3 /* GKPlayer.m in Sources */,
 				603A1274208881A3002A5BD3 /* GKDownloadModel.m in Sources */,
 				603A1272208881A3002A5BD3 /* GKActionSheet.m in Sources */,
 				603A12A720898D24002A5BD3 /* GKWYMusicTool.m in Sources */,
+				79441C132899154800668FAA /* GKWYResultTitleView.m in Sources */,
 				60938EE920AAF1AE00CD8115 /* GKWYAlbumViewController.m in Sources */,
 				606176C520A581720054C8E1 /* FXBlurView.m in Sources */,
 				60938EEC20AAF1B800CD8115 /* GKWYAlbumModel.m in Sources */,
@@ -1414,20 +1413,17 @@
 				606176A5209C6CA10054C8E1 /* GKWYMyListViewCell.m in Sources */,
 				603A12E6208DBA0D002A5BD3 /* GKWYBaseTableViewController.m in Sources */,
 				6093900C20B66A7800CD8115 /* GKWYSearchViewCell.m in Sources */,
-				60938EF820AB01D900CD8115 /* GKWYArtistSongListViewController.m in Sources */,
 				603A1298208989B0002A5BD3 /* GKWYMainViewController.m in Sources */,
 				603A129E20898C1A002A5BD3 /* GKWYMineViewController.m in Sources */,
 				60617699209BF5B30054C8E1 /* GKSearchBar.m in Sources */,
-				60617695209B19710054C8E1 /* GKWYAlbumResultViewController.m in Sources */,
 				603A1278208881D6002A5BD3 /* GKWYPlayerViewController.m in Sources */,
 				603A12B520899A49002A5BD3 /* GKWYMusicCoverView.m in Sources */,
 				6061769C209C0EB60054C8E1 /* GKWYSongViewCell.m in Sources */,
 				603A12B82089A92E002A5BD3 /* GKWYDiskView.m in Sources */,
-				60938FBC20B1740400CD8115 /* GKWYIntroDetailViewController.m in Sources */,
 				79E571FB288E6504005EB065 /* GKLoadingView.m in Sources */,
+				7900F98B28A3534D0019BF35 /* GKWYVideoCoverView.m in Sources */,
 				603A128A2088A899002A5BD3 /* GKSliderView.m in Sources */,
 				603A12CA208C37A0002A5BD3 /* GKWYListViewCell.m in Sources */,
-				60938EFB20ABB6AB00CD8115 /* GKWYArtistAlbumListViewController.m in Sources */,
 				603A12AF2089902A002A5BD3 /* UIImage+GKWYCategory.m in Sources */,
 				79E571F7288E393A005EB065 /* UIButton+GKWYCategory.m in Sources */,
 				790DB75A288A3A17000260BC /* GKWYPlayListHeaderView.m in Sources */,

@@ -56,7 +56,7 @@
         
         [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.right.equalTo(self);
-            make.height.mas_equalTo(0.5f);
+            make.height.mas_equalTo(LINE_HEIGHT);
         }];
         
         [self.diskBgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -216,7 +216,7 @@
         GKWYMusicModel *rightM  = self.musics[rightIndex];
         
         // 设置图片
-        self.centerDiskView.imgUrl = centerM.album_pic;
+        self.centerDiskView.imgUrl = centerM.al.picUrl;
         
         if (needChange) {
             self.centerDiskView.diskImgView.transform = CGAffineTransformIdentity;
@@ -226,8 +226,8 @@
                 
                 [self setScrollViewContentOffsetCenter];
                 
-                self.leftDiskView.imgUrl    = leftM.album_pic;
-                self.rightDiskView.imgUrl   = rightM.album_pic;
+                self.leftDiskView.imgUrl    = leftM.al.picUrl;
+                self.rightDiskView.imgUrl   = rightM.al.picUrl;
                 
                 if (self.isUserChanged) {
                     !self.finished ? : self.finished();
@@ -236,8 +236,8 @@
             });
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.leftDiskView.imgUrl    = leftM.album_pic;
-                self.rightDiskView.imgUrl   = rightM.album_pic;
+                self.leftDiskView.imgUrl    = leftM.al.picUrl;
+                self.rightDiskView.imgUrl   = rightM.al.picUrl;
             });
         }
     }

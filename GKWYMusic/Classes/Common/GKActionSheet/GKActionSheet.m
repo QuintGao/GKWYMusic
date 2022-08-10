@@ -97,7 +97,9 @@ static GKActionSheet *currentActionSheet;
     
     self.frame = CGRectMake(0, 0, KScreenW, height);
     
-    bgView.gk_size = CGSizeMake(KScreenW, IS_58INCH ? height + 34.0f : height);
+    height += GK_NOTCHED_SCREEN ? GK_SAFEAREA_BTM : 0;
+    
+    bgView.gk_size = CGSizeMake(KScreenW, height);
     
     [GKCover coverFrom:[UIApplication sharedApplication].keyWindow
            contentView:bgView

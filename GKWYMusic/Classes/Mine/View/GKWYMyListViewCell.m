@@ -53,7 +53,7 @@
         [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.nameLabel.mas_left);
             make.right.bottom.equalTo(self.contentView);
-            make.height.mas_equalTo(0.5f);
+            make.height.mas_equalTo(LINE_HEIGHT);
         }];
     }
     return self;
@@ -63,7 +63,7 @@
     _model = model;
     
     self.nameLabel.text = model.song_name;
-    self.descLabel.text = [NSString stringWithFormat:@"%@ - %@", model.artists_name, model.album_title];
+    self.descLabel.text = [NSString stringWithFormat:@"%@ - %@", model.artists_name, model.al.name];
     
     if (model.isDownload) {
         self.tagImgView.hidden = NO;

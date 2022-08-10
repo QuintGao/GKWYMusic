@@ -8,6 +8,9 @@
 
 #import "GKWYBaseViewController.h"
 #import <JXCategoryViewExt/JXCategoryView.h>
+#import "GKLoadingView.h"
+#import "GKWYPageViewController.h"
+#import <GKPageScrollView/GKPageScrollView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,9 +24,11 @@ typedef NS_ENUM(NSUInteger, GKWYListType) {
 
 - (instancetype)initWithType:(GKWYListType)type;
 
-@property (nonatomic, assign) GKWYListType type;
+@property (nonatomic, assign) GKWYListType listType;
 
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) GKLoadingView *loadingView;
 
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -31,6 +36,12 @@ typedef NS_ENUM(NSUInteger, GKWYListType) {
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
+
+@property (nonatomic, weak) GKWYPageViewController *pageVC;
+
+@end
+
+@interface GKWYBaseListViewController (UIScrollView)<UIScrollViewDelegate>
 
 @end
 
@@ -42,7 +53,7 @@ typedef NS_ENUM(NSUInteger, GKWYListType) {
 
 @end
 
-@interface GKWYBaseListViewController (JXListContainerView)<JXCategoryListContentViewDelegate>
+@interface GKWYBaseListViewController (JXListContainerView)<JXCategoryListContentViewDelegate, GKPageListViewDelegate>
 
 @end
 

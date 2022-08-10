@@ -11,12 +11,13 @@
 
 #import <GKNavigationBar/GKNavigationBar.h>
 #import <AFNetworking/AFNetworking.h>
-#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/SDWebImage.h>
 #import <YYModel/YYModel.h>
 #import <GKCover/GKCover.h>
 #import <Masonry/Masonry.h>
 #import <MJRefresh/MJRefresh.h>
 #import <GKMessageTool/GKMessageTool.h>
+#import <ReactiveObjC/ReactiveObjC.h>
 
 #import "GKWYCategory.h"
 #import "GKActionSheet.h"
@@ -28,6 +29,7 @@
 #import "GKPlayer.h"
 #import "GKAudioPlayer.h"
 #import "GKWYPlayerViewController.h"
+#import "GKWYRoutes.h"
 
 #define kScreenW [UIScreen mainScreen].bounds.size.width
 #define kScreenH [UIScreen mainScreen].bounds.size.height
@@ -42,15 +44,17 @@
 //  适配比例
 #define ADAPTATIONRATIO     kScreenW / 750.0f
 
+#define LINE_HEIGHT         1.0f / [UIScreen mainScreen].scale
+
 #define kAdaptive(width)    ADAPTATIONRATIO * width
 //
 //  导航栏高度[statusBar + NavigationBar]-------------------------------------------
-#define NAVBAR_HEIGHT       (IS_58INCH ? 88.0f : 64.0f)
+#define NAVBAR_HEIGHT       GK_STATUSBAR_NAVBAR_HEIGHT
 //
-#define STATUSBAR_HEIGHT    20.0f
+#define STATUSBAR_HEIGHT    GK_STATUSBAR_HEIGHT
 //
 //  tabBar高度
-#define TABBAR_HEIGHT       (IS_58INCH ? 83.0f : 49.0f)
+#define TABBAR_HEIGHT       GK_TABBAR_HEIGHT
 
 #pragma mark - 歌手详情页宏定义
 // header高度
@@ -70,8 +74,10 @@
 
 #define GKColorRandom           GKColorRGB(arc4random() % 255, arc4random() % 255, arc4random() % 255)
 
-#define kAPPDefaultColor        GKColorRGB(200, 38, 39)
+#define kAPPDefaultColor        GKColorRGB(217, 53, 55)
 #define kAppLineColor           GKColorRGB(200, 200, 200)
+
+#define KAPPSearchColor         GKColorRGB(137, 163, 209)
 
 /*********************************通知相关************************************/
 #define kNotificationCenter [NSNotificationCenter defaultCenter]

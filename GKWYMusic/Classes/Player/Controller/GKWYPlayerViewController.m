@@ -191,6 +191,20 @@
 }
 
 #pragma mark - Public Methods
+- (void)show {
+    UIViewController *currentVC = GKConfigure.visibleViewController;
+    if ([currentVC isKindOfClass:GKWYPlayerViewController.class]) return;
+    
+    [currentVC.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:GKWYPlayerViewController.class]) {
+            [obj removeFromParentViewController];
+            *stop = YES;
+        }
+    }];
+    
+    [currentVC.navigationController pushViewController:self animated:YES];
+}
+
 - (void)initialData {
     NSArray *musics = [GKWYMusicTool musicList];
     
@@ -670,8 +684,8 @@
                 self.model.file_extension = data[@"type"];
                 
                 // 背景图片
-                [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:self.model.album_pic] placeholderImage:[UIImage imageNamed:@"cm2_fm_bg-ip6"]];
-                self.desktopView.diskImageUrl = self.model.album_pic;
+                [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:self.model.al.picUrl] placeholderImage:[UIImage imageNamed:@"cm2_fm_bg-ip6"]];
+                self.desktopView.diskImageUrl = self.model.al.picUrl;
                 
                 [self resetCoverViewWithModel:self.model];
                 
@@ -911,7 +925,7 @@
     MPNowPlayingInfoCenter *playingCenter = [MPNowPlayingInfoCenter defaultCenter];
     
     NSMutableDictionary *playingInfo = [NSMutableDictionary new];
-    playingInfo[MPMediaItemPropertyAlbumTitle] = self.model.album_title;
+    playingInfo[MPMediaItemPropertyAlbumTitle] = self.model.al.name;
     playingInfo[MPMediaItemPropertyTitle]      = self.model.song_name;
     playingInfo[MPMediaItemPropertyArtist]     = self.model.artists_name;
     
@@ -937,7 +951,7 @@
     MPNowPlayingInfoCenter *playingCenter = [MPNowPlayingInfoCenter defaultCenter];
     
     NSMutableDictionary *playingInfo = [NSMutableDictionary new];
-    playingInfo[MPMediaItemPropertyAlbumTitle] = self.model.album_title;
+    playingInfo[MPMediaItemPropertyAlbumTitle] = self.model.al.name;
     playingInfo[MPMediaItemPropertyTitle]      = self.model.song_name;
     playingInfo[MPMediaItemPropertyArtist]     = self.model.artists_name;
     
@@ -1333,7 +1347,7 @@
     [items addObject:artistItem];
     
     GKActionSheetItem *albumItem = [GKActionSheetItem new];
-    albumItem.title         = [NSString stringWithFormat:@"专辑：%@", self.model.album_title];
+    albumItem.title         = [NSString stringWithFormat:@"专辑：%@", self.model.al.name];
     albumItem.imgName       = @"cm2_lay_icn_alb_new";
     albumItem.enabled       = YES;
     albumItem.clickBlock    = ^{
@@ -1598,13 +1612,13 @@
         NSMutableArray *items = [NSMutableArray new];
         
         __typeof(self) __weak weakSelf = self;
-        [self.model.ar enumerateObjectsUsingBlock:^(GKWYMusicArModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.model.ar enumerateObjectsUsingBlock:^(GKWYArtistModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             GKActionSheetItem *item = [GKActionSheetItem new];
             item.title = obj.name;
             item.enabled = YES;
             item.clickBlock = ^{
                 GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
-                artistVC.artistid = obj.ar_id;
+                artistVC.artist_id = obj.artist_id;
                 [weakSelf.navigationController pushViewController:artistVC animated:YES];
             };
             [items addObject:item];
@@ -1613,20 +1627,20 @@
         [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手" itemInfos:items];
     }else {
         GKWYArtistViewController *artistVC = [GKWYArtistViewController new];
-        artistVC.artistid = self.model.ar.firstObject.ar_id;
+        artistVC.artist_id = self.model.ar.firstObject.artist_id;
         [self.navigationController pushViewController:artistVC animated:YES];
     }
 }
 
 - (void)pushToAlbumVC {
     GKWYAlbumViewController *albumVC = [GKWYAlbumViewController new];
-    albumVC.album_id = self.model.album_id;
+    albumVC.album_id = self.model.al.album_id;
     [self.navigationController pushViewController:albumVC animated:YES];
 }
 
 - (void)showDesktopLyric {
     self.desktopView = [[GKWYDesktopView alloc] init];
-    self.desktopView.diskImageUrl = self.model.album_pic;
+    self.desktopView.diskImageUrl = self.model.al.picUrl;
     self.desktopView.lyric = [self.lyricView currentLyric];
     if (self.isPlaying) {
         [self.desktopView startPlay];
@@ -1644,8 +1658,7 @@
         [weakSelf playNext];
     };
     
-    NSString *output = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"pip.mp4"];
-    NSURL *url = [NSURL fileURLWithPath:output];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"pip" withExtension:@"mp4"];
     
     [[GKPipManager sharedManager] startPipWithUrl:url customView:self.desktopView success:^{
         NSLog(@"画中画开启成功");

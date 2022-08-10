@@ -25,6 +25,9 @@
     // 初始化导航栏style
     [self initNavStyle];
     
+    // 注册路由
+    [self registerRoutes];
+    
     // 初始化主窗口
     [self initWindow];
     
@@ -66,6 +69,10 @@
         [UITableView appearance].estimatedSectionFooterHeight = 0;
         [UITableView appearance].estimatedSectionHeaderHeight = 0;
     }
+}
+
+- (void)registerRoutes {
+    [GKWYRoutes registerRoutes];
 }
 
 /**
@@ -130,15 +137,7 @@
 }
 
 - (void)topbarPlayBtnClick:(id)sender {
-    UIViewController *vc = [GKWYMusicTool visibleViewController];
-    
-    [vc.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[GKWYPlayerViewController class]]) {
-            [obj removeFromParentViewController];
-        }
-    }];
-    
-    [[GKWYMusicTool visibleViewController].navigationController pushViewController:kWYPlayerVC animated:YES];
+    [kWYPlayerVC show];
 }
 
 - (void)playStatusChanged:(NSNotification *)notify {

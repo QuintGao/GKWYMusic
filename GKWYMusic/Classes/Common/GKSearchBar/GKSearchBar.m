@@ -63,10 +63,10 @@
 - (void)adjustIconWithIconAlign:(GKSearchBarIconAlign)iconAlign {
     if (iconAlign == GKSearchBarIconAlignCenter && (([self.text isKindOfClass:[NSNull class]] || !self.text || [self.text isEqualToString:@""] || self.text.length == 0) && ![_textField isFirstResponder])) {
         self.centerIconBtn.hidden = NO;
-        self.textField.frame = CGRectMake(7, 7, self.frame.size.width - 14, 30);
+        self.textField.frame = CGRectMake(7, 5, self.frame.size.width - 14, 34);
         self.textField.textAlignment = NSTextAlignmentCenter;
         if (self.showCancelButton) {
-            self.textField.frame = CGRectMake(7, 7, self.cancelBtn.frame.origin.x - 7, 30);
+            self.textField.frame = CGRectMake(7, 5, self.cancelBtn.frame.origin.x - 7, 34);
         }
         
         CGSize titleSize = CGSizeZero;
@@ -75,7 +75,7 @@
         
         CGFloat x = self.textField.frame.size.width / 2.0f - titleSize.width / 2.0f - 30;
         [self.centerIconBtn setImage:self.iconImage forState:UIControlStateNormal];
-        self.centerIconBtn.frame = CGRectMake(x > 0 ? x : 0, 0, self.leftIconBtn.frame.size.width, self.leftIconBtn.frame.size.height);
+        self.centerIconBtn.frame = CGRectMake(x > 0 ? x : 0, 0, self.centerIconBtn.frame.size.width, self.centerIconBtn.frame.size.height);
         self.centerIconBtn.hidden = x > 0 ? NO : YES;
         self.textField.leftView = x > 0 ? nil : self.leftIconBtn;
         self.textField.leftViewMode = x > 0 ? UITextFieldViewModeNever : UITextFieldViewModeAlways;
@@ -84,8 +84,14 @@
         self.textField.textAlignment = NSTextAlignmentLeft;
         self.textField.leftViewMode  = UITextFieldViewModeAlways;
         
+        [self.leftIconBtn setImage:self.iconImage forState:UIControlStateNormal];
+        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 34)];
+        self.leftIconBtn.center = CGPointMake(18, 17);
+        [leftView addSubview:self.leftIconBtn];
+        self.textField.leftView = leftView;
+        
         if (self.showCancelButton) {
-            self.textField.frame = CGRectMake(7, 7, self.cancelBtn.frame.origin.x - 7, 30);
+            self.textField.frame = CGRectMake(7, 5, self.cancelBtn.frame.origin.x - 7, 34);
         }
     }
 }
@@ -193,16 +199,6 @@
     }
 }
 
-- (void)setIconImage:(UIImage *)iconImage {
-    if (!_iconImage) {
-        _iconImage = iconImage;
-        
-        [self.leftIconBtn setImage:_iconImage forState:UIControlStateNormal];
-        self.textField.leftView = self.leftIconBtn;
-        self.textField.leftViewMode = UITextFieldViewModeAlways;
-    }
-}
-
 - (void)setPlaceholder:(NSString *)placeholder {
     _placeholder = placeholder;
     
@@ -227,6 +223,10 @@
             self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.placeholder attributes:@{NSForegroundColorAttributeName : placeholderColor, NSFontAttributeName : self.textField.font}];
         }
     }
+}
+
+- (void)setText:(NSString *)text {
+    self.textField.text = text;
 }
 
 - (NSString *)text {
@@ -261,7 +261,7 @@
 
 - (UITextField *)textField {
     if (!_textField) {
-        _textField = [[UITextField alloc] initWithFrame:CGRectMake(7, 7, self.frame.size.width - 14, 30.0f)];
+        _textField = [[UITextField alloc] initWithFrame:CGRectMake(7, 5, self.frame.size.width - 14, 34.0f)];
         _textField.delegate = self;
         _textField.borderStyle = UITextBorderStyleNone;
         _textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -282,9 +282,10 @@
 - (UIButton *)leftIconBtn {
     if (!_leftIconBtn) {
         _leftIconBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _leftIconBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 7, 5, 7);
+//        _leftIconBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 7, 5, 7);
         _leftIconBtn.frame = CGRectMake(5, 5, _textField.frame.size.height + 4, _textField.frame.size.height);
         _leftIconBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+//        _leftIconBtn.backgroundColor = UIColor.blackColor;
     }
     return _leftIconBtn;
 }
@@ -292,7 +293,7 @@
 - (UIButton *)centerIconBtn {
     if (!_centerIconBtn) {
         _centerIconBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _centerIconBtn.frame = self.centerIconBtn.frame;
+        _centerIconBtn.frame = CGRectMake(5, 5, _textField.frame.size.height + 4, _textField.frame.size.height);
         _centerIconBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 7, 5, 7);
         _centerIconBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_textField addSubview:_centerIconBtn];
