@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "GKWYMainViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "GKWYWidgetRoutes.h"
 
 @interface AppDelegate ()
 {
@@ -73,6 +74,7 @@
 
 - (void)registerRoutes {
     [GKWYRoutes registerRoutes];
+    [GKWYWidgetRoutes registerRoutes];
 }
 
 /**
@@ -195,15 +197,7 @@
     NSString *scheme = [url.scheme lowercaseString];
     
     if ([scheme isEqualToString:@"gkwywidget"]) {
-        // 处理跳转后的逻辑
-        NSString *host = url.host;
-        NSLog(@"%@", host);
-        if ([host isEqualToString:@"com.wy.music"]) { // 歌单推荐
-            
-        }else {
-            // ...
-        }
-        
+        [GKWYWidgetRoutes routeURL:url];
         return YES;
     }
     return YES;

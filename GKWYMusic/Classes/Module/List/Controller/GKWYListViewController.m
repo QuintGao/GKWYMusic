@@ -60,8 +60,6 @@
 }
 
 - (void)initUI {
-    self.gk_navigationBar.hidden = YES;
-    
     self.layout.sectionInset = UIEdgeInsetsMake(10, 16, 10, 16);
     CGFloat itemWH = (kScreenW - 32 - 20) / 3;
     self.layout.itemSize = CGSizeMake(itemWH, itemWH + kAdaptive(16.0) + [UIFont systemFontOfSize:15.0].lineHeight * 2);
@@ -69,16 +67,24 @@
     self.layout.minimumInteritemSpacing = 10;
     [self.collectionView registerClass:[GKWYPlayListCell class] forCellWithReuseIdentifier:@"GKWYPlayListCell"];
     
-    self.collectionView.mj_header = [GKRefreshHeader headerWithRefreshingBlock:^{
-        self.lasttime = @"";
-        [self loadData];
-    }];
-    
-    self.collectionView.mj_footer = [GKRefreshFooter footerWithRefreshingBlock:^{
-        [self loadData];
-    }];
-    
-    self.collectionView.mj_footer.hidden = YES;
+    if (self.isRecommend) {
+        self.gk_navTitle = @"推荐歌单";
+        [self.collectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+            make.left.right.bottom.equalTo(self.view);
+        }];
+    }else {
+        self.collectionView.mj_header = [GKRefreshHeader headerWithRefreshingBlock:^{
+            self.lasttime = @"";
+            [self loadData];
+        }];
+        
+        self.collectionView.mj_footer = [GKRefreshFooter footerWithRefreshingBlock:^{
+            [self loadData];
+        }];
+        
+        self.collectionView.mj_footer.hidden = YES;
+    }
 }
 
 - (void)requestData {
@@ -88,11 +94,39 @@
 }
 
 - (void)loadData {
+    if (self.isRecommend) {
+        [self requestRecommend];
+    }else {
+        [self requestPlaylist];
+    }
+}
+
+- (void)requestRecommend {
+    NSString *api = @"recommend/resource";
+    
+    @weakify(self);
+    [kHttpManager get:api params:nil successBlock:^(id responseObject) {
+        @strongify(self);
+        [self.loadingView stopAnimation];
+        if ([responseObject[@"code"] integerValue] == 200) {
+            NSArray *list = [NSArray yy_modelArrayWithClass:GKWYPlayListModel.class json:responseObject[@"recommend"]];
+            [self.dataSource addObjectsFromArray:list];
+            [self.collectionView reloadData];
+        }
+    } failureBlock:^(NSError *error) {
+        @strongify(self);
+        [self.loadingView stopAnimation];
+    }];
+}
+
+- (void)requestPlaylist {
     // 获取列表
     NSString *api = [NSString stringWithFormat:@"top/playlist/highquality"];
     NSDictionary *params = @{@"limit": @20, @"cat": self.tagModel.name, @"before": self.lasttime};
     
+    @weakify(self);
     [kHttpManager get:api params:params successBlock:^(id responseObject) {
+        @strongify(self);
         [self.loadingView stopAnimation];
         [self.collectionView.mj_header endRefreshing];
         self.collectionView.mj_footer.hidden = NO;
@@ -118,6 +152,7 @@
             [GKMessageTool showError:@"请求失败"];
         }
     } failureBlock:^(NSError *error) {
+        @strongify(self);
         [self.loadingView stopAnimation];
         self.collectionView.mj_footer.hidden = NO;
         [self.collectionView.mj_header endRefreshing];

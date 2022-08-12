@@ -9,22 +9,22 @@
 import Intents
 
 class IntentHandler: INExtension, GKWYWidgetConfigurationIntentHandling {
-    func provideModeArrOptionsCollection(for intent: GKWYWidgetConfigurationIntent, with completion: @escaping (INObjectCollection<GKWYWidgetMode>?, Error?) -> Void) {
+    func provideModeArrOptionsCollection(for intent: GKWYWidgetConfigurationIntent, searchTerm: String?, with completion: @escaping (INObjectCollection<GKWYWidgetMode>?, Error?) -> Void) {
         var list = [GKWYWidgetMode]()
-        for data in GKWYData.getList() {
+        for model in GKWYData.getList() {
             if intent.modeArr != nil {
                 var exist = false
                 for mode in intent.modeArr! {
-                    if mode.identifier == data.id {
+                    if mode.identifier == model.id {
                         exist = true
                     }
                 }
                 // 没有才去添加
                 if !exist {
-                    list.append(.init(identifier: data.id, display: data.title, subtitle: data.desc, image: nil))
+                    list.append(.init(identifier: model.id, display: model.title, pronunciationHint: model.desc))
                 }
             }else {
-                list.append(.init(identifier: data.id, display: data.title, subtitle: data.desc, image: nil))
+                list.append(.init(identifier: model.id, display: model.title, pronunciationHint: model.desc))
             }
         }
         completion(.init(items: list), nil)

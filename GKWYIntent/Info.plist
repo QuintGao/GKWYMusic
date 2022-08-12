@@ -30,6 +30,7 @@
 			<array/>
 			<key>IntentsSupported</key>
 			<array>
+				<string>GKWYWidgetConfigurationIntent</string>
 				<string>WidgetConfiguration</string>
 			</array>
 		</dict>

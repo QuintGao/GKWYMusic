@@ -43,7 +43,9 @@
 - (void)setModel:(GKWYPlayListModel *)model {
     _model = model;
     
-    [self.coverView.imgView sd_setImageWithURL:[NSURL URLWithString:model.coverImgUrl] placeholderImage:[UIImage imageNamed:@"cm2_default_cover_80"]];
+    NSString *url = model.coverImgUrl ? model.coverImgUrl : model.picUrl;
+    
+    [self.coverView.imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"cm2_default_cover_80"]];
     [self.coverView updateCount:model.formatPlayCount];
     
     self.titleLabel.text = model.name;

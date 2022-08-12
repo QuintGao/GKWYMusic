@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) GKWYListTagModel *tagModel;
 
+@property (nonatomic, assign) BOOL isRecommend;
+
 @end

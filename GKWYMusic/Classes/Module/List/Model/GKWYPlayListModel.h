@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *coverImgUrl;
 
+@property (nonatomic, copy) NSString *picUrl;
+
 @property (nonatomic, strong) GKWYPlayListCreator *creator;
 
 @property (nonatomic, copy) NSString *playCount;

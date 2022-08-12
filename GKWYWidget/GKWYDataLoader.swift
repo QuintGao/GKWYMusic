@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-let typePrefix = "GKWYWidget://com.wy."
+let typePrefix = "GKWYWidget://"
 // 创建默认数据
 let defaultData = GKWYData.getList().first!
 
@@ -26,7 +26,7 @@ struct GKWYData {
         list.append(.init(id: "1", title: "每日音乐推荐", desc: "为你带来每日惊喜", icon: "cm4_disc_type_list", type: "music", bgImage: UIImage(named: "recommend_bg")))
         list.append(.init(id: "2", title: "私人雷达", desc: "探索另类音乐宝藏", icon: "cm4_disc_type_radio", type: "radar", bgImage: UIImage(named: "leida_bg")))
         list.append(.init(id: "3", title: "私人FM", desc: "最懂你的音乐电台", icon: "cm4_disc_type_alb", type: "fm", bgImage: UIImage(named: "fm_bg")))
-        list.append(.init(id: "4", title: "我喜欢的音乐", desc: "最懂你的音乐电台", icon: "cm4_disc_type_product", type: "fm", bgImage: UIImage(named: "love_bg")))
+        list.append(.init(id: "4", title: "我喜欢的音乐", desc: "最懂你的音乐电台", icon: "cm4_disc_type_product", type: "liked", bgImage: UIImage(named: "love_bg")))
         list.append(.init(id: "5", title: "歌单推荐", desc: "精选人气歌单", icon: "cm4_disc_type_act", type: "playlist", bgImage: UIImage(named: "list_bg")))
         return list
     }
@@ -80,33 +80,41 @@ struct GKWYDataLoader {
     /// - Parameter completion: 请求完成回调
     static func requestRecomment(data: GKWYData, completion: @escaping (GKWYData) -> Void) {
         var wyData = data
-        let url = URL(string: "https://musicapi.qianqian.com/v1/restserver/ting?format=json&from=ios&channel=appstore&method=baidu.ting.billboard.billList&type=1&size=20&offset=0")!
+        let url = URL(string: "http://192.168.31.142:3000/recommend/songs")!
         let request = URLRequest(url: url)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if data != nil && error == nil {
                 let json = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
-                let error_code = json["error_code"] as! Int
-                if error_code == 22000 {
-                    if let list = (json["song_list"] as? [[String: Any]]) {
-                        // 获取随机数
-                        let random = arc4random() % UInt32(list.count)
-                        let item = list[Int(random)]
-                        
-                        wyData.title = item["title"] as! String
-                        
-                        let author = item["author"] as! String
-                        let album = item["album_title"] as! String
-                        wyData.desc = author + "-" + album
-                        
-                        let cover = item["pic_radio"] as! String
-                        if let imgData = try? Data(contentsOf: URL(string: cover)!) {
-                            wyData.bgImage = UIImage(data: imgData)
-                        }
-                        completion(wyData)
-                    }else {
-                        completion(defaultData)
+                let code = json["code"] as! Int
+                if code == 200 {
+                    guard let data = json["data"] as? [String: Any] else { completion(defaultData)
+                        return
                     }
+                    
+                    guard let songs = data["dailySongs"] as? [[String: Any]] else {
+                        completion(defaultData)
+                        return
+                    }
+                    
+                    // 获取随机数，随机取一个数据作为推荐数据
+                    let random = arc4random() % UInt32(songs.count)
+                    let item = songs[Int(random)]
+                    wyData.title = item["name"] as! String
+                    // 作者
+                    let author = ((item["ar"] as! [[String: Any]]).first!)["name"] as! String
+                    // 专辑
+                    let album = (item["al"] as! [String: Any])["name"] as! String
+                    wyData.desc = author + "-" + album
+                    
+                    // 图片
+                    let cover = (item["al"] as! [String: Any])["picUrl"] as! String
+                    if let imgData = try? Data(contentsOf: URL(string: cover)!) {
+                        wyData.bgImage = UIImage(data: imgData)
+                    }
+                    
+                    // 回调
+                    completion(wyData)
                 }else {
                     completion(defaultData)
                 }

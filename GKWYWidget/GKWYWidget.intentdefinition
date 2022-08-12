@@ -9,11 +9,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>88xZPY</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>20B5022a</string>
+	<string>21F79</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>12A7403</string>
+	<string>13F17a</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>12.1</string>
+	<string>13.4</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -96,6 +96,12 @@
 							<key>INIntentParameterArraySizeSizeClass</key>
 							<string>Large</string>
 						</dict>
+						<dict>
+							<key>INIntentParameterArraySizeSize</key>
+							<integer>12</integer>
+							<key>INIntentParameterArraySizeSizeClass</key>
+							<string>ExtraLarge</string>
+						</dict>
 					</array>
 					<key>INIntentParameterConfigurable</key>
 					<true/>
@@ -141,6 +147,8 @@
 					<true/>
 					<key>INIntentParameterSupportsMultipleValues</key>
 					<true/>
+					<key>INIntentParameterSupportsSearch</key>
+					<true/>
 					<key>INIntentParameterTag</key>
 					<integer>10</integer>
 					<key>INIntentParameterType</key>
@@ -181,7 +189,7 @@
 			<key>INTypeClassPrefix</key>
 			<string>GKWY</string>
 			<key>INTypeDisplayName</key>
-			<string>菜单</string>
+			<string>WYWidgetMode</string>
 			<key>INTypeDisplayNameID</key>
 			<string>8Fdvy6</string>
 			<key>INTypeLastPropertyTag</key>
