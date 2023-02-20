@@ -78,6 +78,7 @@ NSString *const GKWYRoutesScheme = @"gkwymusic";
 + (BOOL)handleArtistRoute:(NSDictionary *)params {
     GKWYArtistViewController *artistVC = [[GKWYArtistViewController alloc] init];
     artistVC.artist_id = params[@"id"];
+    artistVC.model = params[@"model"];
     [[self topNavigationController] pushViewController:artistVC animated:YES];
     return YES;
 }
@@ -92,6 +93,7 @@ NSString *const GKWYRoutesScheme = @"gkwymusic";
 + (BOOL)handleVideoRoute:(NSDictionary *)params {
     GKWYVideoViewController *videoVC = [[GKWYVideoViewController alloc] init];
     videoVC.mv_id = params[@"id"];
+    videoVC.model = params[@"model"];
     [[self topNavigationController] pushViewController:videoVC animated:YES];
     return YES;
 }

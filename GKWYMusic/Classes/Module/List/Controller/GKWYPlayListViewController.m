@@ -193,7 +193,7 @@
         make.bottom.equalTo(playLabel.mas_bottom);
     }];
     
-    return  self.dataSource.count > 0 ? view : nil;
+    return self.dataSource.count > 0 ? view : nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

@@ -22,6 +22,8 @@ target 'GKWYMusic' do
   pod 'MJRefresh'                       # 下拉刷新
   pod 'GKPageScrollView'                # UIScrollView嵌套
   pod 'JLRoutes'                        # 路由
+  pod 'ZFPlayer/AVPlayer'               # 播放器
+  pod 'ZFPlayer/ControlView'
 
 end
 

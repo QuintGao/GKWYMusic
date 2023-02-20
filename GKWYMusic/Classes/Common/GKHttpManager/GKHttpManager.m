@@ -11,7 +11,7 @@
 //#define kBaseUrl @"http://music.baidu.com/"
 //#define kBaseUrl @"http://tingapi.ting.baidu.com/v1/restserver/ting?format=json&calback=&from=ios&method="
 //#define kBaseUrl @"https://musicapi.qianqian.com/v1/restserver/ting?format=json&from=ios&channel=appstore&method="
-#define kBaseUrl @"http://192.168.31.142:3000/"
+#define kBaseUrl @"http://192.168.224.202:3000/"
 
 @interface GKHttpManager()
 

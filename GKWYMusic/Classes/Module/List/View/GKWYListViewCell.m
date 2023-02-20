@@ -358,14 +358,14 @@
             item.title = obj.name;
             item.enabled = YES;
             item.clickBlock = ^{
-                [GKWYRoutes routeWithUrlString:obj.route_url];
+                [GKWYRoutes routeWithUrlString:obj.route_url params:@{@"model": obj}];
             };
             [items addObject:item];
         }];
         
         [GKActionSheet showActionSheetWithTitle:@"该歌曲有多个歌手" itemInfos:items];
     }else {
-        [GKWYRoutes routeWithUrlString:self.model.ar.firstObject.route_url];
+        [GKWYRoutes routeWithUrlString:self.model.ar.firstObject.route_url params:@{@"model": self.model.ar.firstObject}];
     }
 }
 

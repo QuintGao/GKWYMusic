@@ -1140,6 +1140,7 @@
 				603F821F20887A20004A8F29 /* Resources */,
 				BD145F779D1FD0F6A3635311 /* [CP] Embed Pods Frameworks */,
 				6096DC66255BD3540060D6FA /* Embed App Extensions */,
+				6374DBCD1C5D474600710A0C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1325,6 +1326,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6374DBCD1C5D474600710A0C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GKWYMusic/Pods-GKWYMusic-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GKWYMusic/Pods-GKWYMusic-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GKWYMusic/Pods-GKWYMusic-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B0AD2A227515237E67C597BB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

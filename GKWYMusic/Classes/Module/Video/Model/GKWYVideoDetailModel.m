@@ -10,17 +10,8 @@
 
 @implementation GKWYVideoDetailModel
 
-+ (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"video_info"  : [GKWYVideoInfo class],
-             @"mv_info"     : [GKWYVideoMVInfo class]};
-}
-
-- (GKWYVideoFiles *)video_file {
-    if (!_video_file) {
-        // 获取高清晰度的
-        _video_file = [GKWYVideoFiles yy_modelWithDictionary:self.files[self.max_definition]];
-    }
-    return _video_file;
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"mv_id": @"id"};
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GKWYVideoDetailModel.h"
+#import "GKWYVideoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,7 +25,7 @@ typedef NS_ENUM(NSUInteger, GKVideoPlayerStatus) {
 
 @property (nonatomic, assign) GKVideoPlayerStatus status;
 
-- (void)prepareWithModel:(GKWYVideoFiles *)model;
+- (void)prepareWithModel:(GKWYVideoModel *)model;
 
 /**
  开始播放

@@ -7,9 +7,12 @@
 //
 
 #import "GKWYBaseViewController.h"
+#import "GKWYArtistModel.h"
 
 @interface GKWYArtistViewController : GKWYBaseViewController
 
 @property (nonatomic, copy) NSString *artist_id;
+
+@property (nonatomic, strong) GKWYArtistModel *model;
 
 @end

@@ -43,4 +43,11 @@
     return _cellHeight;
 }
 
+- (NSString *)route_url {
+    if (!_route_url) {
+        _route_url = [NSString stringWithFormat:@"gkwymusic://video?id=%@", self.video_id];
+    }
+    return _route_url;
+}
+
 @end

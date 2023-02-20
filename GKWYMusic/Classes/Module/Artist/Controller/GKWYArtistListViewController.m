@@ -168,4 +168,16 @@
     return [self.dataSource[indexPath.row] cellHeight];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    id model = self.dataSource[indexPath.row];
+    if (self.index == 0) {
+        [GKWYRoutes routeWithUrlString:@"gkwymusic://song" params:@{@"list": self.dataSource, @"index": @(indexPath.row)}];
+    }else if (self.index == 1) {
+        [GKWYRoutes routeWithUrlString:[model route_url]];
+    }else if (self.index == 2) {
+        [GKWYRoutes routeWithUrlString:[model route_url] params:@{@"model": model}];
+    }
+}
+
 @end

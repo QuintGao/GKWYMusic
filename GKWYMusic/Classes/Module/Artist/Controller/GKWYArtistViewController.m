@@ -93,16 +93,21 @@
     [kHttpManager get:api params:nil successBlock:^(id responseObject) {
         if ([responseObject[@"code"] integerValue] == 200) {
             self.artistModel = [GKWYArtistModel yy_modelWithDictionary:responseObject[@"data"][@"artist"]];
-            self.headerView.model = self.artistModel;
-            [self.headerBgImgView sd_setImageWithURL:[NSURL URLWithString:self.artistModel.cover] placeholderImage:[UIImage imageNamed:@"cm2_default_artist_banner"]];
-            [self.pageScrollView reloadData];
-            
-            self.categoryView.counts = @[@0, self.artistModel.albumSize, self.artistModel.mvSize, @0];
-            [self.categoryView reloadData];
+            [self refreshUI];
         }
     } failureBlock:^(NSError *error) {
-        NSLog(@"%@", error);
+        self.artistModel = self.model;
+        [self refreshUI];
     }];
+}
+
+- (void)refreshUI {
+    self.headerView.model = self.artistModel;
+    [self.headerBgImgView sd_setImageWithURL:[NSURL URLWithString:self.artistModel.cover] placeholderImage:[UIImage imageNamed:@"cm2_default_artist_banner"]];
+    [self.pageScrollView reloadData];
+    
+    self.categoryView.counts = @[@0, self.artistModel.albumSize ?: @0, self.artistModel.mvSize ?: @0, @0];
+    [self.categoryView reloadData];
 }
 
 #pragma mark - GKPageScrollViewDelegate

@@ -19,31 +19,36 @@ PODS:
   - GKCover (3.0.1)
   - GKMessageTool (1.0.5):
     - MBProgressHUD
-  - GKNavigationBar (1.7.7):
-    - GKNavigationBar/GestureHandle (= 1.7.7)
-    - GKNavigationBar/NavigationBar (= 1.7.7)
-  - GKNavigationBar/GestureHandle (1.7.7)
-  - GKNavigationBar/NavigationBar (1.7.7)
-  - GKPageScrollView (1.7.4):
-    - GKPageScrollView/Objc (= 1.7.4)
-  - GKPageScrollView/Objc (1.7.4)
+  - GKNavigationBar (1.8.2):
+    - GKNavigationBar/GestureHandle (= 1.8.2)
+    - GKNavigationBar/NavigationBar (= 1.8.2)
+  - GKNavigationBar/GestureHandle (1.8.2)
+  - GKNavigationBar/NavigationBar (1.8.2)
+  - GKPageScrollView (1.8.4):
+    - GKPageScrollView/Objc (= 1.8.4)
+  - GKPageScrollView/Objc (1.8.4)
   - JLRoutes (2.1)
-  - JXCategoryViewExt/Core (1.1.7)
-  - JXCategoryViewExt/Indicator/Line (1.1.7):
+  - JXCategoryViewExt/Core (1.2.0)
+  - JXCategoryViewExt/Indicator/Line (1.2.0):
     - JXCategoryViewExt/Core
-  - JXCategoryViewExt/Number (1.1.7):
+  - JXCategoryViewExt/Number (1.2.0):
     - JXCategoryViewExt/Title
-  - JXCategoryViewExt/Title (1.1.7):
+  - JXCategoryViewExt/Title (1.2.0):
     - JXCategoryViewExt/Core
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - MJRefresh (3.7.5)
   - Reachability (3.2)
   - ReactiveObjC (3.1.1)
-  - SDWebImage (5.13.2):
-    - SDWebImage/Core (= 5.13.2)
-  - SDWebImage/Core (5.13.2)
+  - SDWebImage (5.15.2):
+    - SDWebImage/Core (= 5.15.2)
+  - SDWebImage/Core (5.15.2)
   - YYModel (1.0.4)
+  - ZFPlayer/AVPlayer (4.1.4):
+    - ZFPlayer/Core
+  - ZFPlayer/ControlView (4.1.4):
+    - ZFPlayer/Core
+  - ZFPlayer/Core (4.1.4)
 
 DEPENDENCIES:
   - AFNetworking
@@ -61,6 +66,8 @@ DEPENDENCIES:
   - ReactiveObjC
   - SDWebImage
   - YYModel
+  - ZFPlayer/AVPlayer
+  - ZFPlayer/ControlView
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -79,24 +86,26 @@ SPEC REPOS:
     - ReactiveObjC
     - SDWebImage
     - YYModel
+    - ZFPlayer
 
 SPEC CHECKSUMS:
-  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   FreeStreamer: 7e9c976045701ac2f7e9c14c17245203c37bf2ea
   GKCover: 6486cf87c0a5cae4bb5c3a09e17925ad8b466412
   GKMessageTool: fcf46cca30f62eaebb8fea288c9452f3682645f2
-  GKNavigationBar: 56ae760986a77f8c9915ee5229fac79e5ced3b35
-  GKPageScrollView: 845a915a4e8be4cf99510b3a2534d5dacf6dbe45
+  GKNavigationBar: 206f8d5dedd5535aa3a2786dd28afdf3d59a0157
+  GKPageScrollView: b2ffdee30ee044f434ecc575dd2452ee2847d66f
   JLRoutes: d755245322b94227662ea3e43492fdca94e05c5b
-  JXCategoryViewExt: b4a05d3fb001ea6cbc72e3092ab5bcaff62b7dde
+  JXCategoryViewExt: cf395acdac10524d20a9158eb487be7642c33cd7
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
-  SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
+  SDWebImage: 8ab87d4b3e5cc4927bd47f78db6ceb0b94442577
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+  ZFPlayer: 5cf39e8d9f0c2394a014b0db4767b5b5a6bffe13
 
-PODFILE CHECKSUM: 6b1738074d2b48ea01f14d3baada7bc5c2109ee8
+PODFILE CHECKSUM: fa24a101b1ea998eefd1a6aeb2c761a9f99ee318
 
 COCOAPODS: 1.11.3

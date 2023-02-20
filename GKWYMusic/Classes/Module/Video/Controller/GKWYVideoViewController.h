@@ -7,9 +7,11 @@
 //
 
 #import "GKWYBaseViewController.h"
+#import "GKWYVideoModel.h"
 
 @interface GKWYVideoViewController : GKWYBaseViewController
 
+@property (nonatomic, strong) GKWYVideoModel *model;
 @property (nonatomic, copy) NSString *mv_id;
 @property (nonatomic, copy) NSString *song_id;
 

@@ -25,6 +25,11 @@
 @property (nonatomic, copy) NSString *durationStr;
 @property (nonatomic, copy) NSString *playCountStr;
 
+// 播放地址
+@property (nonatomic, copy) NSString *playUrl;
+
 @property (nonatomic, assign) CGFloat cellHeight;
+
+@property (nonatomic, copy) NSString *route_url;
 
 @end

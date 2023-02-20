@@ -678,6 +678,11 @@
         [kHttpManager get:api params:nil successBlock:^(id responseObject) {
             if ([responseObject[@"code"] integerValue] == 200) {
                 NSDictionary *data = [responseObject[@"data"] firstObject];
+                if ([data[@"code"] integerValue] != 200) {
+                    [GKMessageTool showText:@"资源获取失败"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                    return;
+                }
                 self.model.file_link = data[@"url"];
                 self.model.file_duration = [self getAudioDurationWithURL:self.model.file_link];
                 self.model.file_size = data[@"size"];

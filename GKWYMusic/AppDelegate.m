@@ -10,6 +10,8 @@
 #import "GKWYMainViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "GKWYWidgetRoutes.h"
+#import <ZFPlayer/ZFPlayer.h>
+#import <ZFPlayer/ZFLandscapeRotationManager.h>
 
 @interface AppDelegate ()
 {
@@ -55,6 +57,7 @@
         configure.titleFont       = [UIFont systemFontOfSize:18.0f];
         configure.statusBarStyle  = UIStatusBarStyleLightContent;
         configure.backImage       = [UIImage imageNamed:@"cm2_topbar_icn_back"];
+        configure.darkBackImage   = [UIImage imageNamed:@"cm2_topbar_icn_back"];
         configure.gk_navItemLeftSpace   = 4.0f;
         configure.gk_navItemRightSpace  = 4.0f;
     }];
@@ -201,6 +204,14 @@
         return YES;
     }
     return YES;
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    ZFInterfaceOrientationMask orientationMask = [ZFLandscapeRotationManager supportedInterfaceOrientationsForWindow:window];
+    if (orientationMask != ZFInterfaceOrientationMaskUnknow) {
+        return (UIInterfaceOrientationMask)orientationMask;
+    }
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 @end

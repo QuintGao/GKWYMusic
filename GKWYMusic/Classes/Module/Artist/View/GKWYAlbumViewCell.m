@@ -49,9 +49,6 @@
             make.left.equalTo(self.artistLabel.mas_right).offset(kAdaptive(6.0f));
             make.centerY.equalTo(self.artistLabel);
         }];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemClick:)];
-        [self addGestureRecognizer:tap];
     }
     return self;
 }
@@ -73,10 +70,6 @@
         
         self.timeLabel.text = [NSString stringWithFormat:@"%@  %@首", model.publishTimeStr, model.size];
     }
-}
-
-- (void)itemClick:(UITapGestureRecognizer *)tap {
-    [GKWYRoutes routeWithUrlString:self.model.route_url];
 }
 
 #pragma mark - 懒加载

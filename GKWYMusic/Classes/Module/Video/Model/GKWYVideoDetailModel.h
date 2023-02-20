@@ -12,22 +12,9 @@
 
 @interface GKWYVideoDetailModel : NSObject
 
-@property (nonatomic, strong) GKWYVideoInfo *video_info;
+@property (nonatomic, copy) NSString *mv_id;
 
-@property (nonatomic, strong) NSDictionary *files;
-@property (nonatomic, strong) GKWYVideoFiles *video_file;
-
-@property (nonatomic, copy) NSString *min_definition;
-
-@property (nonatomic, copy) NSString *max_definition;
-
-@property (nonatomic, strong) GKWYVideoMVInfo *mv_info;
-
-@property (nonatomic, copy) NSString *share_url;
-
-@property (nonatomic, copy) NSString *share_pic;
-
-@property (nonatomic, copy) NSString *video_type;
+@property (nonatomic, copy) NSString *url;
 
 @end
 

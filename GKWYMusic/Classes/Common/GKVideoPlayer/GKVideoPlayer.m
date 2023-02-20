@@ -100,8 +100,9 @@
 }
 
 #pragma mark - Public Methods
-- (void)prepareWithModel:(GKWYVideoFiles *)model {
-    self.playUrlStr = model.file_link;
+- (void)prepareWithModel:(GKWYVideoModel *)model {
+    self.playUrlStr = model.playUrl;
+    [self.coverImgView sd_setImageWithURL:[NSURL URLWithString:model.imgurl16v9]];
     
     self.status = GKVideoPlayerStatusUnload;
 }
@@ -366,7 +367,7 @@
     if (!_playerLayer) {
         _playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
         // 充满屏幕，保持宽高比
-        [_playerLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+        [_playerLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
     }
     return _playerLayer;
 }
@@ -374,6 +375,7 @@
 - (UIImageView *)coverImgView {
     if (!_coverImgView) {
         _coverImgView = [UIImageView new];
+        _coverImgView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _coverImgView;
 }
