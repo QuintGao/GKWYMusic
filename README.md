@@ -13,11 +13,11 @@ $ npm install
 ```
 node app.js
 ```
-3、在网页端输入http://localhost:3000/，如果能看到网易云音乐 API，则说明运行成功，更多说明可在[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)官方文档上查看
+3、在网页端输入http://localhost:3000/， 如果能看到网易云音乐 API，则说明运行成功，更多说明可在[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)官方文档上查看
 
 4、项目配置
 
-* 修改项目中GKHttpManager类中的kBaseUrl为http://localhost:3000/即可在模拟器中运行
+* 修改项目中GKHttpManager类中的kBaseUrl为http://localhost:3000/， 即可在模拟器中运行
 * 若要在真机中运行，则需要修改kBaseUrl为电脑ip，如：http://192.168.224.202:3000/ ，然后电脑开启热点，手机连接热点后即可在手机上运行该项目
 
 ## 效果图
