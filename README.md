@@ -13,25 +13,41 @@ $ npm install
 ```
 node app.js
 ```
-3、在网页端输入http://localhost:3000/， 如果能看到网易云音乐 API，则说明运行成功，更多说明可在[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)官方文档上查看
+3、在网页端输入http://localhost:3000/ ， 如果能看到网易云音乐 API，则说明运行成功，更多说明可在[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)官方文档上查看
 
 4、项目配置
 
-* 修改项目中GKHttpManager类中的kBaseUrl为http://localhost:3000/， 即可在模拟器中运行
+* 修改项目中GKHttpManager类中的kBaseUrl为http://localhost:3000/ ， 即可在模拟器中运行
 * 若要在真机中运行，则需要修改kBaseUrl为电脑ip，如：http://192.168.224.202:3000/ ，然后电脑开启热点，手机连接热点后即可在手机上运行该项目
 
 ## 效果图
-![601685495811_.pic.jpg](https://upload-images.jianshu.io/upload_images/1598505-417b94959f138f6e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/400)
+- 歌单首页
 
-![611685495811_.pic.jpg](https://upload-images.jianshu.io/upload_images/1598505-bb403689366cf330.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/400)
+<img src="https://upload-images.jianshu.io/upload_images/1598505-417b94959f138f6e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width="300">
 
-![621685495811_.pic.jpg](https://upload-images.jianshu.io/upload_images/1598505-875c918417c84b30.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/400)
+- 歌单页
 
-![631685495811_.pic.jpg](https://upload-images.jianshu.io/upload_images/1598505-70e49d339f348997.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/400)
+<img src="https://upload-images.jianshu.io/upload_images/1598505-bb403689366cf330.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width="300">
 
-![641685495811_.pic.jpg](https://upload-images.jianshu.io/upload_images/1598505-bb1fcf2a1e4220c3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/400)
+- 歌手页
 
-![651685495811_.pic.jpg](https://upload-images.jianshu.io/upload_images/1598505-45282868ab712873.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/400)
+<img src="https://upload-images.jianshu.io/upload_images/1598505-875c918417c84b30.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" width="300">
+
+- 专辑页
+
+<img src="https://upload-images.jianshu.io/upload_images/1598505-70e49d339f348997.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" width="300">
+
+- 播放页-封面
+
+<img src="https://upload-images.jianshu.io/upload_images/1598505-bb1fcf2a1e4220c3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" width="300">
+
+- 播放页-歌词
+
+<img src="https://upload-images.jianshu.io/upload_images/1598505-45282868ab712873.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" width="300">
+
+- 桌面歌词
+
+<img src="https://upload-images.jianshu.io/upload_images/1598505-2c106fe99374e0da.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width="300">
 
 ## 说明
 简书：[iOS基于FreeStreamer的仿网易云音乐播放器](https://www.jianshu.com/p/9ce8fe684924)
