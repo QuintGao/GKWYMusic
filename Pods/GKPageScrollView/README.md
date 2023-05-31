@@ -68,8 +68,9 @@ GKPageSmoothView是一个可延续滑动的UIScrollView嵌套滑动库
 选择需要使用的库，GKPageScrollView/GKPageScrollViewSwift/GKPageSmoothView/GKPageSmoothViewSwift
 
 ## 常见问题
-1、headerView出现多个，不要在headerView代理方法中做视图创建、添加等操作  
-2、[手势处理](https://github.com/QuintGao/GKPageScrollView/blob/master/Document/%E6%89%8B%E5%8A%BF%E5%A4%84%E7%90%86.md)
+* 1、headerView出现多个，不要在headerView代理方法中做视图创建、添加等操作  
+* 2、[手势处理](https://github.com/QuintGao/GKPageScrollView/blob/master/Document/%E6%89%8B%E5%8A%BF%E5%A4%84%E7%90%86.md)
+* 3、listView使用UICollectionView崩溃，参考demo中的GKBaseCollectionViewLayout，重写collectionViewContentSize
 
 ## 效果图
 
@@ -94,6 +95,11 @@ GKPageSmoothView是一个可延续滑动的UIScrollView嵌套滑动库
 
 ## 版本更新
 
+* 2023.05.23   1.8.8 - 修复oc项目pod引入后启动崩溃的问题 #127，GKPageSmoothView设置defaultSelectedIndex优化
+* 2023.05.22   1.8.7 - 列表生命周期完善
+* 2023.05.11   1.8.6 - 1、修复xcode14 image not found #115
+                       2、尝试修复设置contentOffset导致的死循环 #113
+* 2023.04.24   1.8.5 - GKPageScrollView新增属性控制横向滚动的UIScrollView
 * 2023.01.11   1.8.4 - 修复GKPageSmoothView使用CollectionView时可能崩溃的问题 #122
 * 2022.12.07   1.8.3 - 优化代码，增加主页和列表页同时支持刷新demo
 * 2022.10.22   1.8.2 - 1、修复内存泄漏问题 #117

@@ -1034,7 +1034,7 @@
 		2E70B715BD35005E3352C2F2C4910DB9 /* JXCategoryIndicatorProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JXCategoryIndicatorProtocol.h; path = JXCategoryView/Core/Common/JXCategoryIndicatorProtocol.h; sourceTree = "<group>"; };
 		2EF1B017E2A5B678E1CBE795484B60D2 /* GKMessageTool-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GKMessageTool-prefix.pch"; sourceTree = "<group>"; };
 		2EFF97A0BA70A4C55F5C25C7EA7B238D /* UIImage+MemoryCacheCost.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+MemoryCacheCost.m"; path = "SDWebImage/Core/UIImage+MemoryCacheCost.m"; sourceTree = "<group>"; };
-		2F8EFE05C42AD921C703E5D3FFFAD8BD /* RACCompoundDisposableProvider.d */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.dtrace; name = RACCompoundDisposableProvider.d; path = ReactiveObjC/RACCompoundDisposableProvider.d; sourceTree = "<group>"; };
+		2F8EFE05C42AD921C703E5D3FFFAD8BD /* RACCompoundDisposableProvider.d */ = {isa = PBXFileReference; includeInIndex = 1; name = RACCompoundDisposableProvider.d; path = ReactiveObjC/RACCompoundDisposableProvider.d; sourceTree = "<group>"; };
 		2F99FC4BDF598A253513FED8C86242B3 /* NSObject+YYModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+YYModel.h"; path = "YYModel/NSObject+YYModel.h"; sourceTree = "<group>"; };
 		2F9A0D82B72305CB58440E3ABEFE47B6 /* UIControl+RACSignalSupportPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIControl+RACSignalSupportPrivate.h"; path = "ReactiveObjC/UIControl+RACSignalSupportPrivate.h"; sourceTree = "<group>"; };
 		2FD848FDEA96BC851D3BB53BF0A0E9D0 /* ReactiveObjC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ReactiveObjC.h; path = ReactiveObjC/ReactiveObjC.h; sourceTree = "<group>"; };
@@ -1380,7 +1380,7 @@
 		9BC6C607C79D0C381F2CF573DD543522 /* SDMemoryCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDMemoryCache.h; path = SDWebImage/Core/SDMemoryCache.h; sourceTree = "<group>"; };
 		9CC5530980465CD5FCC4CB60F755A770 /* JXCategoryBaseView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JXCategoryBaseView.m; path = JXCategoryView/Core/Base/JXCategoryBaseView.m; sourceTree = "<group>"; };
 		9D5AB1295C118973A9287793B1726A6C /* GKCover-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "GKCover-dummy.m"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DE4FD41A50DD7B7931EC7E4CA283F20 /* JXCategoryNumberCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JXCategoryNumberCell.h; path = JXCategoryView/Number/JXCategoryNumberCell.h; sourceTree = "<group>"; };
 		9F0B84EE1327C914794E258348DB849A /* RACKVOProxy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACKVOProxy.m; path = ReactiveObjC/RACKVOProxy.m; sourceTree = "<group>"; };
 		9F1AA0CE9C9D3D6C20D44ACC4B983C0E /* UIImage+GIF.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+GIF.h"; path = "SDWebImage/Core/UIImage+GIF.h"; sourceTree = "<group>"; };
@@ -1479,7 +1479,7 @@
 		BFF2365F20A65CF5F30BEDB56C67F82A /* UIStepper+RACSignalSupport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIStepper+RACSignalSupport.m"; path = "ReactiveObjC/UIStepper+RACSignalSupport.m"; sourceTree = "<group>"; };
 		BFF2CF00167F766C40688784C917DFE3 /* RACImmediateScheduler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACImmediateScheduler.m; path = ReactiveObjC/RACImmediateScheduler.m; sourceTree = "<group>"; };
 		C0091DF977F8AD4453DF5271D3756789 /* ZFPersentInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZFPersentInteractiveTransition.m; path = ZFPlayer/Classes/Core/ZFPersentInteractiveTransition.m; sourceTree = "<group>"; };
-		C0E4F3AE33ABD3F36B78775DDD8AF622 /* RACSignalProvider.d */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.dtrace; name = RACSignalProvider.d; path = ReactiveObjC/RACSignalProvider.d; sourceTree = "<group>"; };
+		C0E4F3AE33ABD3F36B78775DDD8AF622 /* RACSignalProvider.d */ = {isa = PBXFileReference; includeInIndex = 1; name = RACSignalProvider.d; path = ReactiveObjC/RACSignalProvider.d; sourceTree = "<group>"; };
 		C13DB584589032473FAE0351AF28DE63 /* JXCategoryViewAnimator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JXCategoryViewAnimator.h; path = JXCategoryView/Core/Common/JXCategoryViewAnimator.h; sourceTree = "<group>"; };
 		C1A2F27DBF91917E51A8D5D36F7B92A7 /* ZFLoadingView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZFLoadingView.h; path = ZFPlayer/Classes/ControlView/ZFLoadingView.h; sourceTree = "<group>"; };
 		C1BACB0E694B27B02D97DFA54D8B13FC /* UIImage+MultiFormat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+MultiFormat.m"; path = "SDWebImage/Core/UIImage+MultiFormat.m"; sourceTree = "<group>"; };
@@ -1669,7 +1669,7 @@
 		FFB234E318F7B485F50E64C1E09A7106 /* stream_configuration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = stream_configuration.h; path = FreeStreamer/FreeStreamer/stream_configuration.h; sourceTree = "<group>"; };
 		FFCEDFCAC3CF7610BE2F779360A6F75F /* Pods-GKWYMusic-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-GKWYMusic-acknowledgements.markdown"; sourceTree = "<group>"; };
 		FFE7A9491DB08DD08A49C20616593195 /* AFImageDownloader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFImageDownloader.m; path = "UIKit+AFNetworking/AFImageDownloader.m"; sourceTree = "<group>"; };
-		FFF09A1511DD1AB94450DB775CFB8679 /* FSAudioStream.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = FSAudioStream.mm; path = FreeStreamer/FreeStreamer/FSAudioStream.mm; sourceTree = "<group>"; };
+		FFF09A1511DD1AB94450DB775CFB8679 /* FSAudioStream.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = FSAudioStream.mm; path = FreeStreamer/FreeStreamer/FSAudioStream.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1832,6 +1832,7 @@
 				CB10295362B25D3508ED7DB983C4F1CD /* Core */,
 				23E2DFAA5CF85A5C907C50234DE63727 /* Support Files */,
 			);
+			name = ZFPlayer;
 			path = ZFPlayer;
 			sourceTree = "<group>";
 		};
@@ -2029,6 +2030,7 @@
 				521796254A7F513C6FACE0F12FA676EA /* UITextView+RACSignalSupport.m */,
 				C173F365F74C2824611C579C9E3BDE40 /* Support Files */,
 			);
+			name = ReactiveObjC;
 			path = ReactiveObjC;
 			sourceTree = "<group>";
 		};
@@ -2069,6 +2071,7 @@
 				EB547713B26C5D6B3189CD4536CA3863 /* Reachability.m */,
 				22DAFADDDAC0BADADCDC302CF18132A7 /* Support Files */,
 			);
+			name = Reachability;
 			path = Reachability;
 			sourceTree = "<group>";
 		};
@@ -2129,6 +2132,7 @@
 				B33F1E2554DDCFC0CF9EB75DEA3F3585 /* Core */,
 				71A49DF96B780F0006D648BF337F4410 /* Support Files */,
 			);
+			name = SDWebImage;
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
@@ -2219,6 +2223,7 @@
 				2CC7EB711E801505B975B1A454C9C1CF /* Objc */,
 				3B4C005922EB3FD8332F390990FCEE82 /* Support Files */,
 			);
+			name = GKPageScrollView;
 			path = GKPageScrollView;
 			sourceTree = "<group>";
 		};
@@ -2364,6 +2369,7 @@
 				FFB234E318F7B485F50E64C1E09A7106 /* stream_configuration.h */,
 				9A06EFADF167A1D9ABBD54BAF2EEDC0A /* Support Files */,
 			);
+			name = FreeStreamer;
 			path = FreeStreamer;
 			sourceTree = "<group>";
 		};
@@ -2377,6 +2383,7 @@
 				A228105730BA61FD6841769107D95A9F /* UIView+GKExtension.m */,
 				D9544D9538445CD4A6B3DEDE446481C1 /* Support Files */,
 			);
+			name = GKCover;
 			path = GKCover;
 			sourceTree = "<group>";
 		};
@@ -2480,6 +2487,7 @@
 				86B176FDA78E5890AD2906E3A3432168 /* Support Files */,
 				979DCCD7ACF98F17CF496B0F7AE01BE0 /* UIKit */,
 			);
+			name = AFNetworking;
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
@@ -2553,6 +2561,7 @@
 				25C36297768241B27EEF9E7980CAF049 /* Resources */,
 				51B0892F3CF1F1C53330ADB6718B5143 /* Support Files */,
 			);
+			name = MJRefresh;
 			path = MJRefresh;
 			sourceTree = "<group>";
 		};
@@ -2565,6 +2574,7 @@
 				A95851B60881B7FC7A4881BD0065759D /* Support Files */,
 				2CD6B68207490D436D88E881595658E8 /* Title */,
 			);
+			name = JXCategoryViewExt;
 			path = JXCategoryViewExt;
 			sourceTree = "<group>";
 		};
@@ -2598,6 +2608,7 @@
 				093CE5890F4BA9799DD06097FF12F418 /* ViewController+MASAdditions.m */,
 				B9467DB30937DE68753DE59149254784 /* Support Files */,
 			);
+			name = Masonry;
 			path = Masonry;
 			sourceTree = "<group>";
 		};
@@ -2609,6 +2620,7 @@
 				C8E0AC9B571BD1C3F8ADBA37FA756F58 /* Resources */,
 				647A788989A9BC509ED411CB32A4FAFF /* Support Files */,
 			);
+			name = GKMessageTool;
 			path = GKMessageTool;
 			sourceTree = "<group>";
 		};
@@ -2876,6 +2888,7 @@
 				969062E933DA06822D1F2881B716B28C /* JLRRouteResponse.m */,
 				DBE3F8251038828C82FCF83F44129C74 /* Support Files */,
 			);
+			name = JLRoutes;
 			path = JLRoutes;
 			sourceTree = "<group>";
 		};
@@ -2889,6 +2902,7 @@
 				477C070440709F425E0698829984C1CA /* YYModel.h */,
 				70AC39704D8A0418291E2148C3A1B067 /* Support Files */,
 			);
+			name = YYModel;
 			path = YYModel;
 			sourceTree = "<group>";
 		};
@@ -2929,6 +2943,7 @@
 				764D3188F3C838500BC42E0310558D70 /* MBProgressHUD.m */,
 				7CEB664B2CF922F8EFA721BFFBFB046A /* Support Files */,
 			);
+			name = MBProgressHUD;
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -3109,6 +3124,7 @@
 				635EE63E7C8A02E633AD98D7649C5B53 /* NavigationBar */,
 				B8CC2D46F23A491A4D4668FABEAA0E42 /* Support Files */,
 			);
+			name = GKNavigationBar;
 			path = GKNavigationBar;
 			sourceTree = "<group>";
 		};
@@ -4807,7 +4823,6 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -5618,7 +5633,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (

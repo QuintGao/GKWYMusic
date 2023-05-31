@@ -19,6 +19,8 @@
 // 列表存储
 @property (nonatomic, strong) NSMutableDictionary <NSNumber *, id<GKPageListViewDelegate>> *validListDict;
 
+@property (nonatomic, strong) NSMutableArray *allScrollViews;
+
 // 包裹segmentedView和列表容器的view
 @property (nonatomic, weak) UIView *pageView;
 
@@ -51,7 +53,8 @@
     if (self = [super initWithFrame:CGRectZero]) {
         self.delegate = delegate;
         self.ceilPointHeight = GKPAGE_NAVBAR_HEIGHT;
-        self.validListDict = [NSMutableDictionary new];
+        self.validListDict = [NSMutableDictionary dictionary];
+        self.allScrollViews = [NSMutableArray array];
         
         [self initSubviews];
     }
@@ -75,6 +78,7 @@
     self.isCriticalPoint = NO;
     self.isMainCanScroll = YES;
     self.isListCanScroll = NO;
+    self.listContainerType = GKPageListContainerType_CollectionView;
     
     self.mainTableView = [[GKPageTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.mainTableView.dataSource = self;
@@ -93,7 +97,7 @@
     [self refreshHeaderView];
     
     if ([self shouldLazyLoadListView]) {
-        self.mainTableView.horizontalScrollViewList = @[self.listContainerView.collectionView];
+        self.mainTableView.horizontalScrollViewList = @[self.listContainerView.scrollView];
     }
 }
 
@@ -102,7 +106,7 @@
     
     NSMutableArray *list = [NSMutableArray arrayWithArray:horizontalScrollViewList];
     if ([self shouldLazyLoadListView]) {
-        [list addObject:self.listContainerView.collectionView];
+        [list addObject:self.listContainerView.scrollView];
     }
     self.mainTableView.horizontalScrollViewList = list;
 }
@@ -111,7 +115,7 @@
     _lazyLoadList = lazyLoadList;
     
     if ([self shouldLazyLoadListView]) {
-        self.mainTableView.horizontalScrollViewList = @[self.listContainerView.collectionView];
+        self.mainTableView.horizontalScrollViewList = @[self.listContainerView.scrollView];
     }else {
         // listScrollView滑动处理
         [self configListViewScroll];
@@ -180,6 +184,11 @@
     
     self.criticalPoint = fabs([self.mainTableView rectForSection:0].origin.y - self.ceilPointHeight);
     self.criticalOffset = CGPointMake(0, self.criticalPoint);
+    
+    if (!self.isAutoFindHorizontalScrollView) return;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self findHorizontalScrollViews];
+    });
 }
 
 - (void)horizonScrollViewWillBeginScroll {
@@ -474,6 +483,26 @@
     return pageView;
 }
 
+- (void)findHorizontalScrollViews {
+    [self.allScrollViews removeAllObjects];
+    [self findHorizontalScrollViews:self.mainTableView];
+    self.mainTableView.horizontalScrollViewList = self.allScrollViews;
+}
+
+- (void)findHorizontalScrollViews:(UIView *)view {
+    for (UIView *subview in view.subviews) {
+        if ([subview isKindOfClass:UIScrollView.class]) {
+            UIScrollView *scrollView = (UIScrollView *)subview;
+            if (scrollView.contentSize.width > scrollView.frame.size.width) {
+                [self.allScrollViews addObject:subview];
+            }
+        }
+        if (subview.subviews.count) {
+            [self findHorizontalScrollViews:subview];
+        }
+    }
+}
+
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.isShowInFooter) return 0;
@@ -510,17 +539,35 @@
     return [self.delegate numberOfListsInPageScrollView:self];
 }
 
-- (UIView *)listContainerView:(GKPageListContainerView *)listContainerView listViewInRow:(NSInteger)row {
-    id<GKPageListViewDelegate> list = self.validListDict[@(row)];
+- (id<GKPageListViewDelegate>)listContainerView:(GKPageListContainerView *)listContainerView initListForIndex:(NSInteger)index {
+    id<GKPageListViewDelegate> list = self.validListDict[@(index)];
     if (list == nil) {
-        list = [self.delegate pageScrollView:self initListAtIndex:row];
-        __weak typeof(self) weakSelf = self;
+        list = [self.delegate pageScrollView:self initListAtIndex:index];
+        __weak __typeof(self) weakSelf = self;
         [list listViewDidScrollCallback:^(UIScrollView *scrollView) {
             [weakSelf listScrollViewDidScroll:scrollView];
         }];
-        _validListDict[@(row)] = list;
+        _validListDict[@(index)] = list;
     }
-    return [list listView];
+    return list;
+}
+
+- (void)listContainerView:(GKPageListContainerView *)listContainerView listDidAppearAtIndex:(NSInteger)index {
+    self.currentListScrollView = [self.validListDict[@(index)] listScrollView];
+}
+
+- (Class)scrollViewClassInListContainerView:(GKPageListContainerView *)listContainerView {
+    if ([self.delegate respondsToSelector:@selector(scrollViewClassInListContainerViewInPageScrollView:)]) {
+        return [self.delegate scrollViewClassInListContainerViewInPageScrollView:self];
+    }
+    return nil;
+}
+
+- (BOOL)listContainerView:(GKPageListContainerView *)listContainerView canInitListAtIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(pageScrollViewListContainerView:canInitListAtIndex:)]) {
+        return [self.delegate pageScrollViewListContainerView:listContainerView canInitListAtIndex:index];
+    }
+    return YES;
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -586,7 +633,7 @@
 #pragma mark - 懒加载
 - (GKPageListContainerView *)listContainerView {
     if (!_listContainerView) {
-        _listContainerView = [[GKPageListContainerView alloc] initWithDelegate:self];
+        _listContainerView = [[GKPageListContainerView alloc] initWithContainerType:self.listContainerType delegate:self];
     }
     return _listContainerView;
 }

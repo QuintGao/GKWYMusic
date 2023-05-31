@@ -40,6 +40,12 @@
  */
 - (UIView *)listView;
 
+// 列表生命周期，懒加载方式时有效
+- (void)listWillAppear;
+- (void)listDidAppear;
+- (void)listWillDisappear;
+- (void)listDidDisappear;
+
 @end
 
 @protocol GKPageScrollViewDelegate <NSObject>
@@ -138,6 +144,13 @@
 /// @param scrollView mainTableView
 - (void)mainTableViewDidEndScrollingAnimation:(UIScrollView *)scrollView;
 
+
+// 返回自定义UIScrollView或UICollectionView的class
+- (Class)scrollViewClassInListContainerViewInPageScrollView:(GKPageScrollView *)pageScrollView;
+
+// 控制能否初始化index对应的列表。有些业务需求，需要在某些情况下才允许初始化列表
+- (BOOL)pageScrollViewListContainerView:(GKPageListContainerView *)containerView canInitListAtIndex:(NSInteger)index;
+
 @end
 
 @interface GKPageScrollView : UIView
@@ -154,9 +167,13 @@
 /// 懒加载形式的容器
 @property (nonatomic, strong, readonly) GKPageListContainerView *listContainerView;
 
+/// 懒加载容器的类型，默认UICollectionView
+@property (nonatomic, assign) GKPageListContainerType listContainerType;
+
 // 当前已经加载过的可用的列表字典，key是index值，value是对应列表
 @property (nonatomic, strong, readonly) NSDictionary <NSNumber *, id<GKPageListViewDelegate>> *validListDict;
 
+// 横向滑动的scrollView列表，用于解决左右滑动与上下滑动手势冲突
 @property (nonatomic, strong) NSArray *horizontalScrollViewList;
 
 // 吸顶临界点高度（默认值：状态栏+导航栏）
@@ -186,6 +203,9 @@
 // 当调用refreshHeaderView方法后，是否保持临界状态，默认NO
 @property (nonatomic, assign, getter=isKeepCriticalWhenRefreshHeader) BOOL keepCriticalWhenRefreshHeader;
 
+// 自动查找横向scrollView，设置为YES则不用传入horizontalScrollViewList，默认NO
+@property (nonatomic, assign, getter=isAutoFindHorizontalScrollView) BOOL autoFindHorizontalScrollView;
+
 // 内部属性，尽量不要修改
 // 是否滑动到临界点，可有偏差
 @property (nonatomic, assign) BOOL isCriticalPoint;
@@ -196,7 +216,7 @@
 // listScrollView是否可滑动
 @property (nonatomic, assign) BOOL isListCanScroll;
 
-- (instancetype)initWithDelegate:(id <GKPageScrollViewDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDelegate:(id<GKPageScrollViewDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;

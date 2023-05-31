@@ -282,7 +282,7 @@
         lineView.indicatorCornerRadius = 1.5;
         _categoryView.indicators = @[lineView];
         
-        _categoryView.contentScrollView = self.pageScrollView.listContainerView.collectionView;
+        _categoryView.listContainer = (id)self.pageScrollView.listContainerView;
     }
     return _categoryView;
 }
